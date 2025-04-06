@@ -11,9 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      home: const MainUI(),
-    );
+    return MaterialApp(theme: lightTheme, home: const MainUI());
   }
 }
