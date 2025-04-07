@@ -10,8 +10,12 @@ class ExpandDateWidget extends StatelessWidget {
     const totalDays = 10000;
     return ListView.builder(
       scrollDirection: Axis.horizontal,
+      physics: const ClampingScrollPhysics(),
+
       reverse: true,
       itemCount: totalDays,
+      primary: false,
+      // shrinkWrap: true,
       itemBuilder: (context, index) {
         final date = now.subtract(Duration(days: index));
         return Padding(

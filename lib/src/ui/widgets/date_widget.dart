@@ -17,7 +17,6 @@ class DateWidget extends StatelessWidget {
   }
 
   Widget _unSelect() => Builder(builder: (context) {
-        final colorScheme = Theme.of(context).colorScheme;
         return Container(
           width: 50,
           height: 50,
@@ -29,6 +28,7 @@ class DateWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 date.day.toString(),
@@ -63,6 +63,7 @@ class DateWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 date.day.toString(),
