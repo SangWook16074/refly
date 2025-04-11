@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
+import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_view.dart';
+import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/widgets/date_widget.dart';
 import 'package:solution_diary_app/src/ui/widgets/expand_date_widget.dart';
 
@@ -12,23 +15,34 @@ class MainUI extends StatefulWidget {
 
 class _MainUIState extends State<MainUI> {
   var _currentExtent = 1.0;
-  var _opacity = 0.0;
+  var _dateWidgetOpacity = 0.0;
+  var _userStateOpacity = 0.0;
   var snapProgress = 0.0;
   final maxSheetSize = 0.83;
 
-  final minSheetSize = 0.5;
+  final minSheetSize = 0.4;
 
   final DraggableScrollableController _controller =
       DraggableScrollableController();
 
-  _calculateOpacity(double extent) {
+  _calculateDateWidgetOpacity(double extent) {
     final start = maxSheetSize;
     const end = 0.7;
 
     // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
     final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
 
-    _opacity = result;
+    _dateWidgetOpacity = result;
+  }
+
+  _calculateUserStateOpacity(double extent) {
+    const start = 0.7;
+    const end = 0.4;
+
+    // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
+    final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
+
+    _userStateOpacity = result;
   }
 
   _calculateYPosition(double extent) {
@@ -47,7 +61,8 @@ class _MainUIState extends State<MainUI> {
     _controller.addListener(() {
       setState(() {
         _currentExtent = _controller.size;
-        _calculateOpacity(_currentExtent);
+        _calculateDateWidgetOpacity(_currentExtent);
+        _calculateUserStateOpacity(_currentExtent);
         _calculateYPosition(_currentExtent);
       });
     });
@@ -56,9 +71,10 @@ class _MainUIState extends State<MainUI> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final maxHeight = size.height - MediaQuery.of(context).padding.top;
     final theme = Theme.of(context);
-    final sheetHeight = size.height * maxSheetSize;
-    final dateWidgetHeight = size.height * (maxSheetSize - 0.5);
+    final sheetHeight = maxHeight * maxSheetSize;
+    final dateWidgetHeight = size.height * (maxSheetSize - 0.4);
 
     return Scaffold(
       body: Stack(
@@ -67,7 +83,7 @@ class _MainUIState extends State<MainUI> {
         // alignment: AlignmentDirectional.topCenter,z
         children: [
           Container(
-            height: size.height * 0.7,
+            height: maxHeight * 0.8,
             decoration: BoxDecoration(
                 gradient: RadialGradient(
                     center: Alignment.bottomRight,
@@ -99,30 +115,42 @@ class _MainUIState extends State<MainUI> {
             ),
           ),
           SafeArea(
-              child: Opacity(
-            opacity: _opacity < 1 ? 1 : 0,
-            child: Transform.translate(
-              offset: Offset(0, dateWidgetHeight * snapProgress),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: DateWidget(date: DateTime.now())),
+            child: Opacity(
+              opacity: _userStateOpacity,
+              child: Transform.translate(
+                offset: Offset(
+                    0, -maxHeight * 0.35 + dateWidgetHeight * snapProgress),
+                child: ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: maxHeight * 0.35),
+                    child: UserStateView(height: maxHeight * 0.35)),
               ),
+            ),
+          ),
+          SafeArea(
+              child: Opacity(
+            opacity: _dateWidgetOpacity < 1 ? 1 : 0,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 16.0 + dateWidgetHeight * snapProgress,
+                  left: 16.0,
+                  right: 16.0),
+              child:
+                  const Align(alignment: Alignment.topRight, child: DateView()),
             ),
           )),
           SafeArea(
             child: IgnorePointer(
-              ignoring: _opacity < 1,
+              ignoring: _dateWidgetOpacity < 1,
               child: Opacity(
-                opacity: _opacity,
+                opacity: _dateWidgetOpacity,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 16.0 + dateWidgetHeight * snapProgress,
-                      horizontal: 8.0),
+                  padding: EdgeInsets.only(
+                      top: 16.0 + dateWidgetHeight * snapProgress,
+                      left: 8.0,
+                      right: 8.0),
                   child: ConstrainedBox(
                       constraints: const BoxConstraints(maxHeight: 50),
-                      child: ExpandDateWidget(now: DateTime.now())),
+                      child: const ExpandDateWidgetView()),
                 ),
               ),
             ),
