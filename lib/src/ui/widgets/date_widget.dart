@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solution_diary_app/core/extensions/date_extension.dart';
+import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
 
 enum SelectType { select, unselect }
 

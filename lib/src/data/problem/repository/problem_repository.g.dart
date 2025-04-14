@@ -1,26 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'date_view_model.dart';
+part of 'problem_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dateViewModelHash() => r'7658f2a76235acb4d0d0f8bfabb653cdb6a49cb3';
+String _$getAllProblemsHash() => r'bf20eff0a4c5e695b0d524ad40574cc0bc5f3f54';
 
-/// See also [DateViewModel].
-@ProviderFor(DateViewModel)
-final dateViewModelProvider =
-    AutoDisposeNotifierProvider<DateViewModel, DateTime>.internal(
-  DateViewModel.new,
-  name: r'dateViewModelProvider',
+/// See also [getAllProblems].
+@ProviderFor(getAllProblems)
+final getAllProblemsProvider =
+    AutoDisposeFutureProvider<List<Problem>>.internal(
+  getAllProblems,
+  name: r'getAllProblemsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$dateViewModelHash,
+      : _$getAllProblemsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DateViewModel = AutoDisposeNotifier<DateTime>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetAllProblemsRef = AutoDisposeFutureProviderRef<List<Problem>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

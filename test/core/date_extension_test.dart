@@ -1,4 +1,4 @@
-import 'package:solution_diary_app/core/extensions/date_extension.dart';
+import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 

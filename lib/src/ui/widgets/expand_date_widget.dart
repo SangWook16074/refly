@@ -23,7 +23,7 @@ class ExpandDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const totalDays = 10000;
-    final size = MediaQuery.of(context).size;
+
     return ListView.builder(
       controller: controller,
       scrollDirection: Axis.horizontal,

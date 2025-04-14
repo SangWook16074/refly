@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
-import 'package:solution_diary_app/src/ui/widgets/date_widget.dart';
-import 'package:solution_diary_app/src/ui/widgets/expand_date_widget.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
+
+extension on DateTime {
+  String toTabText() {
+    final now = DateTime.now();
+    return (year == now.year && month == now.month && day == now.day)
+        ? "오늘"
+        : "$month/$day";
+  }
+}
 
 class MainUI extends StatefulWidget {
   const MainUI({super.key});
@@ -176,11 +185,12 @@ class _MainUIState extends State<MainUI> {
                           color: theme.scaffoldBackgroundColor),
                       child: DefaultTabController(
                           length: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Column(
-                              children: [
-                                TabBar(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: TabBar(
                                     unselectedLabelStyle: TextStyle(
                                       color: const Color(0xff000000)
                                           .withOpacity(0.6),
@@ -193,24 +203,29 @@ class _MainUIState extends State<MainUI> {
                                         fontFamily: "Roboto",
                                         fontWeight: FontWeight.w600,
                                         fontSize: 15),
-                                    tabs: const [
-                                      Tab(
-                                        text: "오늘 기록",
+                                    tabs: [
+                                      Consumer(
+                                        builder: (context, ref, child) => Tab(
+                                          text:
+                                              "${ref.watch(dateViewModelProvider).toTabText()} 기록",
+                                        ),
                                       ),
-                                      Tab(
+                                      const Tab(
                                         text: "미해결 문제",
                                       ),
                                     ]),
-                                Expanded(
-                                  child: TabBarView(children: [
-                                    const ProblemView(),
-                                    Container(
-                                      height: 20,
-                                    ),
-                                  ]),
-                                )
-                              ],
-                            ),
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                    physics: const ClampingScrollPhysics(),
+                                    children: [
+                                      const ProblemUI(),
+                                      Container(
+                                        height: 20,
+                                      ),
+                                    ]),
+                              )
+                            ],
                           )),
                     ),
                   );
