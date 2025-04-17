@@ -1,0 +1,163 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
+import 'package:solution_diary_app/src/ui/widgets/date_widget.dart';
+
+extension on DateTime {
+  isEqualtTo(DateTime date) {
+    return year == date.year && month == date.month && day == date.day;
+  }
+}
+
+class ExpandDateWidget extends HookWidget {
+  final DateTime currDate;
+
+  final ValueSetter<DateTime> onTap;
+  final ValueSetter<DateTime> onScroll;
+  const ExpandDateWidget({
+    super.key,
+    required this.currDate,
+    required this.onTap,
+    required this.onScroll,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    const totalDays = 10000;
+    final size = MediaQuery.of(context).size;
+
+    // 날짜 위젯 너비
+    final totalItemWidth = (size.width - 16 * 6) / 6;
+    // 사용자 드래그 상태
+    final userDragging = useState(false);
+
+    // 사용자의 재스크롤 판정 타이머
+    final debounceTimer = useRef<Timer?>(null);
+
+    final controller = useScrollController();
+
+    final dateHistory = useState(now);
+
+    return NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          // print(notification);
+          final offset = controller.offset;
+          final maxExtent = controller.position.maxScrollExtent;
+          final index = offsetToIndex(offset, maxExtent);
+          // 날짜 갱신
+          dateHistory.value = now.subtract(Duration(days: index));
+
+          // // 스크롤이 시작되면 userDragging이 활성화
+          // // 타이머 초기화
+          if (notification is ScrollStartNotification) {
+            userDragging.value = true;
+            debounceTimer.value?.cancel();
+          }
+
+          if (notification is ScrollEndNotification && userDragging.value) {
+            // 타이머 초기화
+            debounceTimer.value?.cancel();
+
+            // 150ms후에 아무런 이벤트도 없다면
+            // 기준점(가장 오른쪽 날짜 위치 기준)으로 부터 가장 가까운 날짜로 갱신
+            debounceTimer.value =
+                Timer(const Duration(milliseconds: 150), () async {
+              final index = offsetToIndex(offset, maxExtent);
+
+              controller.animateTo(
+                indexToOffset(index, totalItemWidth + 16),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
+
+              // 날짜 갱신
+              final selectedDate =
+                  DateTime.now().subtract(Duration(days: index));
+              onScroll(selectedDate);
+              dateHistory.value = selectedDate;
+              userDragging.value = false;
+            });
+          }
+          return false;
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: SizedBox(
+                height: 20,
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month,
+                      color: Color(0xffffffff),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      dateHistory.value.monthLabel,
+                      style: const TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 16,
+                          color: Color(0xffffffff)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  controller: controller,
+                  scrollDirection: Axis.horizontal,
+                  physics: const ClampingScrollPhysics(),
+                  reverse: true,
+                  shrinkWrap: true,
+                  itemCount: totalDays,
+                  separatorBuilder: (context, index) => const SizedBox(
+                        width: 16.0,
+                      ),
+                  itemBuilder: (context, index) {
+                    final date = now.subtract(Duration(days: index));
+                    return GestureDetector(
+                      onTap: () => controller
+                          .animateTo(
+                        indexToOffset(index, totalItemWidth + 16),
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      )
+                          .whenComplete(() {
+                        dateHistory.value = date;
+                        onTap(dateHistory.value);
+                      }),
+                      child: DateWidget(
+                        date: date,
+                        type: (date.isEqualtTo(currDate))
+                            ? SelectType.select
+                            : SelectType.unselect,
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ));
+  }
+
+  int offsetToIndex(
+    double offset,
+    double maxExtent,
+  ) {
+    return (10000 * offset / maxExtent).round();
+  }
+
+  double indexToOffset(int index, double itemWidth) {
+    return itemWidth * index;
+  }
+}
