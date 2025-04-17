@@ -9,7 +9,11 @@ part 'problem_view_model.g.dart';
 class ProblemViewModel extends _$ProblemViewModel {
   @override
   Future<List<Problem>> build() async {
-    return ref.read(getAllProblemsProvider.future);
+    try {
+      return ref.read(getAllProblemsProvider.future);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   onEvent(ProblemViewEvent event) {

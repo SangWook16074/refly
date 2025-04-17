@@ -6,7 +6,7 @@ part of 'problem_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllProblemsHash() => r'bf20eff0a4c5e695b0d524ad40574cc0bc5f3f54';
+String _$getAllProblemsHash() => r'588dd29d5905c791cc90b5ef39b7dd3549893256';
 
 /// See also [getAllProblems].
 @ProviderFor(getAllProblems)
