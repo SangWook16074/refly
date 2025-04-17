@@ -27,7 +27,8 @@ class _MainUIState extends State<MainUI> {
   var _dateWidgetOpacity = 0.0;
   var _userStateOpacity = 0.0;
   var snapProgress = 0.0;
-  final maxSheetSize = 0.83;
+  final maxSheetSize = 0.85;
+  var expandDateViewTransProgress = 0.0;
 
   final minSheetSize = 0.4;
 
@@ -35,7 +36,11 @@ class _MainUIState extends State<MainUI> {
       DraggableScrollableController();
 
   _calculateDateWidgetOpacity(double extent) {
-    final start = maxSheetSize;
+    final height = MediaQuery.of(context).size.height;
+    final initSheet = height * maxSheetSize;
+    final realStart = ((initSheet - 32) / height).clamp(0.0, 1.0);
+
+    final start = realStart;
     const end = 0.7;
 
     // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
@@ -52,16 +57,20 @@ class _MainUIState extends State<MainUI> {
     final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
 
     _userStateOpacity = result;
+    print(_userStateOpacity);
   }
 
   _calculateYPosition(double extent) {
+    final height = MediaQuery.of(context).size.height;
+    final initSheet = height * maxSheetSize;
+    final realStart = ((initSheet - 32) / height).clamp(0.0, 1.0);
     final start = maxSheetSize;
     final end = minSheetSize;
 
     // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
-    final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
-
-    snapProgress = result;
+    expandDateViewTransProgress =
+        ((realStart - extent) / (realStart - end)).clamp(0.0, 1.0);
+    snapProgress = ((start - extent) / (start - end)).clamp(0.0, 1.0);
   }
 
   @override
@@ -70,6 +79,7 @@ class _MainUIState extends State<MainUI> {
     _controller.addListener(() {
       setState(() {
         _currentExtent = _controller.size;
+        // print(_currentExtent);
         _calculateDateWidgetOpacity(_currentExtent);
         _calculateUserStateOpacity(_currentExtent);
         _calculateYPosition(_currentExtent);
@@ -105,21 +115,18 @@ class _MainUIState extends State<MainUI> {
           const SafeArea(
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: SizedBox(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "해결 일기",
-                      style: TextStyle(
-                          fontFamily: "Roboto",
-                          color: Color(0xffffffff),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "해결 일기",
+                    style: TextStyle(
+                        fontFamily: "Roboto",
+                        color: Color(0xffffffff),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
+                ],
               ),
             ),
           ),
@@ -130,8 +137,11 @@ class _MainUIState extends State<MainUI> {
                 offset: Offset(
                     0, -maxHeight * 0.35 + dateWidgetHeight * snapProgress),
                 child: ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: maxHeight * 0.35),
-                    child: UserStateView(height: maxHeight * 0.35)),
+                    constraints: BoxConstraints(maxHeight: maxHeight * 0.3),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: UserStateView(height: maxHeight * 0.3),
+                    )),
               ),
             ),
           ),
@@ -140,7 +150,7 @@ class _MainUIState extends State<MainUI> {
             opacity: _dateWidgetOpacity < 1 ? 1 : 0,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: 16.0 + dateWidgetHeight * snapProgress,
+                  top: 8.0 + dateWidgetHeight * snapProgress,
                   left: 16.0,
                   right: 16.0),
               child:
@@ -154,11 +164,10 @@ class _MainUIState extends State<MainUI> {
                 opacity: _dateWidgetOpacity,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      top: 16.0 + dateWidgetHeight * snapProgress,
-                      left: 8.0,
-                      right: 8.0),
-                  child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: 50),
+                      top: (dateWidgetHeight - 32) *
+                          expandDateViewTransProgress),
+                  child: SizedBox(
+                      height: 40 + ((size.width - 16 * 6) / 6),
                       child: const ExpandDateWidgetView()),
                 ),
               ),

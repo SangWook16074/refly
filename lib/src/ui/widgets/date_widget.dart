@@ -17,9 +17,11 @@ class DateWidget extends StatelessWidget {
   }
 
   Widget _unSelect() => Builder(builder: (context) {
+        final size = MediaQuery.of(context).size;
+        final width = (size.width - 16 * 6) / 6;
         return Container(
-          width: 50,
-          height: 50,
+          width: width,
+          height: width,
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: const Color(0xffffffff)),
             borderRadius: BorderRadius.circular(4),
@@ -53,9 +55,11 @@ class DateWidget extends StatelessWidget {
 
   Widget _select() => Builder(builder: (context) {
         final colorScheme = Theme.of(context).colorScheme;
+        final size = MediaQuery.of(context).size;
+        final width = (size.width - 16 * 6) / 6;
         return Container(
-          width: 50,
-          height: 50,
+          width: width,
+          height: width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: const Color(0xffffffff),
