@@ -57,7 +57,6 @@ class _MainUIState extends State<MainUI> {
     final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
 
     _userStateOpacity = result;
-    print(_userStateOpacity);
   }
 
   _calculateYPosition(double extent) {

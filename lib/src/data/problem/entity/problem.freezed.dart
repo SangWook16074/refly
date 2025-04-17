@@ -20,10 +20,15 @@ Problem _$ProblemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Problem {
+  @JsonKey(name: "id")
   int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "title")
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: "content")
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_done")
   bool get isDone => throw _privateConstructorUsedError;
+  @JsonKey(name: "created_at")
   DateTime get createAt => throw _privateConstructorUsedError;
 
   /// Serializes this Problem to a JSON map.
@@ -41,7 +46,11 @@ abstract class $ProblemCopyWith<$Res> {
       _$ProblemCopyWithImpl<$Res, Problem>;
   @useResult
   $Res call(
-      {int? id, String title, String content, bool isDone, DateTime createAt});
+      {@JsonKey(name: "id") int? id,
+      @JsonKey(name: "title") String title,
+      @JsonKey(name: "content") String content,
+      @JsonKey(name: "is_done") bool isDone,
+      @JsonKey(name: "created_at") DateTime createAt});
 }
 
 /// @nodoc
@@ -98,7 +107,11 @@ abstract class _$$ProblemImplCopyWith<$Res> implements $ProblemCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id, String title, String content, bool isDone, DateTime createAt});
+      {@JsonKey(name: "id") int? id,
+      @JsonKey(name: "title") String title,
+      @JsonKey(name: "content") String content,
+      @JsonKey(name: "is_done") bool isDone,
+      @JsonKey(name: "created_at") DateTime createAt});
 }
 
 /// @nodoc
@@ -149,25 +162,29 @@ class __$$ProblemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProblemImpl implements _Problem {
   const _$ProblemImpl(
-      {this.id = null,
-      required this.title,
-      required this.content,
-      required this.isDone,
-      required this.createAt});
+      {@JsonKey(name: "id") this.id = null,
+      @JsonKey(name: "title") required this.title,
+      @JsonKey(name: "content") required this.content,
+      @JsonKey(name: "is_done") required this.isDone,
+      @JsonKey(name: "created_at") required this.createAt});
 
   factory _$ProblemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProblemImplFromJson(json);
 
   @override
-  @JsonKey()
+  @JsonKey(name: "id")
   final int? id;
   @override
+  @JsonKey(name: "title")
   final String title;
   @override
+  @JsonKey(name: "content")
   final String content;
   @override
+  @JsonKey(name: "is_done")
   final bool isDone;
   @override
+  @JsonKey(name: "created_at")
   final DateTime createAt;
 
   @override
@@ -211,23 +228,29 @@ class _$ProblemImpl implements _Problem {
 
 abstract class _Problem implements Problem {
   const factory _Problem(
-      {final int? id,
-      required final String title,
-      required final String content,
-      required final bool isDone,
-      required final DateTime createAt}) = _$ProblemImpl;
+          {@JsonKey(name: "id") final int? id,
+          @JsonKey(name: "title") required final String title,
+          @JsonKey(name: "content") required final String content,
+          @JsonKey(name: "is_done") required final bool isDone,
+          @JsonKey(name: "created_at") required final DateTime createAt}) =
+      _$ProblemImpl;
 
   factory _Problem.fromJson(Map<String, dynamic> json) = _$ProblemImpl.fromJson;
 
   @override
+  @JsonKey(name: "id")
   int? get id;
   @override
+  @JsonKey(name: "title")
   String get title;
   @override
+  @JsonKey(name: "content")
   String get content;
   @override
+  @JsonKey(name: "is_done")
   bool get isDone;
   @override
+  @JsonKey(name: "created_at")
   DateTime get createAt;
 
   /// Create a copy of Problem

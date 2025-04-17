@@ -43,7 +43,6 @@ class ExpandDateWidget extends HookWidget {
 
     return NotificationListener<ScrollNotification>(
         onNotification: (notification) {
-          // print(notification);
           final offset = controller.offset;
           final maxExtent = controller.position.maxScrollExtent;
           final index = offsetToIndex(offset, maxExtent);
