@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
@@ -76,8 +77,7 @@ class ProblemUploadDialog extends HookConsumerWidget {
                 ),
                 GestureDetector(
                     onTap: () => viewModel.onEvent(CreateProblem(
-                        problem: Problem(
-                            id: null,
+                        problem: ProblemRequestDto(
                             title: titleController.text,
                             content: contentController.text,
                             isDone: false,

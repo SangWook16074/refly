@@ -10,17 +10,23 @@ class ProblemViewModel extends _$ProblemViewModel {
   @override
   Future<List<Problem>> build() async {
     try {
-      return ref.read(getAllProblemsProvider.future);
+      final result = ref.read(problemRepositoryProvider).getAllProblems();
+      return result;
     } catch (e) {
       rethrow;
     }
   }
 
-  onEvent(ProblemViewEvent event) {
+  onEvent(ProblemViewEvent event) async {
     switch (event) {
       case CreateProblem():
+        final newProblem = event.problem;
+        final result =
+            await ref.read(problemRepositoryProvider).createProblem(newProblem);
+        final prevData = await future;
+        state = AsyncData([...prevData, ...result]);
       case ReadProblemList():
-      // TODO: Handle this case.
+        return ref.read(problemRepositoryProvider).getAllProblems();
       case UpdateProblem():
       // TODO: Handle this case.
       case DeleteProblem():

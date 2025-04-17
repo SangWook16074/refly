@@ -6,7 +6,7 @@ part of 'problem_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$problemViewModelHash() => r'11d6003fc37e8c581d8c3a946aff8d2a9eacf37e';
+String _$problemViewModelHash() => r'1fb61c2f337f51e8699ca6199368e6c763c4f76b';
 
 /// See also [ProblemViewModel].
 @ProviderFor(ProblemViewModel)

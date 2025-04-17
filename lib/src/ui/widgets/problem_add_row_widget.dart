@@ -10,8 +10,6 @@ class ProblemAddRowWidget extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(problemViewModelProvider);
-
     return GestureDetector(
       onTap: () => showProblemAddSheet(context),
       child: Container(

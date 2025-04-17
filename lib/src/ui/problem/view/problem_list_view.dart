@@ -14,8 +14,7 @@ class ProblemListView extends StatelessWidget {
       return const EmptyView();
     } else {
       return ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           separatorBuilder: (context, index) => const SizedBox(
                 height: 20,
               ),
