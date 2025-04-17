@@ -15,8 +15,9 @@ class ProblemUploadDialog extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useTextEditingController();
     final contentController = useTextEditingController();
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
-
+    final mediaQuery = MediaQuery.of(context);
+    final bottomSafeArea = mediaQuery.padding.bottom;
+    final bottomInset = mediaQuery.viewInsets.bottom;
     final viewModel = ref.read(problemViewModelProvider.notifier);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -24,23 +25,28 @@ class ProblemUploadDialog extends HookConsumerWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: SafeArea(
+          bottom: false,
           child: Container(
             padding: EdgeInsets.only(
-                top: 20, left: 20, right: 30, bottom: bottomInset),
-            decoration: BoxDecoration(
-                color: const Color(0xffE9EAEF),
-                borderRadius: BorderRadius.circular(16.0)),
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: bottomInset + bottomSafeArea + 20),
+            decoration: const BoxDecoration(
+                color: Color(0xffE9EAEF),
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(16.0))),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Opacity(
+                    const Opacity(
                       opacity: 0,
                       child: Icon(Icons.close),
                     ),
-                    Text(
+                    const Text(
                       "새 문제 추가하기",
                       style: TextStyle(
                           color: Color(0xff303030),
@@ -48,7 +54,9 @@ class ProblemUploadDialog extends HookConsumerWidget {
                           fontWeight: FontWeight.w600,
                           fontSize: 20),
                     ),
-                    Icon(Icons.close)
+                    GestureDetector(
+                        onTap: Navigator.of(context).pop,
+                        child: const Icon(Icons.close))
                   ],
                 ),
                 const SizedBox(
