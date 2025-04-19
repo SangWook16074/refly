@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
-
-class ProblemAddRowWidget extends ConsumerWidget
+class ProblemAddRowButton extends ConsumerWidget
     with ShowProblemUploadSheetMixin {
-  const ProblemAddRowWidget({super.key});
+  const ProblemAddRowButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

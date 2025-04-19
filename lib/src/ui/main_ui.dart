@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
+import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab.dart';
 import 'package:solution_diary_app/src/ui/problem/view/solution_history_ui.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
@@ -22,7 +26,7 @@ class MainUI extends StatefulWidget {
   State<MainUI> createState() => _MainUIState();
 }
 
-class _MainUIState extends State<MainUI> {
+class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   var _currentExtent = 1.0;
   var _dateWidgetOpacity = 0.0;
   var _userStateOpacity = 0.0;
@@ -90,13 +94,12 @@ class _MainUIState extends State<MainUI> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final size = mediaQuery.size;
-    final bottomSafeArea = mediaQuery.padding.bottom;
     final maxHeight = size.height - MediaQuery.of(context).padding.top;
     final theme = Theme.of(context);
-    final sheetHeight = maxHeight * maxSheetSize + bottomSafeArea;
     final dateWidgetHeight = size.height * (maxSheetSize - 0.4);
 
     return Scaffold(
+      floatingActionButton: const ProblemUploadFABView(),
       body: Stack(
         clipBehavior: Clip.none,
         fit: StackFit.loose,
