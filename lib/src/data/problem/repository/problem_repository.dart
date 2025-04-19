@@ -1,13 +1,22 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-part 'problem_repository.g.dart';
+final problemRepositoryProvider = Provider((Ref ref) => ProblemRepository());
 
-@riverpod
-Future<List<Problem>> getAllProblems(Ref ref) async {
+class ProblemRepository {
   final client = Supabase.instance.client;
-  final data = await client.from("solution").select();
-  return data.map((json) => Problem.fromJson(json)).toList();
+
+  Future<List<Problem>> getAllProblems() async {
+    final data = await client.from("solution").select();
+    return data.map((json) => Problem.fromJson(json)).toList();
+  }
+
+  Future<List<Problem>> createProblem(ProblemRequestDto problem) async {
+    final data =
+        await client.from("solution").insert(problem.toJson()).select();
+
+    return data.map((json) => Problem.fromJson(json)).toList();
+  }
 }

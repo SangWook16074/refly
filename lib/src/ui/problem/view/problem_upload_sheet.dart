@@ -3,13 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
+import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_text_field.dart';
 
-class ProblemUploadDialog extends HookConsumerWidget {
-  const ProblemUploadDialog({super.key});
+class ProblemUploadSheet extends HookConsumerWidget {
+  const ProblemUploadSheet({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -75,13 +75,15 @@ class ProblemUploadDialog extends HookConsumerWidget {
                   height: 70,
                 ),
                 GestureDetector(
-                    onTap: () => viewModel.onEvent(CreateProblem(
-                        problem: Problem(
-                            id: null,
-                            title: titleController.text,
-                            content: contentController.text,
-                            isDone: false,
-                            createAt: DateTime.now()))),
+                    onTap: () {
+                      viewModel.onEvent(CreateProblem(
+                          problem: ProblemRequestDto(
+                              title: titleController.text,
+                              content: contentController.text,
+                              isDone: false,
+                              createAt: DateTime.now())));
+                      Navigator.of(context).pop();
+                    },
                     child: Container(
                       width: double.maxFinite,
                       alignment: Alignment.center,

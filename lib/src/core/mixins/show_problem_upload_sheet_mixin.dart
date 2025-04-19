@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_upload_dialog.dart';
+import 'package:solution_diary_app/src/ui/problem/view/problem_upload_sheet.dart';
 
 mixin ShowProblemUploadSheetMixin {
   void showProblemAddSheet(BuildContext context) {
@@ -15,6 +15,6 @@ mixin ShowProblemUploadSheetMixin {
         enableDrag: true,
         backgroundColor: Colors.transparent,
         barrierColor: const Color(0xff000000).withOpacity(.1),
-        builder: (context) => const ProblemUploadDialog());
+        builder: (context) => const ProblemUploadSheet());
   }
 }

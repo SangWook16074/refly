@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_view.dart';
+import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab.dart';
+import 'package:solution_diary_app/src/ui/problem/view/solution_history_ui.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
 
@@ -22,7 +26,7 @@ class MainUI extends StatefulWidget {
   State<MainUI> createState() => _MainUIState();
 }
 
-class _MainUIState extends State<MainUI> {
+class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   var _currentExtent = 1.0;
   var _dateWidgetOpacity = 0.0;
   var _userStateOpacity = 0.0;
@@ -88,16 +92,18 @@ class _MainUIState extends State<MainUI> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context);
+    final size = mediaQuery.size;
     final maxHeight = size.height - MediaQuery.of(context).padding.top;
     final theme = Theme.of(context);
-    final sheetHeight = maxHeight * maxSheetSize;
     final dateWidgetHeight = size.height * (maxSheetSize - 0.4);
 
     return Scaffold(
+      floatingActionButton: const ProblemUploadFABView(),
       body: Stack(
         clipBehavior: Clip.none,
-        fit: StackFit.passthrough,
+        fit: StackFit.loose,
+        // fit: StackFit.passthrough,
         // alignment: AlignmentDirectional.topCenter,z
         children: [
           Container(
@@ -178,65 +184,75 @@ class _MainUIState extends State<MainUI> {
                 initialChildSize: maxSheetSize,
                 maxChildSize: maxSheetSize,
                 minChildSize: minSheetSize,
+                expand: true,
                 snap: true,
                 controller: _controller,
                 snapSizes: const [.7],
                 builder: (context, scrollController) {
-                  return SingleChildScrollView(
-                    controller: scrollController,
-                    physics: const ClampingScrollPhysics(),
-                    child: Container(
-                      height: sheetHeight,
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(16.0)),
-                          color: theme.scaffoldBackgroundColor),
-                      child: DefaultTabController(
-                          length: 2,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: TabBar(
-                                    unselectedLabelStyle: TextStyle(
-                                      color: const Color(0xff000000)
-                                          .withOpacity(0.6),
-                                      fontFamily: "Roboto",
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15,
-                                    ),
-                                    labelStyle: TextStyle(
-                                        color: theme.colorScheme.primary,
-                                        fontFamily: "Roboto",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15),
-                                    tabs: [
-                                      Consumer(
-                                        builder: (context, ref, child) => Tab(
-                                          text:
-                                              "${ref.watch(dateViewModelProvider).toTabText()} 기록",
+                  return LayoutBuilder(builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      controller: scrollController,
+                      physics: const ClampingScrollPhysics(),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight,
+                          minHeight: constraints.minHeight,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(16.0)),
+                              color: theme.scaffoldBackgroundColor),
+                          child: DefaultTabController(
+                              length: 2,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: TabBar(
+                                        unselectedLabelStyle: TextStyle(
+                                          color: const Color(0xff000000)
+                                              .withOpacity(0.6),
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15,
                                         ),
-                                      ),
-                                      const Tab(
-                                        text: "미해결 문제",
-                                      ),
-                                    ]),
-                              ),
-                              Expanded(
-                                child: TabBarView(
-                                    physics: const ClampingScrollPhysics(),
-                                    children: [
-                                      const ProblemUI(),
-                                      Container(
-                                        height: 20,
-                                      ),
-                                    ]),
-                              )
-                            ],
-                          )),
-                    ),
-                  );
+                                        labelStyle: TextStyle(
+                                            color: theme.colorScheme.primary,
+                                            fontFamily: "Roboto",
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15),
+                                        tabs: [
+                                          Consumer(
+                                            builder: (context, ref, child) =>
+                                                Tab(
+                                              text:
+                                                  "${ref.watch(dateViewModelProvider).toTabText()} 기록",
+                                            ),
+                                          ),
+                                          const Tab(
+                                            text: "미해결 문제",
+                                          ),
+                                        ]),
+                                  ),
+                                  Expanded(
+                                    child: TabBarView(
+                                        physics: const ClampingScrollPhysics(),
+                                        children: [
+                                          const SolutionHistoryUI(),
+                                          Container(
+                                            height: 2000,
+                                            color: Colors.blue,
+                                          ),
+                                        ]),
+                                  )
+                                ],
+                              )),
+                        ),
+                      ),
+                    );
+                  });
                 }),
           )
         ],

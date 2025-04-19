@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
 import 'package:solution_diary_app/src/ui/widgets/date_widget.dart';
@@ -51,12 +52,13 @@ class ExpandDateWidget extends HookWidget {
 
           // // 스크롤이 시작되면 userDragging이 활성화
           // // 타이머 초기화
-          if (notification is ScrollStartNotification) {
-            userDragging.value = true;
+          if (notification is UserScrollNotification &&
+              notification.direction != ScrollDirection.idle) {
             debounceTimer.value?.cancel();
           }
 
-          if (notification is ScrollEndNotification && userDragging.value) {
+          if (notification is UserScrollNotification &&
+              notification.direction == ScrollDirection.idle) {
             // 타이머 초기화
             debounceTimer.value?.cancel();
 
@@ -112,35 +114,38 @@ class ExpandDateWidget extends HookWidget {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   controller: controller,
                   scrollDirection: Axis.horizontal,
                   physics: const ClampingScrollPhysics(),
                   reverse: true,
                   shrinkWrap: true,
                   itemCount: totalDays,
-                  separatorBuilder: (context, index) => const SizedBox(
-                        width: 16.0,
-                      ),
                   itemBuilder: (context, index) {
                     final date = now.subtract(Duration(days: index));
-                    return GestureDetector(
-                      onTap: () => controller
-                          .animateTo(
-                        indexToOffset(index, totalItemWidth + 16),
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeOut,
-                      )
-                          .whenComplete(() {
-                        dateHistory.value = date;
-                        onTap(dateHistory.value);
-                      }),
-                      child: DateWidget(
-                        date: date,
-                        type: (date.isEqualtTo(currDate))
-                            ? SelectType.select
-                            : SelectType.unselect,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          print(index);
+                          controller
+                              .animateTo(
+                            indexToOffset(index, totalItemWidth + 16),
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          )
+                              .whenComplete(() {
+                            dateHistory.value = date;
+                            onTap(dateHistory.value);
+                          });
+                        },
+                        child: DateWidget(
+                          date: date,
+                          type: (date.isEqualtTo(currDate))
+                              ? SelectType.select
+                              : SelectType.unselect,
+                        ),
                       ),
                     );
                   }),
@@ -153,7 +158,7 @@ class ExpandDateWidget extends HookWidget {
     double offset,
     double maxExtent,
   ) {
-    return (10000 * offset / maxExtent).round();
+    return (10000 * offset ~/ maxExtent);
   }
 
   double indexToOffset(int index, double itemWidth) {

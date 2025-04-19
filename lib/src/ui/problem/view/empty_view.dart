@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_upload_dialog.dart';
+import 'package:solution_diary_app/src/ui/problem/view/problem_upload_sheet.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/upload_button.dart';
 

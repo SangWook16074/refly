@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_list_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 
-class ProblemUI extends ConsumerWidget {
-  const ProblemUI({super.key});
+class SolutionHistoryUI extends ConsumerWidget {
+  const SolutionHistoryUI({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

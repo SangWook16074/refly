@@ -1,37 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 
 /// 사용자가 등록한 문제를 보여주는 ROW
-class ProblemListRow extends StatelessWidget {
+class ProblemListRow extends HookWidget {
   final Problem problem;
   const ProblemListRow({super.key, required this.problem});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
-      height: 60,
-      decoration: BoxDecoration(
-          color: const Color(0xffffffff),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 4),
-                blurRadius: 4,
-                color: const Color(0xff000000).withOpacity(.04))
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // 문제 제목
-          Text(problem.title),
+    final toggle = useState(false);
 
-          /// 문제 해결 여부
-          ///
-          /// 문제가 해결되지 않았을 경우
-          /// 문제의 해결상태 변경할 수 있는 다이얼로그를 탭해서 열 수 있음.
-          Container(
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        // padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, 4),
+              blurRadius: 4,
+              color: const Color(0xff000000).withOpacity(.04))
+        ]),
+        child: ExpansionTile(
+          collapsedBackgroundColor: const Color(0xffffffff),
+          collapsedShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          childrenPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
+          backgroundColor: const Color(0xffffffff),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          expansionAnimationStyle: AnimationStyle(curve: Curves.easeIn),
+          dense: true,
+          tilePadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
+          onExpansionChanged: (value) {
+            toggle.value = !toggle.value;
+          },
+          title: Text(problem.title),
+          trailing:
+
+              /// 문제 해결 여부
+              ///
+              /// 문제가 해결되지 않았을 경우
+              /// 문제의 해결상태 변경할 수 있는 다이얼로그를 탭해서 열 수 있음.
+              Container(
             width: 30,
             height: 30,
             padding: const EdgeInsets.all(5),
@@ -51,8 +65,31 @@ class ProblemListRow extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
-    );
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 200,
+                minHeight: 0,
+              ),
+              child: SizedBox(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 1.0,
+                        decoration: const BoxDecoration(
+                          color: Color(0xffdbdbdb),
+                        ),
+                      ),
+                      SizedBox(child: Text(problem.content)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

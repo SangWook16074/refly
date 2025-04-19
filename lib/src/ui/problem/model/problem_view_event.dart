@@ -1,15 +1,16 @@
 import 'package:equatable/equatable.dart';
+import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 
 sealed class ProblemViewEvent extends Equatable {}
 
 final class CreateProblem extends ProblemViewEvent {
-  final Problem problem;
+  final ProblemRequestDto problem;
 
   CreateProblem({required this.problem});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [problem];
 }
 
 final class ReadProblemList extends ProblemViewEvent {
@@ -23,7 +24,7 @@ final class UpdateProblem extends ProblemViewEvent {
   UpdateProblem({required this.problem});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [problem];
 }
 
 final class DeleteProblem extends ProblemViewEvent {
