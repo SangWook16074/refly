@@ -6,9 +6,10 @@ import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mix
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab.dart';
-import 'package:solution_diary_app/src/ui/problem/view/solution_history_ui.dart';
+import 'package:solution_diary_app/src/ui/solution_history_ui.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/unresolved_history_ui.dart';
 
 extension on DateTime {
   String toTabText() {
@@ -236,15 +237,12 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                                           ),
                                         ]),
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     child: TabBarView(
-                                        physics: const ClampingScrollPhysics(),
+                                        physics: ClampingScrollPhysics(),
                                         children: [
-                                          const SolutionHistoryUI(),
-                                          Container(
-                                            height: 2000,
-                                            color: Colors.blue,
-                                          ),
+                                          SolutionHistoryUI(),
+                                          UnresolvedHistoryUI(),
                                         ]),
                                   )
                                 ],

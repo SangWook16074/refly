@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
+import 'package:solution_diary_app/src/ui/widgets/comfirm_dialog.dart';
 
 /// 사용자가 등록한 문제를 보여주는 ROW
 class ProblemListRow extends HookWidget {
@@ -11,9 +12,12 @@ class ProblemListRow extends HookWidget {
   Widget build(BuildContext context) {
     final toggle = useState(false);
 
+    void showCompleteDialog() {
+      showDialog(context: context, builder: (context) => const ConfirmDialog());
+    }
+
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
-        // padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
               offset: const Offset(0, 4),
@@ -26,7 +30,7 @@ class ProblemListRow extends HookWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           childrenPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
           backgroundColor: const Color(0xffffffff),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -45,23 +49,30 @@ class ProblemListRow extends HookWidget {
               ///
               /// 문제가 해결되지 않았을 경우
               /// 문제의 해결상태 변경할 수 있는 다이얼로그를 탭해서 열 수 있음.
-              Container(
-            width: 30,
-            height: 30,
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: (problem.isDone)
-                  ? const Color(0xff57D364)
-                  : const Color(0xffD9D9D9),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            alignment: Alignment.center,
+              GestureDetector(
+            onTap: () {
+              if (!problem.isDone) {
+                showCompleteDialog();
+              }
+            },
             child: Container(
-              width: 80,
-              height: 80,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
+              width: 30,
+              height: 30,
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: (problem.isDone)
+                    ? const Color(0xff57D364)
+                    : const Color(0xffD9D9D9),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              alignment: Alignment.center,
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -71,21 +82,25 @@ class ProblemListRow extends HookWidget {
                 maxHeight: 200,
                 minHeight: 0,
               ),
-              child: SizedBox(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 1.0,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffdbdbdb),
-                        ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 1.0,
+                      decoration: const BoxDecoration(
+                        color: Color(0xffdbdbdb),
                       ),
-                      SizedBox(child: Text(problem.content)),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Text(problem.content ?? "등록된 상세내용이 없습니다."),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                  ],
                 ),
               ),
             ),

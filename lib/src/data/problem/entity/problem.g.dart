@@ -10,7 +10,7 @@ _$ProblemImpl _$$ProblemImplFromJson(Map<String, dynamic> json) =>
     _$ProblemImpl(
       id: (json['id'] as num?)?.toInt() ?? null,
       title: json['title'] as String,
-      content: json['content'] as String,
+      content: json['content'] as String?,
       isDone: json['is_done'] as bool,
       createAt: DateTime.parse(json['created_at'] as String),
     );

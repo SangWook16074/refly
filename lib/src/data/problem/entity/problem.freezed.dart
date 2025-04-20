@@ -25,7 +25,7 @@ mixin _$Problem {
   @JsonKey(name: "title")
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: "content")
-  String get content => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   @JsonKey(name: "is_done")
   bool get isDone => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
@@ -48,7 +48,7 @@ abstract class $ProblemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "title") String title,
-      @JsonKey(name: "content") String content,
+      @JsonKey(name: "content") String? content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt});
 }
@@ -70,7 +70,7 @@ class _$ProblemCopyWithImpl<$Res, $Val extends Problem>
   $Res call({
     Object? id = freezed,
     Object? title = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? isDone = null,
     Object? createAt = null,
   }) {
@@ -83,10 +83,10 @@ class _$ProblemCopyWithImpl<$Res, $Val extends Problem>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$ProblemImplCopyWith<$Res> implements $ProblemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "title") String title,
-      @JsonKey(name: "content") String content,
+      @JsonKey(name: "content") String? content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt});
 }
@@ -129,7 +129,7 @@ class __$$ProblemImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? title = null,
-    Object? content = null,
+    Object? content = freezed,
     Object? isDone = null,
     Object? createAt = null,
   }) {
@@ -142,10 +142,10 @@ class __$$ProblemImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
+      content: freezed == content
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -179,7 +179,7 @@ class _$ProblemImpl implements _Problem {
   final String title;
   @override
   @JsonKey(name: "content")
-  final String content;
+  final String? content;
   @override
   @JsonKey(name: "is_done")
   final bool isDone;
@@ -230,7 +230,7 @@ abstract class _Problem implements Problem {
   const factory _Problem(
           {@JsonKey(name: "id") final int? id,
           @JsonKey(name: "title") required final String title,
-          @JsonKey(name: "content") required final String content,
+          @JsonKey(name: "content") required final String? content,
           @JsonKey(name: "is_done") required final bool isDone,
           @JsonKey(name: "created_at") required final DateTime createAt}) =
       _$ProblemImpl;
@@ -245,7 +245,7 @@ abstract class _Problem implements Problem {
   String get title;
   @override
   @JsonKey(name: "content")
-  String get content;
+  String? get content;
   @override
   @JsonKey(name: "is_done")
   bool get isDone;
