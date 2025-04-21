@@ -100,7 +100,6 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     final dateWidgetHeight = size.height * (maxSheetSize - 0.4);
 
     return Scaffold(
-      floatingActionButton: const ProblemUploadFABView(),
       body: Stack(
         clipBehavior: Clip.none,
         fit: StackFit.loose,

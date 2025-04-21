@@ -128,7 +128,6 @@ class ExpandDateWidget extends HookWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
                         onTap: () {
-                          print(index);
                           controller
                               .animateTo(
                             indexToOffset(index, totalItemWidth + 16),
