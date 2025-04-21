@@ -22,14 +22,6 @@ class ProblemListView extends HookWidget {
     final GlobalKey listKey = GlobalKey();
     final Map<int, GlobalKey> tileKeys = {};
 
-    // showProblemEditBottomSheet() {
-    //   showModalBottomSheet(
-    //       barrierColor: Colors.transparent,
-    //       context: context,
-    //       backgroundColor: Colors.transparent,
-    //       builder: (context) => const SafeArea(child: ProblemEditSheet()));
-    // }
-
     if (problems.isEmpty) {
       return const EmptyView();
     } else {
@@ -54,9 +46,8 @@ class ProblemListView extends HookWidget {
                   return GestureDetector(
                       onLongPress: () {
                         selectedIndex.value = index;
-                        Future.delayed(Duration.zero).then((_) {
-                          showSheet.value = true;
-                        });
+
+                        showSheet.value = true;
                         // showProblemEditBottomSheet();
                       },
                       child: ProblemListRow(
@@ -92,10 +83,10 @@ class ProblemListView extends HookWidget {
                           child: ModalBarrier(
                             onDismiss: () {
                               showSheet.value = false;
-                              Future.delayed(const Duration(milliseconds: 300))
-                                  .then((_) {
-                                selectedIndex.value = null;
-                              });
+                              // Future.delayed(const Duration(milliseconds: 300))
+                              //     .then((_) {
+                              // });
+                              selectedIndex.value = null;
                             },
                             color: const Color(0xffdbdbdb).withOpacity(0.2),
                           ),
@@ -118,17 +109,16 @@ class ProblemListView extends HookWidget {
                             ),
                           ),
                         ),
-
-                        AnimatedPositioned(
-                            bottom: showSheet.value ? padding : -300,
-                            width: size.width,
-                            duration: const Duration(milliseconds: 300),
-                            child: const ProblemEditSheet()),
                       ],
                     );
                   },
                 ),
               ),
+            AnimatedPositioned(
+                bottom: showSheet.value ? padding : -300,
+                width: size.width,
+                duration: const Duration(milliseconds: 300),
+                child: const ProblemEditSheet()),
           ],
         ),
       );
