@@ -115,7 +115,7 @@ class ProblemListView extends HookWidget {
                 ),
               ),
             AnimatedPositioned(
-                bottom: showSheet.value ? padding : -300,
+                bottom: showSheet.value ? padding + 20 : -300,
                 width: size.width,
                 duration: const Duration(milliseconds: 300),
                 child: const ProblemEditSheet()),
