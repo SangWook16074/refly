@@ -26,10 +26,15 @@ class ProblemViewModel extends _$ProblemViewModel {
         final prevData = await future;
         state = AsyncData([...prevData, ...result]);
       case ReadProblemList():
-        return ref.read(problemRepositoryProvider).getAllProblems();
-      case UpdateProblem():
-      // TODO: Handle this case.
+        final data = await ref.read(problemRepositoryProvider).getAllProblems();
+        state = AsyncData(data);
       case DeleteProblem():
+        final id = event.id;
+        final prevData = await future;
+        await ref.read(problemRepositoryProvider).deleteProblem(id);
+
+        state = AsyncData(prevData.where((it) => it.id != id).toList());
+      case UpdateProblem():
       // TODO: Handle this case.
     }
   }

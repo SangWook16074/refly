@@ -1,11 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_event.dart';
+import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_model.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 
-class ProblemEditSheet extends StatelessWidget {
+class ProblemEditSheet extends ConsumerWidget {
   const ProblemEditSheet({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final problemListViewState = ref.watch(problemListViewModelProvider);
+    final problemListViewModel =
+        ref.read(problemListViewModelProvider.notifier);
+    final problemViewModel = ref.read(problemViewModelProvider.notifier);
+
+    showDeleteConfirmDialog() {
+      showDialog(
+          context: context,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "해당 기록을 정말로 삭제할까요?",
+                onConfirm: () {
+                  problemViewModel.onEvent(
+                      DeleteProblem(id: problemListViewState.problem!.id!));
+                  Navigator.of(context).pop();
+                },
+              ));
+    }
+
+    showUpdateConfirmDialog() {
+      showDialog(
+          context: context,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "해당 기록을 수정할까요?",
+                onConfirm: () {},
+              ));
+    }
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -19,31 +53,53 @@ class ProblemEditSheet extends StatelessWidget {
           ],
           color: const Color(0xffffffff),
           borderRadius: BorderRadius.circular(12.0)),
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "수정하기",
-              style: TextStyle(
-                fontFamily: "Roboto",
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              problemListViewModel.onEvent(OpenProblemEditDialog());
+              showUpdateConfirmDialog();
+            },
+            child: const SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "수정하기",
+                    style: TextStyle(
+                      fontFamily: "Roboto",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
-          Divider(),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "삭제하기",
-              // selectionColor: Color(0xffff0000),
-              style: TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xffff0000)),
+          const Divider(),
+          GestureDetector(
+            onTap: () {
+              problemListViewModel.onEvent(OpenProblemEditDialog());
+              showDeleteConfirmDialog();
+            },
+            child: const SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: Text(
+                    "삭제하기",
+                    // selectionColor: Color(0xffff0000),
+                    style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xffff0000)),
+                  ),
+                ),
+              ),
             ),
           ),
         ],

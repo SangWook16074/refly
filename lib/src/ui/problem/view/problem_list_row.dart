@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
-import 'package:solution_diary_app/src/ui/widgets/comfirm_dialog.dart';
+import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 
 /// 사용자가 등록한 문제를 보여주는 ROW
 class ProblemListRow extends HookWidget {
@@ -13,7 +13,15 @@ class ProblemListRow extends HookWidget {
     final toggle = useState(false);
 
     void showCompleteDialog() {
-      showDialog(context: context, builder: (context) => const ConfirmDialog());
+      showDialog(
+          context: context,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "문제를 해결처리할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () {},
+              ));
     }
 
     return Container(

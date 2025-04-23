@@ -15,10 +15,19 @@ class ProblemUploadSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useTextEditingController();
     final contentController = useTextEditingController();
+    final isTitleValidate = useState<bool>(true);
     final mediaQuery = MediaQuery.of(context);
     final bottomSafeArea = mediaQuery.padding.bottom;
     final bottomInset = mediaQuery.viewInsets.bottom;
     final viewModel = ref.read(problemViewModelProvider.notifier);
+
+    bool validateTitle(String title) {
+      if (title.trim().isEmpty) {
+        return false;
+      }
+      return true;
+    }
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: FocusScope.of(context).unfocus,
@@ -33,7 +42,7 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 right: 20,
                 bottom: bottomInset + bottomSafeArea + 20),
             decoration: const BoxDecoration(
-                color: Color(0xffE9EAEF),
+                color: Color(0xffffffff),
                 borderRadius:
                     BorderRadius.vertical(top: Radius.circular(16.0))),
             child: Column(
@@ -62,13 +71,30 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomTextField(controller: titleController, hintText: "제목"),
-                const SizedBox(
-                  height: 10,
+                CustomTextField(
+                  controller: titleController,
+                  hintText: "제목(필수)",
+                  onChanged: (title) {
+                    isTitleValidate.value = validateTitle(title);
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        isTitleValidate.value ? "" : "제목을 입력해주세요!",
+                        style: const TextStyle(
+                            color: Color(0xffff0000),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
                 ),
                 CustomTextField(
                   controller: contentController,
-                  hintText: "상세 내용",
+                  hintText: "상세 내용(선택)",
                   maxLines: 3,
                 ),
                 const SizedBox(
@@ -76,13 +102,15 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      viewModel.onEvent(CreateProblem(
-                          problem: ProblemRequestDto(
-                              title: titleController.text,
-                              content: contentController.text,
-                              isDone: false,
-                              createAt: DateTime.now())));
-                      Navigator.of(context).pop();
+                      if (isTitleValidate.value) {
+                        viewModel.onEvent(CreateProblem(
+                            problem: ProblemRequestDto(
+                                title: titleController.text,
+                                content: contentController.text,
+                                isDone: false,
+                                createAt: DateTime.now())));
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: Container(
                       width: double.maxFinite,
@@ -90,14 +118,16 @@ class ProblemUploadSheet extends HookConsumerWidget {
                       padding: const EdgeInsets.symmetric(vertical: 11.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xff000025).withOpacity(.9)),
+                          color: isTitleValidate.value
+                              ? const Color(0xff000025).withOpacity(.9)
+                              : const Color(0xffacacac)),
                       child: const Text(
                         "등록하기",
                         style: TextStyle(
                             fontFamily: "Roboto",
                             color: Color(0xffffffff),
                             fontSize: 15,
-                            fontWeight: FontWeight.w500),
+                            fontWeight: FontWeight.w600),
                       ),
                     ))
               ],

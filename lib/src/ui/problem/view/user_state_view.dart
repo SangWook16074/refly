@@ -66,7 +66,7 @@ class UserStateView extends ConsumerWidget {
                   flex: 1,
                   child: ProgressWidget(
                     total: totalCount,
-                    current: unresolvedCount,
+                    current: completedCount,
                     height: height / 3,
                   ),
                 ),

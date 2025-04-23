@@ -2,20 +2,26 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
+import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_event.dart';
 import 'package:solution_diary_app/src/ui/problem/view/empty_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_edit_sheet.dart';
 import 'package:solution_diary_app/src/ui/problem/view/problem_list_row.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab.dart';
+import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab_view.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_model.dart';
 
-class ProblemListView extends HookWidget {
+class ProblemListView extends ConsumerWidget {
   final List<Problem> problems;
-  const ProblemListView({super.key, required this.problems});
+  final bool showUploadFab;
+  const ProblemListView(
+      {super.key, this.showUploadFab = false, required this.problems});
 
   @override
-  Widget build(BuildContext context) {
-    final selectedIndex = useState<int?>(null);
-    final showSheet = useState(false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final problemListViewState = ref.watch(problemListViewModelProvider);
+    final problemListViewModel =
+        ref.read(problemListViewModelProvider.notifier);
     final padding = MediaQuery.of(context).padding.bottom;
     final size = MediaQuery.of(context).size;
 
@@ -26,13 +32,16 @@ class ProblemListView extends HookWidget {
       return const EmptyView();
     } else {
       return Scaffold(
-        floatingActionButton: AnimatedOpacity(
-            opacity: (selectedIndex.value == null) ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 300),
-            child: const ProblemUploadFABView()),
+        floatingActionButton: (showUploadFab)
+            ? AnimatedOpacity(
+                opacity: (problemListViewState.selectIndex == -1) ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 300),
+                child: const ProblemUploadFABView())
+            : null,
         body: Stack(
           children: [
             ListView.separated(
+                physics: const ClampingScrollPhysics(),
                 key: listKey,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 separatorBuilder: (context, index) => const SizedBox(
@@ -45,20 +54,18 @@ class ProblemListView extends HookWidget {
                   final problem = problems[index];
                   return GestureDetector(
                       onLongPress: () {
-                        selectedIndex.value = index;
-
-                        showSheet.value = true;
-                        // showProblemEditBottomSheet();
+                        problemListViewModel.onEvent(
+                            SelectProblem(index: index, problem: problem));
                       },
                       child: ProblemListRow(
                           key: tileKeys[index], problem: problem));
                 }),
-            if (selectedIndex.value != null)
+            if (problemListViewState.selectIndex != -1)
               // barrier layer
               Positioned.fill(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    final tileKey = tileKeys[selectedIndex.value]!;
+                    final tileKey = tileKeys[problemListViewState.selectIndex]!;
                     final listBox = listKey.currentContext?.findRenderObject()
                         as RenderBox?;
                     final tileBox = tileKey.currentContext?.findRenderObject()
@@ -82,11 +89,7 @@ class ProblemListView extends HookWidget {
                           ),
                           child: ModalBarrier(
                             onDismiss: () {
-                              showSheet.value = false;
-                              // Future.delayed(const Duration(milliseconds: 300))
-                              //     .then((_) {
-                              // });
-                              selectedIndex.value = null;
+                              problemListViewModel.onEvent(UnselectProblem());
                             },
                             color: const Color(0xffdbdbdb).withOpacity(0.2),
                           ),
@@ -103,7 +106,8 @@ class ProblemListView extends HookWidget {
                               children: [
                                 ProblemListRow(
                                   key: UniqueKey(), // 재사용 방지
-                                  problem: problems[selectedIndex.value!],
+                                  problem: problems[
+                                      problemListViewState.selectIndex],
                                 ),
                               ],
                             ),
@@ -115,7 +119,7 @@ class ProblemListView extends HookWidget {
                 ),
               ),
             AnimatedPositioned(
-                bottom: showSheet.value ? padding + 20 : -300,
+                bottom: problemListViewState.showSheet ? padding + 20 : -300,
                 width: size.width,
                 duration: const Duration(milliseconds: 300),
                 child: const ProblemEditSheet()),

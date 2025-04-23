@@ -5,18 +5,34 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 final problemRepositoryProvider = Provider((Ref ref) => ProblemRepository());
 
+/// [Problem]의 Repository 클래스
+///
+///
 class ProblemRepository {
   final client = Supabase.instance.client;
 
+  /// 사용자가 서버에 저장한 모든 기록을 불러옵니다.
   Future<List<Problem>> getAllProblems() async {
     final data = await client.from("solution").select();
     return data.map((json) => Problem.fromJson(json)).toList();
   }
 
+  /// 사용자가 서버에 새로운 기록을 저장합니다.
   Future<List<Problem>> createProblem(ProblemRequestDto problem) async {
     final data =
         await client.from("solution").insert(problem.toJson()).select();
 
     return data.map((json) => Problem.fromJson(json)).toList();
+  }
+
+  /// 사용자가 서버에 저장한 기록 중 해결되지 않은 기록만을 불러옵니다.
+  Future<List<Problem>> getAllUnresolvedProblems() async {
+    final data = await client.from("solution").select().eq("is_done", false);
+    return data.map((json) => Problem.fromJson(json)).toList();
+  }
+
+  /// 사용자가 저장한 기록 중 서버로부터 특정 기록을 삭제합니다.
+  Future<void> deleteProblem(int id) async {
+    await client.from("solution").delete().eq("id", id);
   }
 }
