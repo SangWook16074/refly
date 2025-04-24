@@ -7,13 +7,15 @@ import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.d
 import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 
 class ProblemEditSheet extends ConsumerWidget {
-  const ProblemEditSheet({super.key});
+  final String listId;
+  const ProblemEditSheet({super.key, required this.listId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final problemListViewState = ref.watch(problemListViewModelProvider);
+    final problemListViewState =
+        ref.watch(problemListViewModelProvider(listId: listId));
     final problemListViewModel =
-        ref.read(problemListViewModelProvider.notifier);
+        ref.read(problemListViewModelProvider(listId: listId).notifier);
     final problemViewModel = ref.read(problemViewModelProvider.notifier);
     final padding = MediaQuery.of(context).padding.bottom;
     final size = MediaQuery.of(context).size;

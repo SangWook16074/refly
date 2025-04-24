@@ -15,9 +15,7 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
             child: Text("에러가 발생했습니다!"),
           ),
         AsyncData(:final value) => ProblemListView(
-            problems: value,
-            showUploadFab: true,
-          ),
+            problems: value, showUploadFab: true, listId: "solved"),
         _ => const Center(
             child: CircularProgressIndicator.adaptive(),
           )

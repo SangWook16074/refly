@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab_view.dart';
 import 'package:solution_diary_app/src/ui/solution_history_by_daily_ui.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
@@ -14,13 +12,18 @@ import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_mo
 class ProblemListView extends ConsumerWidget {
   final List<Problem> problems;
   final bool showUploadFab;
-  const ProblemListView(
-      {super.key, this.showUploadFab = false, required this.problems});
+  final String listId;
+  const ProblemListView({
+    super.key,
+    this.showUploadFab = false,
+    required this.problems,
+    required this.listId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final problemListViewModel =
-        ref.read(problemListViewModelProvider.notifier);
+        ref.read(problemListViewModelProvider(listId: listId).notifier);
 
     final GlobalKey listKey = GlobalKey();
     final List<GlobalKey> tileKeys =
@@ -28,37 +31,42 @@ class ProblemListView extends ConsumerWidget {
 
     if (problems.isEmpty) {
       return const EmptyView();
-    } else {
-      return Scaffold(
-        floatingActionButton:
-            (showUploadFab) ? const ProblemUploadFABView() : null,
-        body: Stack(
-          children: [
-            ListView.separated(
-                physics: const ClampingScrollPhysics(),
-                key: listKey,
-                padding: const EdgeInsets.only(top: 20, bottom: 150),
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 12,
-                    ),
-                itemCount: problems.length,
-                itemBuilder: (context, index) {
-                  // 각 타일에 고유 키 넣기
-                  final tileKey = tileKeys[index];
-                  final problem = problems[index];
-                  return GestureDetector(
-                      onLongPress: () {
-                        problemListViewModel.onEvent(
-                            SelectProblem(index: index, problem: problem));
-                      },
-                      child: ProblemListRow(key: tileKey, problem: problem));
-                }),
-            ProblemListFocusView(
-                problems: problems, tileKeys: tileKeys, listKey: listKey),
-            const ProblemEditSheet(),
-          ],
-        ),
-      );
     }
+    return Scaffold(
+      floatingActionButton:
+          (showUploadFab) ? const ProblemUploadFABView() : null,
+      body: Stack(
+        children: [
+          ListView.separated(
+              physics: const ClampingScrollPhysics(),
+              key: listKey,
+              padding: const EdgeInsets.only(top: 20, bottom: 150),
+              separatorBuilder: (context, index) => const SizedBox(
+                    height: 12,
+                  ),
+              itemCount: problems.length,
+              itemBuilder: (context, index) {
+                // 각 타일에 고유 키 넣기
+                final tileKey = tileKeys[index];
+                final problem = problems[index];
+                return GestureDetector(
+                    onLongPress: () {
+                      problemListViewModel.onEvent(
+                          SelectProblem(index: index, problem: problem));
+                    },
+                    child: ProblemListRow(key: tileKey, problem: problem));
+              }),
+          ProblemListFocusView(
+            problems: problems,
+            tileKeys: tileKeys,
+            listKey: listKey,
+            listId: listId,
+          ),
+          ProblemEditSheet(
+            listId: listId,
+          ),
+        ],
+      ),
+    );
   }
 }

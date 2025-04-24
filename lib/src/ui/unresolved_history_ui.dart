@@ -15,6 +15,7 @@ class UnresolvedHistoryUI extends ConsumerWidget {
         ),
       AsyncData(:final value) => ProblemListView(
           problems: value.where((it) => !it.isDone).toList(),
+          listId: "unsolved",
         ),
       _ => const Center(
           child: CircularProgressIndicator.adaptive(),
