@@ -102,7 +102,8 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      if (isTitleValidate.value) {
+                      if (isTitleValidate.value &&
+                          titleController.text.isNotEmpty) {
                         viewModel.onEvent(CreateProblem(
                             problem: ProblemRequestDto(
                                 title: titleController.text,
@@ -118,7 +119,8 @@ class ProblemUploadSheet extends HookConsumerWidget {
                       padding: const EdgeInsets.symmetric(vertical: 11.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: isTitleValidate.value
+                          color: isTitleValidate.value &&
+                                  titleController.text.isNotEmpty
                               ? const Color(0xff000025).withOpacity(.9)
                               : const Color(0xffacacac)),
                       child: const Text(

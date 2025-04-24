@@ -15,7 +15,8 @@ class ProblemEditSheet extends ConsumerWidget {
     final problemListViewModel =
         ref.read(problemListViewModelProvider.notifier);
     final problemViewModel = ref.read(problemViewModelProvider.notifier);
-
+    final padding = MediaQuery.of(context).padding.bottom;
+    final size = MediaQuery.of(context).size;
     showDeleteConfirmDialog() {
       showDialog(
           context: context,
@@ -40,69 +41,74 @@ class ProblemEditSheet extends ConsumerWidget {
               ));
     }
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 4),
-                blurRadius: 4,
-                color: const Color(0xff000000).withOpacity(.04))
-          ],
-          color: const Color(0xffffffff),
-          borderRadius: BorderRadius.circular(12.0)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              problemListViewModel.onEvent(OpenProblemEditDialog());
-              showUpdateConfirmDialog();
-            },
-            child: const SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "수정하기",
-                    style: TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
+    return AnimatedPositioned(
+      bottom: problemListViewState.showSheet ? padding + 20 : -300,
+      width: size.width,
+      duration: const Duration(milliseconds: 300),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 4),
+                  blurRadius: 4,
+                  color: const Color(0xff000000).withOpacity(.04))
+            ],
+            color: const Color(0xffffffff),
+            borderRadius: BorderRadius.circular(12.0)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                problemListViewModel.onEvent(OpenProblemEditDialog());
+                showUpdateConfirmDialog();
+              },
+              child: const SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "수정하기",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          const Divider(),
-          GestureDetector(
-            onTap: () {
-              problemListViewModel.onEvent(OpenProblemEditDialog());
-              showDeleteConfirmDialog();
-            },
-            child: const SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "삭제하기",
-                    // selectionColor: Color(0xffff0000),
-                    style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xffff0000)),
+            const Divider(),
+            GestureDetector(
+              onTap: () {
+                problemListViewModel.onEvent(OpenProblemEditDialog());
+                showDeleteConfirmDialog();
+              },
+              child: const SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "삭제하기",
+                      // selectionColor: Color(0xffff0000),
+                      style: TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xffff0000)),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
