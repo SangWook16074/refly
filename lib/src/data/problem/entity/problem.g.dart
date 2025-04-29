@@ -8,7 +8,7 @@ part of 'problem.dart';
 
 _$ProblemImpl _$$ProblemImplFromJson(Map<String, dynamic> json) =>
     _$ProblemImpl(
-      id: (json['id'] as num?)?.toInt() ?? null,
+      id: (json['id'] as num?)?.toInt(),
       title: json['title'] as String,
       content: json['content'] as String?,
       isDone: json['is_done'] as bool,

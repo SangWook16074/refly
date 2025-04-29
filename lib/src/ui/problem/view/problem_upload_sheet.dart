@@ -8,6 +8,11 @@ import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart'
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_text_field.dart';
 
+/// 사용자가 새롭게 생성할 기록의 제목이 빈칸인지 나타내는 Enum 클래스
+///
+/// 사용자는 valid 상태인 경우에만 새로운 기록을 등록할 수 있습니다.
+enum TitleValidateState { init, invalid, valid }
+
 class ProblemUploadSheet extends HookConsumerWidget {
   const ProblemUploadSheet({super.key});
 
@@ -15,16 +20,20 @@ class ProblemUploadSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useTextEditingController();
     final contentController = useTextEditingController();
-    final isTitleValidate = useState<bool>(true);
+    final isTitleValidate =
+        useState<TitleValidateState>(TitleValidateState.init);
     final mediaQuery = MediaQuery.of(context);
     final bottomSafeArea = mediaQuery.padding.bottom;
     final bottomInset = mediaQuery.viewInsets.bottom;
     final viewModel = ref.read(problemViewModelProvider.notifier);
 
     bool validateTitle(String title) {
+      // 공백제거시 빈칸인 경우는 잘못된 경우
       if (title.trim().isEmpty) {
         return false;
       }
+
+      // 그 외에는 모두 올바른 경우
       return true;
     }
 
@@ -48,6 +57,9 @@ class ProblemUploadSheet extends HookConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                /// 시트 헤더 영역
+                ///
+                /// 제목과 닫기 버튼
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -71,19 +83,29 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 const SizedBox(
                   height: 30,
                 ),
+
+                /// 제목 입력 칸
                 CustomTextField(
                   controller: titleController,
                   hintText: "제목(필수)",
                   onChanged: (title) {
-                    isTitleValidate.value = validateTitle(title);
+                    isTitleValidate.value = validateTitle(title)
+                        ? TitleValidateState.valid
+                        : TitleValidateState.invalid;
                   },
                 ),
+
+                /// 제목이 올바른 형식인지 알려주는 validation 메시지 텍스트
+                ///
+                /// 제목이 빈칸이어서 올바르지 않은 경우에만 보임
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Row(
                     children: [
                       Text(
-                        isTitleValidate.value ? "" : "제목을 입력해주세요!",
+                        isTitleValidate.value != TitleValidateState.invalid
+                            ? ""
+                            : "제목을 입력해주세요!",
                         style: const TextStyle(
                             color: Color(0xffff0000),
                             fontSize: 13,
@@ -92,6 +114,8 @@ class ProblemUploadSheet extends HookConsumerWidget {
                     ],
                   ),
                 ),
+
+                /// 사용자의 기록 상세 내용 칸
                 CustomTextField(
                   controller: contentController,
                   hintText: "상세 내용(선택)",
@@ -100,10 +124,14 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 const SizedBox(
                   height: 70,
                 ),
+
+                /// 새로운 기록 저장 버튼
+                ///
+                ///
+                /// 제목이 비어있는 경우가 아니라면 새로운 기록 등록 가능
                 GestureDetector(
                     onTap: () {
-                      if (isTitleValidate.value &&
-                          titleController.text.isNotEmpty) {
+                      if (isTitleValidate.value == TitleValidateState.valid) {
                         viewModel.onEvent(CreateProblem(
                             problem: ProblemRequestDto(
                                 title: titleController.text,
@@ -113,16 +141,18 @@ class ProblemUploadSheet extends HookConsumerWidget {
                         Navigator.of(context).pop();
                       }
                     },
+
+                    /// 버튼은 빈칸인 경우에는 비활성화되어있음.
                     child: Container(
                       width: double.maxFinite,
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 11.0),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: isTitleValidate.value &&
-                                  titleController.text.isNotEmpty
-                              ? const Color(0xff000025).withOpacity(.9)
-                              : const Color(0xffacacac)),
+                          color:
+                              isTitleValidate.value == TitleValidateState.valid
+                                  ? const Color(0xff000025).withOpacity(.9)
+                                  : const Color(0xffacacac)),
                       child: const Text(
                         "등록하기",
                         style: TextStyle(

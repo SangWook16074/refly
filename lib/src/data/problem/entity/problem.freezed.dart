@@ -162,7 +162,7 @@ class __$$ProblemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProblemImpl implements _Problem {
   const _$ProblemImpl(
-      {@JsonKey(name: "id") this.id = null,
+      {@JsonKey(name: "id") this.id,
       @JsonKey(name: "title") required this.title,
       @JsonKey(name: "content") required this.content,
       @JsonKey(name: "is_done") required this.isDone,
