@@ -50,7 +50,14 @@ class ProblemListRow extends HookWidget {
           onExpansionChanged: (value) {
             toggle.value = !toggle.value;
           },
-          title: Text(problem.title),
+          title: Text(
+            problem.title,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xff000000),
+            ),
+          ),
           trailing:
 
               /// 문제 해결 여부
@@ -104,7 +111,17 @@ class ProblemListRow extends HookWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    Text(problem.content ?? "등록된 상세내용이 없습니다."),
+                    Text(
+                      problem.content.isEmpty
+                          ? "등록된 상세내용이 없습니다."
+                          : problem.content,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: problem.content.isEmpty
+                            ? const Color(0xffafafaf)
+                            : const Color(0xff000000),
+                      ),
+                    ),
                     const SizedBox(
                       height: 40,
                     ),
