@@ -9,8 +9,7 @@ class UnresolvedProblemViewModel extends _$UnresolvedProblemViewModel {
   @override
   Future<List<Problem>> build() async {
     try {
-      final result =
-          ref.read(problemRepositoryProvider).getAllUnresolvedProblems();
+      final result = ref.read(problemRepositoryProvider).getAllProblems();
       return result;
     } catch (e) {
       rethrow;

@@ -132,21 +132,21 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
               ),
             ),
           ),
-          SafeArea(
-            child: Opacity(
-              opacity: _userStateOpacity,
-              child: Transform.translate(
-                offset: Offset(
-                    0, -maxHeight * 0.35 + dateWidgetHeight * snapProgress),
-                child: ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: maxHeight * 0.3),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: UserStateView(height: maxHeight * 0.3),
-                    )),
-              ),
-            ),
-          ),
+          // SafeArea(
+          //   child: Opacity(
+          //     opacity: _userStateOpacity,
+          //     child: Transform.translate(
+          //       offset: Offset(
+          //           0, -maxHeight * 0.35 + dateWidgetHeight * snapProgress),
+          //       child: ConstrainedBox(
+          //           constraints: BoxConstraints(maxHeight: maxHeight * 0.3),
+          //           child: Padding(
+          //             padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          //             child: UserStateView(height: maxHeight * 0.3),
+          //           )),
+          //     ),
+          //   ),
+          // ),
           SafeArea(
               child: Opacity(
             opacity: _dateWidgetOpacity < 1 ? 1 : 0,

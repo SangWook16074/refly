@@ -21,7 +21,8 @@ class ProblemUploadFABView extends ConsumerWidget
     final selectIndex = ref.watch(problemListViewModelProvider(listId: "solved")
         .select((it) => it.selectIndex));
     final dateState = ref.watch(dateViewModelProvider.select((it) => it));
-    final asyncState = ref.watch(problemViewModelProvider);
+    final asyncState =
+        ref.watch(DailyProblemViewModelProvider(target: dateState));
     return asyncState.when(
         data: (state) =>
             (state.isNotEmpty && dateState.isEqualTo(DateTime.now()))

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:solution_diary_app/src/data/problem/repository/problem_repository.dart';
@@ -6,13 +8,15 @@ import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart'
 part 'problem_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
-class ProblemViewModel extends _$ProblemViewModel {
+class DailyProblemViewModel extends _$DailyProblemViewModel {
   @override
-  Future<List<Problem>> build() async {
+  Future<List<Problem>> build({required DateTime target}) async {
     try {
-      final result = ref.read(problemRepositoryProvider).getAllProblems();
+      final result =
+          ref.read(problemRepositoryProvider).fetchInitalProblems(target);
       return result;
     } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }
@@ -34,6 +38,7 @@ class ProblemViewModel extends _$ProblemViewModel {
         await ref.read(problemRepositoryProvider).deleteProblem(id);
 
         state = AsyncData(prevData.where((it) => it.id != id).toList());
+
       case UpdateProblem():
       // TODO: Handle this case.
     }

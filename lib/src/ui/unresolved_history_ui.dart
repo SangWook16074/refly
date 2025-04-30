@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_list_view.dart';
+import 'package:solution_diary_app/src/ui/problem/view/focusable_list_view.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/unresolved_problem_view_model.dart';
 
 class UnresolvedHistoryUI extends ConsumerWidget {
@@ -13,7 +13,7 @@ class UnresolvedHistoryUI extends ConsumerWidget {
       AsyncError() => const Center(
           child: Text("에러가 발생했습니다!"),
         ),
-      AsyncData(:final value) => ProblemListView(
+      AsyncData(:final value) => FocusableListView(
           problems: value.where((it) => !it.isDone).toList(),
           listId: "unsolved",
         ),

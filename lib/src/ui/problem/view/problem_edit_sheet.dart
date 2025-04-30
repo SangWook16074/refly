@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_event.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_model.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
@@ -12,11 +13,13 @@ class ProblemEditSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final now = ref.watch(dateViewModelProvider);
     final problemListViewState =
         ref.watch(problemListViewModelProvider(listId: listId));
     final problemListViewModel =
         ref.read(problemListViewModelProvider(listId: listId).notifier);
-    final problemViewModel = ref.read(problemViewModelProvider.notifier);
+    final problemViewModel =
+        ref.read(DailyProblemViewModelProvider(target: now).notifier);
     final padding = MediaQuery.of(context).padding.bottom;
     final size = MediaQuery.of(context).size;
     showDeleteConfirmDialog() {

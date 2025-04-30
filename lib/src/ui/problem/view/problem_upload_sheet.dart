@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
 import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_text_field.dart';
 
@@ -25,7 +26,9 @@ class ProblemUploadSheet extends HookConsumerWidget {
     final mediaQuery = MediaQuery.of(context);
     final bottomSafeArea = mediaQuery.padding.bottom;
     final bottomInset = mediaQuery.viewInsets.bottom;
-    final viewModel = ref.read(problemViewModelProvider.notifier);
+    final dateState = ref.watch(dateViewModelProvider);
+    final viewModel =
+        ref.read(DailyProblemViewModelProvider(target: dateState).notifier);
 
     bool validateTitle(String title) {
       // 공백제거시 빈칸인 경우는 잘못된 경우

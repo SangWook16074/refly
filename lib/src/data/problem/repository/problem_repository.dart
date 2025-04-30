@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
@@ -15,6 +17,23 @@ class ProblemRepository {
   Future<List<Problem>> getAllProblems() async {
     final data = await client.from("solution").select();
     return data.map((json) => Problem.fromJson(json)).toList();
+  }
+
+  /// 사용자의 오늘 기록 fetch함수
+  Future<List<Problem>> fetchInitalProblems(DateTime date) async {
+    try {
+      final target = date;
+      final next = target.add(const Duration(days: 1));
+      final data = await client
+          .from("solution")
+          .select()
+          .gte("created_at", target.toIso8601String())
+          .lt("created_at", next.toIso8601String());
+      return data.map((json) => Problem.fromJson(json)).toList();
+    } on Exception catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 
   /// 사용자가 서버에 새로운 기록을 저장합니다.

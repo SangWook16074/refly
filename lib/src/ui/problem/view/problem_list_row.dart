@@ -6,11 +6,16 @@ import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 /// 사용자가 등록한 문제를 보여주는 ROW
 class ProblemListRow extends HookWidget {
   final Problem problem;
-  const ProblemListRow({super.key, required this.problem});
+  final bool initialExpanded;
+  const ProblemListRow({
+    super.key,
+    required this.problem,
+    this.initialExpanded = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final toggle = useState(false);
+    final toggle = useState(initialExpanded);
 
     void showCompleteDialog() {
       showDialog(
