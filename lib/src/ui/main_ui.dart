@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/problem/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/problem/view/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/ui/solution_history_by_daily_ui.dart';
 import 'package:solution_diary_app/src/ui/problem/view/user_state_view.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
-import 'package:solution_diary_app/src/ui/unresolved_history_ui.dart';
-
-extension on DateTime {
-  String toTabText() {
-    final now = DateTime.now();
-    return (year == now.year && month == now.month && day == now.day)
-        ? "오늘"
-        : "$month/$day";
-  }
-}
+import 'package:solution_diary_app/src/ui/widgets/drag_handle.dart';
 
 class MainUI extends StatefulWidget {
   const MainUI({super.key});
@@ -187,64 +176,34 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                 snapSizes: const [.7],
                 builder: (context, scrollController) {
                   return LayoutBuilder(builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      controller: scrollController,
-                      physics: const ClampingScrollPhysics(),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: constraints.maxHeight,
-                          minHeight: constraints.minHeight,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(16.0)),
-                              color: theme.scaffoldBackgroundColor),
-                          child: DefaultTabController(
-                              length: 2,
+                    return Column(
+                      children: [
+                        SingleChildScrollView(
+                          controller: scrollController,
+                          physics: const ClampingScrollPhysics(),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: constraints.maxHeight,
+                              minHeight: constraints.minHeight,
+                            ),
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 20.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(16.0)),
+                                  color: theme.scaffoldBackgroundColor),
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: TabBar(
-                                        unselectedLabelStyle: TextStyle(
-                                          color: const Color(0xff000000)
-                                              .withOpacity(0.6),
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                        ),
-                                        labelStyle: TextStyle(
-                                            color: theme.colorScheme.primary,
-                                            fontFamily: "Roboto",
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15),
-                                        tabs: [
-                                          Consumer(
-                                            builder: (context, ref, child) =>
-                                                Tab(
-                                              text:
-                                                  "${ref.watch(dateViewModelProvider).toTabText()} 기록",
-                                            ),
-                                          ),
-                                          const Tab(
-                                            text: "미해결 문제",
-                                          ),
-                                        ]),
-                                  ),
+                                  DragHandle(),
                                   const Expanded(
-                                    child: TabBarView(
-                                        physics: ClampingScrollPhysics(),
-                                        children: [
-                                          SolutionHistoryByDailyUI(),
-                                          UnresolvedHistoryUI(),
-                                        ]),
-                                  )
+                                      child: SolutionHistoryByDailyUI()),
                                 ],
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   });
                 }),
