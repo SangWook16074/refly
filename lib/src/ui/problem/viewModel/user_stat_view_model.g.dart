@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'unresolved_problem_view_model.dart';
+part of 'user_stat_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$unresolvedProblemViewModelHash() =>
-    r'eebf381ef9f9afb94ca38059743aadfb0ce8564e';
+String _$userStatViewModelHash() => r'f3f2aa5bc6d58e72afe94256ea158d51a19e847f';
 
-/// See also [UnresolvedProblemViewModel].
-@ProviderFor(UnresolvedProblemViewModel)
-final unresolvedProblemViewModelProvider =
-    AsyncNotifierProvider<UnresolvedProblemViewModel, List<Problem>>.internal(
-  UnresolvedProblemViewModel.new,
-  name: r'unresolvedProblemViewModelProvider',
+/// See also [UserStatViewModel].
+@ProviderFor(UserStatViewModel)
+final userStatViewModelProvider =
+    AsyncNotifierProvider<UserStatViewModel, UserStat>.internal(
+  UserStatViewModel.new,
+  name: r'userStatViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$unresolvedProblemViewModelHash,
+      : _$userStatViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UnresolvedProblemViewModel = AsyncNotifier<List<Problem>>;
+typedef _$UserStatViewModel = AsyncNotifier<UserStat>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

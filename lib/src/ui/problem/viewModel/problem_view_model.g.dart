@@ -7,7 +7,7 @@ part of 'problem_view_model.dart';
 // **************************************************************************
 
 String _$dailyProblemViewModelHash() =>
-    r'e5ef95870a782f4f3df1362b87134cb31b26601f';
+    r'18c54bf75eaf1785204e636da14f5712941c04ac';
 
 /// Copied from Dart SDK
 class _SystemHash {

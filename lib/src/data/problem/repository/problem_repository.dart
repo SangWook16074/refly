@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
+import 'package:solution_diary_app/src/ui/problem/model/user_stat.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -53,5 +54,16 @@ class ProblemRepository {
   /// 사용자가 저장한 기록 중 서버로부터 특정 기록을 삭제합니다.
   Future<void> deleteProblem(int id) async {
     await client.from("solution").delete().eq("id", id);
+  }
+
+  /// 사용자의 현재까지 해결 기록 스탯을 반환하는 RPC 쿼리
+  Future<UserStat> getUserStat() async {
+    try {
+      final data = await client.rpc("user_stat_count");
+      return UserStat.fromJson(data);
+    } on Exception catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 }
