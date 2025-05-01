@@ -18,7 +18,7 @@ class ProblemListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final problemListViewModel =
-        ref.read(problemListViewModelProvider(listId: listId).notifier);
+        ref.read(problemListViewModelProvider.notifier);
     return ListView.separated(
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.only(top: 20, bottom: 150),

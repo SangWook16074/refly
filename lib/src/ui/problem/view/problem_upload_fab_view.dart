@@ -18,8 +18,8 @@ class ProblemUploadFABView extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectIndex = ref.watch(problemListViewModelProvider(listId: "solved")
-        .select((it) => it.selectIndex));
+    final selectIndex =
+        ref.watch(problemListViewModelProvider.select((it) => it.selectIndex));
     final dateState = ref.watch(dateViewModelProvider.select((it) => it));
     final asyncState =
         ref.watch(DailyProblemViewModelProvider(target: dateState));

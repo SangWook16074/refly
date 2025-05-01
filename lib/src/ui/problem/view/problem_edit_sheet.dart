@@ -14,10 +14,9 @@ class ProblemEditSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final now = ref.watch(dateViewModelProvider);
-    final problemListViewState =
-        ref.watch(problemListViewModelProvider(listId: listId));
+    final problemListViewState = ref.watch(problemListViewModelProvider);
     final problemListViewModel =
-        ref.read(problemListViewModelProvider(listId: listId).notifier);
+        ref.read(problemListViewModelProvider.notifier);
     final problemViewModel =
         ref.read(DailyProblemViewModelProvider(target: now).notifier);
     final padding = MediaQuery.of(context).padding.bottom;

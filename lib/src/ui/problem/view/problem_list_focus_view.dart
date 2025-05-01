@@ -22,10 +22,10 @@ class ProblemListFocusView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectIndex = ref.watch(problemListViewModelProvider(listId: listId)
-        .select((it) => it.selectIndex));
+    final selectIndex =
+        ref.watch(problemListViewModelProvider.select((it) => it.selectIndex));
     final problemListViewModel =
-        ref.read(problemListViewModelProvider(listId: listId).notifier);
+        ref.read(problemListViewModelProvider.notifier);
 
     if (selectIndex == -1) {
       return Container();

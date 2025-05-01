@@ -9,7 +9,7 @@ part 'problem_list_view_model.g.dart';
 @riverpod
 class ProblemListViewModel extends _$ProblemListViewModel {
   @override
-  ProblemListViewState build({required String listId}) {
+  ProblemListViewState build() {
     return const ProblemListViewState();
   }
 
