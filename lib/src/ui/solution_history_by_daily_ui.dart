@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/view/focusable_list_view.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/view/focusable_list_view.dart';
+import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
 
 class SolutionHistoryByDailyUI extends ConsumerWidget {
   const SolutionHistoryByDailyUI({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
-import 'package:solution_diary_app/src/ui/problem/view/empty_view.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_edit_sheet.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_list_focus_view.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_list_view.dart';
-import 'package:solution_diary_app/src/ui/problem/view/problem_upload_fab_view.dart';
+import 'package:solution_diary_app/src/ui/view/empty_view.dart';
+import 'package:solution_diary_app/src/ui/view/problem_edit_sheet.dart';
+import 'package:solution_diary_app/src/ui/view/problem_list_focus_view.dart';
+import 'package:solution_diary_app/src/ui/view/problem_list_view.dart';
+import 'package:solution_diary_app/src/ui/view/problem_upload_fab_view.dart';
 
 class FocusableListView extends ConsumerWidget {
   final List<Problem> problems;

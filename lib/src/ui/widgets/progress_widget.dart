@@ -36,7 +36,12 @@ class ProgressWidgetPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final ratio = ((current / total) * 100).toInt();
+    late final int ratio;
+    if (total == current && total == 0) {
+      ratio = 0;
+    } else {
+      ratio = ((current / total) * 100).toInt();
+    }
     final step = (size.width - 8) / 100;
     // final progressCenter = Offset(size.width / 2, size.height / 5 * 4);
     late Offset currPos;

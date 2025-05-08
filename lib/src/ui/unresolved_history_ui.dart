@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/view/focusable_list_view.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/unresolved_problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/view/focusable_list_view.dart';
+import 'package:solution_diary_app/src/ui/viewModel/unresolved_problem_view_model.dart';
 
 class UnresolvedHistoryUI extends ConsumerWidget {
   const UnresolvedHistoryUI({super.key});

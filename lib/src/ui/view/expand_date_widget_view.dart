@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/expand_date_widget.dart';
 
 class ExpandDateWidgetView extends ConsumerWidget {

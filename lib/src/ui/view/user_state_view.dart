@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/user_stat_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/user_stat_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/progress_widget.dart';
 import 'package:solution_diary_app/src/ui/widgets/state_detail_widget.dart';
 

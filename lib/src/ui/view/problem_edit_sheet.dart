@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_event.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/model/problem_list_view_event.dart';
+import 'package:solution_diary_app/src/ui/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_list_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 
 class ProblemEditSheet extends ConsumerWidget {

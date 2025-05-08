@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_event.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_list_view_state.dart';
+import 'package:solution_diary_app/src/ui/model/problem_list_view_event.dart';
+import 'package:solution_diary_app/src/ui/model/problem_list_view_state.dart';
 
 part 'problem_list_view_model.g.dart';
 

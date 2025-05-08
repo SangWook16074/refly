@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_text_field.dart';
 
 /// 사용자가 새롭게 생성할 기록의 제목이 빈칸인지 나타내는 Enum 클래스

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/date_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_list_view_model.dart';
-import 'package:solution_diary_app/src/ui/problem/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_list_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
 import 'dart:math';
 
 extension on DateTime {

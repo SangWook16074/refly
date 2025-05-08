@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/data/problem/dtos/problem_request_dto.dart';
-import 'package:solution_diary_app/src/ui/problem/model/user_stat.dart';
+import 'package:solution_diary_app/src/ui/model/user_stat.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,6 +16,8 @@ class ProblemRepository {
 
   /// 사용자가 서버에 저장한 모든 기록을 불러옵니다.
   Future<List<Problem>> getAllProblems() async {
+    final user = await client.auth.getUser();
+    
     final data = await client.from("solution").select();
     return data.map((json) => Problem.fromJson(json)).toList();
   }

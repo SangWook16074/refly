@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:solution_diary_app/src/data/problem/repository/problem_repository.dart';
-import 'package:solution_diary_app/src/ui/problem/model/problem_view_event.dart';
+import 'package:solution_diary_app/src/ui/model/problem_view_event.dart';
 
 part 'problem_view_model.g.dart';
 
