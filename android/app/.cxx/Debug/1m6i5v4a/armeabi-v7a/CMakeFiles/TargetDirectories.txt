@@ -1,0 +1,2 @@
+/Users/hansw/Desktop/WorkingSpace/solution_diary_app/android/app/.cxx/Debug/1m6i5v4a/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/hansw/Desktop/WorkingSpace/solution_diary_app/android/app/.cxx/Debug/1m6i5v4a/armeabi-v7a/CMakeFiles/rebuild_cache.dir

@@ -17,10 +17,15 @@ class LoginUiViewModel extends _$LoginUiViewModel {
       case GoogleLoginButtonTap():
         await googleLogin();
       case AppleLoginButtonTap():
+        await appleLogin();
     }
   }
 
   Future<void> googleLogin() async {
     await ref.read(authServiceProvider).nativeGoogleSignIn();
+  }
+
+  Future<void> appleLogin() async {
+    await ref.read(authServiceProvider).signInWithApple();
   }
 }

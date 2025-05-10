@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:crypto/crypto.dart';
 
 class AuthService {
   final supabase = Supabase.instance.client;
@@ -11,12 +14,12 @@ class AuthService {
       /// TODO: update the Web client ID with your own.
       ///
       /// Web Client ID that you registered with Google Cloud.
-      final webClientId = dotenv.env["SUPABASE_URL"];
+      final webClientId = dotenv.env["GOOGLE_AUTH_WEB_CLIENT"];
 
       /// TODO: update the iOS client ID with your own.
       ///
       /// iOS Client ID that you registered with Google Cloud.
-      final iosClientId = dotenv.env["SUPABASE_URL"];
+      final iosClientId = dotenv.env["GOOGLE_AUTH_IOS_CLIENT"];
 
       final GoogleSignIn googleSignIn = GoogleSignIn(
         clientId: iosClientId,
@@ -45,6 +48,32 @@ class AuthService {
       log(e.toString());
       rethrow;
     }
+  }
+
+  /// Performs Apple sign in on iOS or macOS
+  Future<AuthResponse> signInWithApple() async {
+    final rawNonce = supabase.auth.generateRawNonce();
+    final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: hashedNonce,
+    );
+
+    final idToken = credential.identityToken;
+    if (idToken == null) {
+      throw const AuthException(
+          'Could not find ID Token from generated credential.');
+    }
+
+    return supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.apple,
+      idToken: idToken,
+      nonce: rawNonce,
+    );
   }
 
   Future<void> signOut() async {
