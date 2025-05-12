@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/view/date_view.dart';
@@ -150,7 +152,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
           )),
           SafeArea(
             child: IgnorePointer(
-              ignoring: _dateWidgetOpacity < 1,
+              ignoring: _dateWidgetOpacity < 0.98,
               child: Opacity(
                 opacity: _dateWidgetOpacity,
                 child: Padding(

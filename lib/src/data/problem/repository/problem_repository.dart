@@ -17,19 +17,24 @@ class ProblemRepository {
   /// 사용자가 서버에 저장한 모든 기록을 불러옵니다.
   Future<List<Problem>> getAllProblems() async {
     final user = await client.auth.getUser();
-    
-    final data = await client.from("solution").select();
+
+    final data =
+        await client.from("solution").select().eq("user_id", user.user!.id);
+    print(data);
     return data.map((json) => Problem.fromJson(json)).toList();
   }
 
   /// 사용자의 오늘 기록 fetch함수
   Future<List<Problem>> fetchInitalProblems(DateTime date) async {
     try {
+      final user = await client.auth.getUser();
+
       final target = date;
       final next = target.add(const Duration(days: 1));
       final data = await client
           .from("solution")
           .select()
+          .eq("user_id", user.user!.id)
           .gte("created_at", target.toIso8601String())
           .lt("created_at", next.toIso8601String());
       return data.map((json) => Problem.fromJson(json)).toList();
@@ -41,6 +46,9 @@ class ProblemRepository {
 
   /// 사용자가 서버에 새로운 기록을 저장합니다.
   Future<List<Problem>> createProblem(ProblemRequestDto problem) async {
+    final user = await client.auth.getUser();
+    final json = problem.toJson();
+    json["user_id"] = user.user!.id;
     final data =
         await client.from("solution").insert(problem.toJson()).select();
 

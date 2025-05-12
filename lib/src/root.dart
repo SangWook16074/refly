@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/providers/auth_service_provider.dart';
 import 'package:solution_diary_app/src/ui/login_ui.dart';
@@ -16,15 +15,16 @@ class Root extends ConsumerWidget {
         data: (auth) {
           final session = auth.session;
           if (session != null) {
-            return Scaffold(
-              body: Center(
-                child: ElevatedButton(
-                    onPressed: () {
-                      ref.read(authServiceProvider).signOut();
-                    },
-                    child: const Text("로그아웃")),
-              ),
-            );
+            return const MainUI();
+            // return Scaffold(
+            //   body: Center(
+            //     child: ElevatedButton(
+            //         onPressed: () {
+            //           ref.read(authServiceProvider).signOut();
+            //         },
+            //         child: const Text("로그아웃")),
+            //   ),
+            // );
           } else {
             return const LoginUI();
           }
