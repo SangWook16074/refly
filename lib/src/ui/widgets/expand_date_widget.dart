@@ -27,6 +27,7 @@ class ExpandDateWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day);
     const totalDays = 10000;
     final size = MediaQuery.of(context).size;
 
@@ -75,8 +76,7 @@ class ExpandDateWidget extends HookWidget {
               );
 
               // 날짜 갱신
-              final selectedDate =
-                  DateTime.now().subtract(Duration(days: index));
+              final selectedDate = start.subtract(Duration(days: index));
               onScroll(selectedDate);
               dateHistory.value = selectedDate;
               userDragging.value = false;
@@ -123,7 +123,7 @@ class ExpandDateWidget extends HookWidget {
                   shrinkWrap: true,
                   itemCount: totalDays,
                   itemBuilder: (context, index) {
-                    final date = now.subtract(Duration(days: index));
+                    final date = start.subtract(Duration(days: index));
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(

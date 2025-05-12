@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/view/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/ui/solution_history_by_daily_ui.dart';
-import 'package:solution_diary_app/src/ui/view/user_state_view.dart';
 import 'package:solution_diary_app/src/ui/widgets/drag_handle.dart';
 
 class MainUI extends StatefulWidget {
@@ -18,12 +15,11 @@ class MainUI extends StatefulWidget {
 class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   var _currentExtent = 1.0;
   var _dateWidgetOpacity = 0.0;
-  var _userStateOpacity = 0.0;
   var snapProgress = 0.0;
   final maxSheetSize = 0.85;
   var expandDateViewTransProgress = 0.0;
 
-  final minSheetSize = 0.4;
+  final minSheetSize = 0.7;
 
   final DraggableScrollableController _controller =
       DraggableScrollableController();
@@ -40,16 +36,6 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
 
     _dateWidgetOpacity = result;
-  }
-
-  _calculateUserStateOpacity(double extent) {
-    const start = 0.7;
-    const end = 0.4;
-
-    // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
-    final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
-
-    _userStateOpacity = result;
   }
 
   _calculateYPosition(double extent) {
@@ -71,9 +57,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     _controller.addListener(() {
       setState(() {
         _currentExtent = _controller.size;
-        // print(_currentExtent);
         _calculateDateWidgetOpacity(_currentExtent);
-        _calculateUserStateOpacity(_currentExtent);
         _calculateYPosition(_currentExtent);
       });
     });
@@ -85,7 +69,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     final size = mediaQuery.size;
     final maxHeight = size.height - MediaQuery.of(context).padding.top;
     final theme = Theme.of(context);
-    final dateWidgetHeight = size.height * (maxSheetSize - 0.4);
+    final dateWidgetHeight = size.height * (maxSheetSize - 0.7);
 
     return Scaffold(
       body: Stack(
@@ -120,21 +104,6 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                         fontSize: 30),
                   ),
                 ],
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Opacity(
-              opacity: _userStateOpacity,
-              child: Transform.translate(
-                offset: Offset(
-                    0, -maxHeight * 0.35 + dateWidgetHeight * snapProgress),
-                child: ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: maxHeight * 0.3),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: UserStateView(height: maxHeight * 0.3),
-                    )),
               ),
             ),
           ),
@@ -175,7 +144,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                 expand: true,
                 snap: true,
                 controller: _controller,
-                snapSizes: const [.7],
+                // snapSizes: const [.7],
                 builder: (context, scrollController) {
                   return LayoutBuilder(builder: (context, constraints) {
                     return Column(

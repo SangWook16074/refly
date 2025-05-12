@@ -16,27 +16,34 @@ class ProblemRepository {
 
   /// 사용자가 서버에 저장한 모든 기록을 불러옵니다.
   Future<List<Problem>> getAllProblems() async {
-    final user = await client.auth.getUser();
+    final user = client.auth.currentUser;
 
-    final data =
-        await client.from("solution").select().eq("user_id", user.user!.id);
-    print(data);
-    return data.map((json) => Problem.fromJson(json)).toList();
+    if (user != null) {
+      final data =
+          await client.from("solution").select().eq("user_id", user.id);
+      print(data);
+      return data.map((json) => Problem.fromJson(json)).toList();
+    } else {
+      return [];
+    }
   }
 
   /// 사용자의 오늘 기록 fetch함수
   Future<List<Problem>> fetchInitalProblems(DateTime date) async {
     try {
-      final user = await client.auth.getUser();
-
+      final user = client.auth.currentUser;
+      print(user?.id);
       final target = date;
       final next = target.add(const Duration(days: 1));
+      print(target);
+      print(next);
       final data = await client
           .from("solution")
           .select()
-          .eq("user_id", user.user!.id)
+          .eq("user_id", user!.id)
           .gte("created_at", target.toIso8601String())
           .lt("created_at", next.toIso8601String());
+      print(data);
       return data.map((json) => Problem.fromJson(json)).toList();
     } on Exception catch (e) {
       log(e.toString());
@@ -46,12 +53,13 @@ class ProblemRepository {
 
   /// 사용자가 서버에 새로운 기록을 저장합니다.
   Future<List<Problem>> createProblem(ProblemRequestDto problem) async {
-    final user = await client.auth.getUser();
-    final json = problem.toJson();
-    json["user_id"] = user.user!.id;
-    final data =
-        await client.from("solution").insert(problem.toJson()).select();
+    final user = client.auth.currentUser;
+    final json = {};
+    json.addAll(problem.toJson());
+    json.addAll({"user_id": client.auth.currentUser?.id});
 
+    final data = await client.from("solution").insert(json).select();
+    print(data);
     return data.map((json) => Problem.fromJson(json)).toList();
   }
 
