@@ -17,29 +17,31 @@ class MainUI extends StatefulWidget {
 
 class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   var _currentExtent = 1.0;
-  var _dateWidgetOpacity = 0.0;
+  var _dateWidgetOpacity = 1.0;
   var _userStateOpacity = 0.0;
-  var snapProgress = 0.0;
+  var snapProgress = 0.3;
   var expandDateViewTransProgress = 0.0;
   final maxSheetSize = 1.0;
-  final snapSheetSize = 0.7;
+  final snapSheetSize = 0.85;
   final minSheetSize = 0.5;
 
   final DraggableScrollableController _controller =
       DraggableScrollableController();
 
   _calculateDateWidgetOpacity(double extent) {
-    final height = MediaQuery.of(context).size.height;
-    final initSheet = height * maxSheetSize;
-    final realStart = ((initSheet - 32) / height).clamp(0.0, 1.0);
+    setState(() {
+      if (extent * 100 < 15) {
+        return;
+      }
+      final opacity = (1 - extent) * 20 / 3;
+      if (opacity > 1.0) {
+        _dateWidgetOpacity = 1.0;
+      } else {
+        _dateWidgetOpacity = opacity;
+      }
+    });
 
-    final start = realStart;
-    final end = snapSheetSize;
-
-    // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
-    final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
-
-    _dateWidgetOpacity = result;
+    log(_dateWidgetOpacity.toString());
   }
 
   _calculateUserStateOpacity(double extent) {
@@ -53,7 +55,9 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   }
 
   _calculateYPosition(double extent) {
-    snapProgress = 2 - 2 * extent;
+    setState(() {
+      snapProgress = (1 - extent) * 2;
+    });
   }
 
   @override
@@ -180,7 +184,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                 ),
                 Expanded(
                   child: DraggableScrollableSheet(
-                      initialChildSize: maxSheetSize,
+                      initialChildSize: snapSheetSize,
                       maxChildSize: maxSheetSize,
                       minChildSize: minSheetSize,
                       expand: true,
