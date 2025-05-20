@@ -8,8 +8,12 @@ enum SelectType { select, unselect }
 class DateWidget extends StatelessWidget {
   final DateTime date;
   final SelectType type;
-  const DateWidget(
-      {super.key, required this.date, this.type = SelectType.select});
+
+  const DateWidget({
+    super.key,
+    required this.date,
+    this.type = SelectType.select,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +21,11 @@ class DateWidget extends StatelessWidget {
   }
 
   Widget _unSelect() => Builder(builder: (context) {
-        final size = MediaQuery.of(context).size;
-        final width = (size.width - 16 * 6) / 6;
+        final width = MediaQuery.of(context).size.width;
+        final length = (width - 16 * 6) / 6;
         return Container(
-          width: width,
-          height: width,
+          width: length,
+          height: length,
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: const Color(0xffffffff)),
             borderRadius: BorderRadius.circular(4),
