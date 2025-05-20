@@ -20,7 +20,7 @@ class ProblemRepository {
 
     final data =
         await client.from("solution").select().eq("user_id", user.user!.id);
-    print(data);
+
     return data.map((json) => Problem.fromJson(json)).toList();
   }
 

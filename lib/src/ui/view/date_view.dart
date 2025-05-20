@@ -8,7 +8,9 @@ class DateView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currDate = ref.watch(dateViewModelProvider);
-    return DateWidget(date: currDate);
+    final currDate = ref.watch(dateViewModelProvider.select((it) => it));
+    return DateWidget(
+      date: currDate,
+    );
   }
 }

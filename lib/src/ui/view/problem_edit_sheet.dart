@@ -4,7 +4,7 @@ import 'package:solution_diary_app/src/ui/model/problem_list_view_event.dart';
 import 'package:solution_diary_app/src/ui/model/problem_view_event.dart';
 import 'package:solution_diary_app/src/ui/viewModel/date_view_model.dart';
 import 'package:solution_diary_app/src/ui/viewModel/problem_list_view_model.dart';
-import 'package:solution_diary_app/src/ui/viewModel/problem_view_model.dart';
+import 'package:solution_diary_app/src/ui/viewModel/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/ui/widgets/custom_dialog.dart';
 
 class ProblemEditSheet extends ConsumerWidget {

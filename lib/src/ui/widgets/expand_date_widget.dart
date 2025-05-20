@@ -113,7 +113,8 @@ class ExpandDateWidget extends HookWidget {
                 ),
               ),
             ),
-            Expanded(
+            SizedBox(
+              height: (size.width - 16 * 6) / 6,
               child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   controller: controller,

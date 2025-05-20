@@ -5,7 +5,7 @@ import 'package:solution_diary_app/src/data/problem/entity/problem.dart';
 import 'package:solution_diary_app/src/data/problem/repository/problem_repository.dart';
 import 'package:solution_diary_app/src/ui/model/problem_view_event.dart';
 
-part 'problem_view_model.g.dart';
+part 'daily_problem_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class DailyProblemViewModel extends _$DailyProblemViewModel {

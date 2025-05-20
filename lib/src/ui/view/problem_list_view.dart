@@ -5,11 +5,12 @@ import 'package:solution_diary_app/src/ui/model/problem_list_view_event.dart';
 import 'package:solution_diary_app/src/ui/view/problem_list_row.dart';
 import 'package:solution_diary_app/src/ui/viewModel/problem_list_view_model.dart';
 
-class ProblemListView extends ConsumerWidget {
+class DailyProblemListView extends ConsumerWidget {
   final List<Problem> problems;
   final List<GlobalKey> tileKeys;
   final String listId;
-  const ProblemListView(
+
+  const DailyProblemListView(
       {super.key,
       required this.problems,
       required this.tileKeys,

@@ -32,7 +32,7 @@ class FocusableListView extends ConsumerWidget {
           (showUploadFab) ? const ProblemUploadFABView() : null,
       body: Stack(
         children: [
-          ProblemListView(
+          DailyProblemListView(
             key: listKey,
             problems: problems,
             tileKeys: tileKeys,
