@@ -18,7 +18,6 @@ class ProblemRepository {
   Future<List<Problem>> getAllProblems() async {
     final user = client.auth.currentUser;
 
-<<<<<<< HEAD
     if (user != null) {
       final data =
           await client.from("solution").select().eq("user_id", user.id);
@@ -27,12 +26,6 @@ class ProblemRepository {
     } else {
       return [];
     }
-=======
-    final data =
-        await client.from("solution").select().eq("user_id", user.user!.id);
-
-    return data.map((json) => Problem.fromJson(json)).toList();
->>>>>>> 7152507
   }
 
   /// 사용자의 오늘 기록 fetch함수
@@ -66,7 +59,6 @@ class ProblemRepository {
     json.addAll({"user_id": client.auth.currentUser?.id});
 
     final data = await client.from("solution").insert(json).select();
-    print(data);
     return data.map((json) => Problem.fromJson(json)).toList();
   }
 

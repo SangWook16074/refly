@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/providers/auth_service_provider.dart';
-import 'package:solution_diary_app/src/ui/login_ui.dart';
-import 'package:solution_diary_app/src/ui/main_ui.dart';
+import 'package:solution_diary_app/src/ui/view/login_ui.dart';
+import 'package:solution_diary_app/src/ui/view/main_ui.dart';
 import 'package:solution_diary_app/src/ui/viewModel/auth_view_model.dart';
 
 class Root extends ConsumerWidget {

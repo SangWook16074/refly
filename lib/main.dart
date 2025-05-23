@@ -3,8 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/theme/app_theme.dart';
 import 'package:solution_diary_app/src/root.dart';
-import 'package:solution_diary_app/src/router/route.dart';
-import 'package:solution_diary_app/src/ui/main_ui.dart';
+import 'package:solution_diary_app/src/core/route.dart';
+import 'package:solution_diary_app/src/ui/view/main_ui.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

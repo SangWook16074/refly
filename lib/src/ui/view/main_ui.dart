@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/ui/view/date_view.dart';
 import 'package:solution_diary_app/src/ui/view/expand_date_widget_view.dart';
-import 'package:solution_diary_app/src/ui/solution_history_by_daily_ui.dart';
-import 'package:solution_diary_app/src/ui/user_state_ui.dart';
+import 'package:solution_diary_app/src/ui/view/solution_history_by_daily_ui.dart';
+import 'package:solution_diary_app/src/ui/view/user_state_ui.dart';
 import 'package:solution_diary_app/src/ui/widgets/drag_handle.dart';
 
 class MainUI extends StatefulWidget {
@@ -28,15 +30,13 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
 
   _calculateDateWidgetOpacity(double extent) {
     setState(() {
-      if (extent * 100 < 15) {
-        return;
-      }
       final opacity = (1 - extent) * 20 / 3;
       if (opacity > 1.0) {
         _dateWidgetOpacity = 1.0;
       } else {
         _dateWidgetOpacity = opacity;
       }
+      log(_dateWidgetOpacity.toString());
     });
   }
 
@@ -63,6 +63,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
       setState(() {
         _currentExtent = _controller.size;
         _calculateDateWidgetOpacity(_currentExtent);
+        _calculateUserStateOpacity(_currentExtent);
         _calculateYPosition(_currentExtent);
       });
     });
@@ -81,13 +82,9 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: theme.colorScheme.primary.withAlpha(0),
-      //   // backgroundColor: const Color(0xffffffff),
-      // ),
       body: Stack(
         children: [
+          /// 배경 색상
           Container(
             decoration: BoxDecoration(
                 gradient: RadialGradient(
@@ -98,19 +95,16 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                   theme.colorScheme.primary,
                 ])),
           ),
-          SafeArea(
-            child: Transform.translate(
-              /// 초기 시트값이 가장 확장되었을 때,
-              /// 상단 전체 위젯은 시트의 높이의 절반만큼 위로 향해야함.
-              /// 즉, 앱바를 제외한 전체 UI 높이의 절반만큼 위에 위치해야함.
-              /// [totalTopWidgetHeight]
-              offset: Offset(
-                  0, appBarSize + (snapProgress - 1) * totalTopWidgetHeight),
 
+          /// 메인 UI의 사용자 상태 및 날짜 캘린더 뷰
+          Positioned(
+            top: appBarSize + (snapProgress - 1) * totalTopWidgetHeight,
+            left: 0,
+            right: 0,
+            child: SafeArea(
               child: SizedBox(
                 height: totalTopWidgetHeight,
                 child: Column(
-                  // mainAxisSize: MainAxisSize.min,
                   children: [
                     Expanded(
                       child: Opacity(
@@ -125,9 +119,8 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          SafeArea(
-                              child: Opacity(
-                            opacity: _dateWidgetOpacity < 1 ? 1 : 0,
+                          Opacity(
+                            opacity: _dateWidgetOpacity > 0.99999 ? 0 : 1,
                             child: const Align(
                                 alignment: Alignment.topRight,
                                 child: Padding(
@@ -135,9 +128,9 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                                       EdgeInsets.only(top: 40, right: 16.0),
                                   child: DateView(),
                                 )),
-                          )),
+                          ),
                           IgnorePointer(
-                            ignoring: _dateWidgetOpacity < 0.98,
+                            ignoring: _dateWidgetOpacity == 0,
                             child: Opacity(
                               opacity: _dateWidgetOpacity,
                               child: const ExpandDateWidgetView(),
@@ -151,6 +144,8 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
               ),
             ),
           ),
+
+          /// 메인 UI의 전체 시트 뷰
           SafeArea(
             bottom: false,
             child: Column(
@@ -176,7 +171,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                     ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: DraggableScrollableSheet(
                       initialChildSize: snapSheetSize,
                       maxChildSize: maxSheetSize,
@@ -192,26 +187,20 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                               SingleChildScrollView(
                                 controller: scrollController,
                                 physics: const ClampingScrollPhysics(),
-                                child: ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxHeight: constraints.maxHeight,
-                                    minHeight: constraints.minHeight,
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                                top: Radius.circular(16.0)),
-                                        color: theme.scaffoldBackgroundColor),
-                                    child: Column(
-                                      children: [
-                                        DragHandle(),
-                                        const Expanded(
-                                            child: SolutionHistoryByDailyUI()),
-                                      ],
-                                    ),
+                                child: Container(
+                                  height: constraints.maxHeight,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20.0),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(16.0)),
+                                      color: theme.scaffoldBackgroundColor),
+                                  child: Column(
+                                    children: [
+                                      DragHandle(),
+                                      const Expanded(
+                                          child: SolutionHistoryByDailyUI()),
+                                    ],
                                   ),
                                 ),
                               ),
