@@ -14,7 +14,7 @@ abstract class ProblemRequestDto with _$ProblemRequestDto {
     @JsonKey(name: "content") required String content,
     @JsonKey(name: "is_done") required bool isDone,
     @JsonKey(name: "created_at") required DateTime createAt,
-    @JsonKey(name: "uid") required String uid,
+    @JsonKey(name: "user_id") required String userId,
   }) = _ProblemRequestDto;
 
   factory ProblemRequestDto.fromJson(Map<String, dynamic> json) =>

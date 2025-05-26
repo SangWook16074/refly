@@ -1,11 +1,12 @@
-final class UserStat {
-  final int total;
-  final int solve;
-  final int unsolve;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  UserStat({
-    required this.total,
-    required this.solve,
-    required this.unsolve,
-  });
+part 'user_stat.freezed.dart';
+
+@freezed
+abstract class UserStat with _$UserStat {
+  const factory UserStat({
+    required int total,
+    required int solve,
+    required int unsolve,
+  }) = _UserStat;
 }

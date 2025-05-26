@@ -14,7 +14,7 @@ _$ProblemResponseDtoImpl _$$ProblemResponseDtoImplFromJson(
       content: json['content'] as String? ?? "",
       isDone: json['is_done'] as bool,
       createAt: DateTime.parse(json['created_at'] as String),
-      uid: json['uid'] as String,
+      userId: json['user_id'] as String,
     );
 
 Map<String, dynamic> _$$ProblemResponseDtoImplToJson(
@@ -25,5 +25,5 @@ Map<String, dynamic> _$$ProblemResponseDtoImplToJson(
       'content': instance.content,
       'is_done': instance.isDone,
       'created_at': instance.createAt.toIso8601String(),
-      'uid': instance.uid,
+      'user_id': instance.userId,
     };

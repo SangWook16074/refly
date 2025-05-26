@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:solution_diary_app/src/feature/main/data/dtos/problem_response_dto.dart';
 import 'package:solution_diary_app/src/feature/main/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/main/ui/views/empty_view.dart';
 import 'package:solution_diary_app/src/feature/main/ui/views/problem_edit_sheet.dart';

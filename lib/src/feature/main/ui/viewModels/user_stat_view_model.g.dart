@@ -6,7 +6,7 @@ part of 'user_stat_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userStatViewModelHash() => r'7221182f2a99c2cea4c68df162a720e7948d4c06';
+String _$userStatViewModelHash() => r'2d07e4b95e193f31f71c679a32069c5a8e8ae7b6';
 
 /// See also [UserStatViewModel].
 @ProviderFor(UserStatViewModel)

@@ -26,13 +26,13 @@ class ProblemModel {
         createAt: entity.createAt);
   }
 
-  ProblemEntity toEntity(String uid) {
+  ProblemEntity toEntity(String userId) {
     return ProblemEntity(
         id: null,
         title: title,
         content: content,
         isDone: isDone,
         createAt: createAt,
-        uid: uid);
+        userId: userId);
   }
 }

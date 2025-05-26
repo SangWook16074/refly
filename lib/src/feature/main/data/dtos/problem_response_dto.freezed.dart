@@ -30,8 +30,8 @@ mixin _$ProblemResponseDto {
   bool get isDone => throw _privateConstructorUsedError;
   @JsonKey(name: "created_at")
   DateTime get createAt => throw _privateConstructorUsedError;
-  @JsonKey(name: "uid")
-  String get uid => throw _privateConstructorUsedError;
+  @JsonKey(name: "user_id")
+  String get userId => throw _privateConstructorUsedError;
 
   /// Serializes this ProblemResponseDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $ProblemResponseDtoCopyWith<$Res> {
       @JsonKey(name: "content") String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
-      @JsonKey(name: "uid") String uid});
+      @JsonKey(name: "user_id") String userId});
 }
 
 /// @nodoc
@@ -78,7 +78,7 @@ class _$ProblemResponseDtoCopyWithImpl<$Res, $Val extends ProblemResponseDto>
     Object? content = null,
     Object? isDone = null,
     Object? createAt = null,
-    Object? uid = null,
+    Object? userId = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -101,9 +101,9 @@ class _$ProblemResponseDtoCopyWithImpl<$Res, $Val extends ProblemResponseDto>
           ? _value.createAt
           : createAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -123,7 +123,7 @@ abstract class _$$ProblemResponseDtoImplCopyWith<$Res>
       @JsonKey(name: "content") String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
-      @JsonKey(name: "uid") String uid});
+      @JsonKey(name: "user_id") String userId});
 }
 
 /// @nodoc
@@ -144,7 +144,7 @@ class __$$ProblemResponseDtoImplCopyWithImpl<$Res>
     Object? content = null,
     Object? isDone = null,
     Object? createAt = null,
-    Object? uid = null,
+    Object? userId = null,
   }) {
     return _then(_$ProblemResponseDtoImpl(
       id: freezed == id
@@ -167,9 +167,9 @@ class __$$ProblemResponseDtoImplCopyWithImpl<$Res>
           ? _value.createAt
           : createAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -184,7 +184,7 @@ class _$ProblemResponseDtoImpl implements _ProblemResponseDto {
       @JsonKey(name: "content") this.content = "",
       @JsonKey(name: "is_done") required this.isDone,
       @JsonKey(name: "created_at") required this.createAt,
-      @JsonKey(name: "uid") required this.uid});
+      @JsonKey(name: "user_id") required this.userId});
 
   factory _$ProblemResponseDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProblemResponseDtoImplFromJson(json);
@@ -205,12 +205,12 @@ class _$ProblemResponseDtoImpl implements _ProblemResponseDto {
   @JsonKey(name: "created_at")
   final DateTime createAt;
   @override
-  @JsonKey(name: "uid")
-  final String uid;
+  @JsonKey(name: "user_id")
+  final String userId;
 
   @override
   String toString() {
-    return 'ProblemResponseDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, uid: $uid)';
+    return 'ProblemResponseDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, userId: $userId)';
   }
 
   @override
@@ -224,13 +224,13 @@ class _$ProblemResponseDtoImpl implements _ProblemResponseDto {
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
             (identical(other.createAt, createAt) ||
                 other.createAt == createAt) &&
-            (identical(other.uid, uid) || other.uid == uid));
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, title, content, isDone, createAt, uid);
+      Object.hash(runtimeType, id, title, content, isDone, createAt, userId);
 
   /// Create a copy of ProblemResponseDto
   /// with the given fields replaced by the non-null parameter values.
@@ -256,7 +256,7 @@ abstract class _ProblemResponseDto implements ProblemResponseDto {
           @JsonKey(name: "content") final String content,
           @JsonKey(name: "is_done") required final bool isDone,
           @JsonKey(name: "created_at") required final DateTime createAt,
-          @JsonKey(name: "uid") required final String uid}) =
+          @JsonKey(name: "user_id") required final String userId}) =
       _$ProblemResponseDtoImpl;
 
   factory _ProblemResponseDto.fromJson(Map<String, dynamic> json) =
@@ -278,8 +278,8 @@ abstract class _ProblemResponseDto implements ProblemResponseDto {
   @JsonKey(name: "created_at")
   DateTime get createAt;
   @override
-  @JsonKey(name: "uid")
-  String get uid;
+  @JsonKey(name: "user_id")
+  String get userId;
 
   /// Create a copy of ProblemResponseDto
   /// with the given fields replaced by the non-null parameter values.

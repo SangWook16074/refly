@@ -6,6 +6,8 @@ import 'package:solution_diary_app/src/feature/main/ui/viewModels/date_view_mode
 import 'package:solution_diary_app/src/feature/main/ui/viewModels/problem_list_view_model.dart';
 import 'package:solution_diary_app/src/feature/main/ui/viewModels/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/core/widgets/custom_dialog.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_event.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_model.dart';
 
 class ProblemEditSheet extends ConsumerWidget {
   final String listId;
@@ -19,6 +21,7 @@ class ProblemEditSheet extends ConsumerWidget {
         ref.read(problemListViewModelProvider.notifier);
     final problemViewModel =
         ref.read(DailyProblemViewModelProvider(target: now).notifier);
+    final userStatViewModel = ref.read(userStatViewModelProvider.notifier);
     final padding = MediaQuery.of(context).padding.bottom;
     final size = MediaQuery.of(context).size;
     showDeleteConfirmDialog() {
@@ -27,10 +30,11 @@ class ProblemEditSheet extends ConsumerWidget {
           barrierColor: const Color(0xff000000).withOpacity(.1),
           builder: (context) => CustomDialog(
                 content: "해당 기록을 정말로 삭제할까요?",
-                onConfirm: () {
-                  problemViewModel.onEvent(
-                      DeleteProblem(id: problemListViewState.problem!.id!));
+                onConfirm: () async {
                   Navigator.of(context).pop();
+                  await problemViewModel.onEvent(
+                      DeleteProblem(id: problemListViewState.problem!.id!));
+                  userStatViewModel.onEvent(RefreshUserStat());
                 },
               ));
     }

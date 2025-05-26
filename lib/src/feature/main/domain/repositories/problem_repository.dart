@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solution_diary_app/src/feature/main/data/datasources/problem_api_service.dart';
 import 'package:solution_diary_app/src/feature/main/data/dtos/user_stat_response_dto.dart';
 import 'package:solution_diary_app/src/feature/main/domain/entities/problem_entity.dart';
@@ -68,7 +70,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
             content: res.content,
             isDone: res.isDone,
             createAt: res.createAt,
-            uid: res.uid))
+            userId: res.userId))
         .toList();
   }
 
@@ -85,7 +87,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
             content: res.content,
             isDone: res.isDone,
             createAt: res.createAt,
-            uid: res.uid))
+            userId: res.userId))
         .toList();
   }
 
@@ -103,7 +105,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
             content: res.content,
             isDone: res.isDone,
             createAt: res.createAt,
-            uid: res.uid))
+            userId: res.userId))
         .toList();
   }
 
@@ -120,7 +122,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
             content: res.content,
             isDone: res.isDone,
             createAt: res.createAt,
-            uid: res.uid))
+            userId: res.userId))
         .toList();
   }
 
@@ -137,7 +139,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
             content: res.content,
             isDone: res.isDone,
             createAt: res.createAt,
-            uid: res.uid))
+            userId: res.userId))
         .toList();
   }
 
@@ -145,14 +147,18 @@ final class ProblemRepositoryImpl implements ProblemRepository {
   ///
   /// 사용자가 해결 여부와 관련없이 서버로부터 해당 ID에 맞는 데이터를 삭제합니다.
   @override
-  Future<void> deleteProblem(int id) {
-    // TODO: implement deleteProblem
-    throw UnimplementedError();
+  Future<void> deleteProblem(int id) async {
+    await service.deleteProblem(id);
   }
 
   @override
   Future<UserStatResponseDto> fetchUserStat() async {
-    return service.fetchUserStat();
+    try {
+      return service.fetchUserStat();
+    } on Exception catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 }
 

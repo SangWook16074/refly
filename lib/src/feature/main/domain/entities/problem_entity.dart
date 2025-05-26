@@ -7,7 +7,7 @@ final class ProblemEntity extends Equatable {
   final String content;
   final bool isDone;
   final DateTime createAt;
-  final String uid;
+  final String userId;
 
   const ProblemEntity({
     required this.id,
@@ -15,7 +15,7 @@ final class ProblemEntity extends Equatable {
     required this.content,
     required this.isDone,
     required this.createAt,
-    required this.uid,
+    required this.userId,
   });
 
   ProblemRequestDto toRequest() {
@@ -24,9 +24,9 @@ final class ProblemEntity extends Equatable {
         content: content,
         isDone: isDone,
         createAt: createAt,
-        uid: uid);
+        userId: userId);
   }
 
   @override
-  List<Object?> get props => [id, title, content, isDone, createAt, uid];
+  List<Object?> get props => [id, title, content, isDone, createAt, userId];
 }

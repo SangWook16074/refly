@@ -23,7 +23,7 @@ class DailyProblemViewModel extends _$DailyProblemViewModel {
     }
   }
 
-  onEvent(ProblemViewEvent event) async {
+  Future<void> onEvent(ProblemViewEvent event) async {
     switch (event) {
       case CreateProblem():
         final newProblem = event.problem;
@@ -36,8 +36,8 @@ class DailyProblemViewModel extends _$DailyProblemViewModel {
         ]);
       case DeleteProblem():
         final id = event.id;
-        final prevData = await future;
-        ref.read(deleteUserProblemUsecaseProvider).call(id);
+        final prevData = state.value!;
+        await ref.read(deleteUserProblemUsecaseProvider).call(id);
 
         state = AsyncData(prevData.where((it) => it.id != id).toList());
 

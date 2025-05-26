@@ -8,6 +8,8 @@ import 'package:solution_diary_app/src/feature/main/ui/viewModels/problem_view_e
 import 'package:solution_diary_app/src/feature/main/ui/viewModels/date_view_model.dart';
 import 'package:solution_diary_app/src/feature/main/ui/viewModels/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/core/widgets/custom_text_field.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_event.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_model.dart';
 
 /// 사용자가 새롭게 생성할 기록의 제목이 빈칸인지 나타내는 Enum 클래스
 ///
@@ -27,8 +29,9 @@ class ProblemUploadSheet extends HookConsumerWidget {
     final bottomSafeArea = mediaQuery.padding.bottom;
     final bottomInset = mediaQuery.viewInsets.bottom;
     final dateState = ref.watch(dateViewModelProvider);
-    final viewModel =
+    final dailyProblemViewModel =
         ref.read(DailyProblemViewModelProvider(target: dateState).notifier);
+    final userStatViewModel = ref.read(userStatViewModelProvider.notifier);
 
     bool validateTitle(String title) {
       // 공백제거시 빈칸인 경우는 잘못된 경우
@@ -133,15 +136,17 @@ class ProblemUploadSheet extends HookConsumerWidget {
                 ///
                 /// 제목이 비어있는 경우가 아니라면 새로운 기록 등록 가능
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (isTitleValidate.value == TitleValidateState.valid) {
-                        viewModel.onEvent(CreateProblem(
+                        dailyProblemViewModel.onEvent(CreateProblem(
                             problem: ProblemModel(
                                 id: null,
                                 title: titleController.text,
                                 content: contentController.text,
                                 isDone: false,
                                 createAt: DateTime.now())));
+                        userStatViewModel.onEvent(RefreshUserStat());
+
                         Navigator.of(context).pop();
                       }
                     },

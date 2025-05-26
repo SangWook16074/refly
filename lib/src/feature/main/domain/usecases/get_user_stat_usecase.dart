@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solution_diary_app/src/feature/main/data/dtos/user_stat_response_dto.dart';
 import 'package:solution_diary_app/src/feature/main/domain/entities/user_stat.dart';
 import 'package:solution_diary_app/src/feature/main/domain/repositories/problem_repository.dart';
@@ -19,12 +21,17 @@ final class GetUserStatUsecaseImpl implements GetUserStatUsecase {
 
   @override
   Future<UserStat> call() async {
-    final user = userRepository.getUser();
-    if (user == null) {
-      throw Exception("로그인 안됨...");
+    try {
+      final user = userRepository.getUser();
+      if (user == null) {
+        throw Exception("로그인 안됨...");
+      }
+      final response = await problemRepository.fetchUserStat();
+      return response.toEntity();
+    } on Exception catch (e) {
+      log(e.toString());
+      rethrow;
     }
-    final response = await problemRepository.fetchUserStat();
-    return response.toEntity();
   }
 }
 

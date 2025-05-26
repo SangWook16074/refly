@@ -65,6 +65,12 @@ class ProblemApiServiceImpl implements ProblemApiService {
       rethrow;
     }
   }
+
+  /// 사용자 기록 삭제 API
+  @override
+  Future<void> deleteProblem(int id) async {
+    await client.from("solution").delete().eq("id", id);
+  }
 }
 
 abstract class ProblemApiService {
@@ -80,4 +86,6 @@ abstract class ProblemApiService {
   Future<List<ProblemResponseDto>> fetchSovledProblems(String userId);
 
   Future<UserStatResponseDto> fetchUserStat();
+
+  Future<void> deleteProblem(int id);
 }
