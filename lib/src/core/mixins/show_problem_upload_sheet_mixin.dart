@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:solution_diary_app/src/ui/view/problem_upload_sheet.dart';
+import 'package:solution_diary_app/src/feature/main/ui/views/problem_upload_sheet.dart';
 
 mixin ShowProblemUploadSheetMixin {
   void showProblemAddSheet(BuildContext context) {

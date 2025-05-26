@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:solution_diary_app/src/data/auth/services/auth_service.dart';
+import 'package:solution_diary_app/src/feature/auth/data/datasources/auth_service.dart';
 
 part 'auth_service_provider.g.dart';
 
