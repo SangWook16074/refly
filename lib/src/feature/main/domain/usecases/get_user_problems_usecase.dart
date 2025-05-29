@@ -1,6 +1,6 @@
 import 'package:solution_diary_app/src/feature/main/domain/entities/problem_entity.dart';
 import 'package:solution_diary_app/src/feature/main/domain/repositories/problem_repository.dart';
-import 'package:solution_diary_app/src/feature/main/domain/repositories/user_repository.dart';
+import 'package:solution_diary_app/src/core/domain/repositories/user_repository.dart';
 
 final class GetUserProblemsByDateUsecaseImpl
     implements GetUserProblemsByDateUsecase {

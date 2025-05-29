@@ -1,7 +1,7 @@
 import 'package:solution_diary_app/src/feature/main/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/main/domain/entities/problem_entity.dart';
 import 'package:solution_diary_app/src/feature/main/domain/repositories/problem_repository.dart';
-import 'package:solution_diary_app/src/feature/main/domain/repositories/user_repository.dart';
+import 'package:solution_diary_app/src/core/domain/repositories/user_repository.dart';
 
 final class UpdateUserProblemUsecaseImpl implements UpdateUserProblemUsecase {
   final ProblemRepository problemRepository;

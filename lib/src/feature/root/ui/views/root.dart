@@ -4,6 +4,7 @@ import 'package:solution_diary_app/src/core/providers/auth_service_provider.dart
 import 'package:solution_diary_app/src/feature/auth/ui/views/login_ui.dart';
 import 'package:solution_diary_app/src/feature/main/ui/views/main_ui.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/auth_view_model.dart';
+import 'package:solution_diary_app/src/feature/profile/ui/views/user_ui.dart';
 
 class Root extends ConsumerWidget {
   const Root({super.key});
@@ -15,7 +16,7 @@ class Root extends ConsumerWidget {
         data: (auth) {
           final session = auth.session;
           if (session != null) {
-            return const MainUI();
+            return const UserUI();
             // return Scaffold(
             //   body: Center(
             //     child: ElevatedButton(
