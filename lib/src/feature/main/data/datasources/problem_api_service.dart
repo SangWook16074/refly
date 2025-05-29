@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:solution_diary_app/src/feature/main/data/dtos/problem_request_dto.dart';
+import 'package:solution_diary_app/src/feature/main/data/dtos/problem_update_request_dto.dart';
 import 'package:solution_diary_app/src/feature/main/data/dtos/user_stat_response_dto.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -71,6 +72,17 @@ class ProblemApiServiceImpl implements ProblemApiService {
   Future<void> deleteProblem(int id) async {
     await client.from("solution").delete().eq("id", id);
   }
+
+  @override
+  Future<List<ProblemResponseDto>> completeProblem(
+      ProblemUpdateRequestDto dto) async {
+    final data = await client
+        .from("solution")
+        .update(dto.toJson())
+        .eq("id", dto.id)
+        .select();
+    return data.map((json) => ProblemResponseDto.fromJson(json)).toList();
+  }
 }
 
 abstract class ProblemApiService {
@@ -88,4 +100,6 @@ abstract class ProblemApiService {
   Future<UserStatResponseDto> fetchUserStat();
 
   Future<void> deleteProblem(int id);
+
+  Future<List<ProblemResponseDto>> completeProblem(ProblemUpdateRequestDto dto);
 }

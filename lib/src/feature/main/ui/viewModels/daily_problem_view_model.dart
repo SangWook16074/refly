@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/core/providers/create_user_problem_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/providers/delete_user_problem_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/providers/get_user_problem_usecase_provider.dart';
+import 'package:solution_diary_app/src/core/providers/update_user_problem_usecase_provider.dart';
 import 'package:solution_diary_app/src/feature/main/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/main/ui/viewModels/problem_view_event.dart';
 
@@ -42,7 +43,16 @@ class DailyProblemViewModel extends _$DailyProblemViewModel {
         state = AsyncData(prevData.where((it) => it.id != id).toList());
 
       case UpdateProblem():
-      // TODO: Handle this case.
+        final problem = event.problem;
+        final prevData = state.value!;
+        state = AsyncData(prevData.map((it) {
+          if (it.id == problem.id) {
+            return problem;
+          } else {
+            return it;
+          }
+        }).toList());
+        await ref.read(updateUserProblemUsecaseProvider).call(problem);
     }
   }
 }

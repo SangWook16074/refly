@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/widgets/custom_dialog.dart';
 import 'package:solution_diary_app/src/feature/main/data/models/problem_model.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/daily_problem_view_model.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/date_view_model.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/problem_list_view_model.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/problem_view_event.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_event.dart';
+import 'package:solution_diary_app/src/feature/main/ui/viewModels/user_stat_view_model.dart';
 
 /// 사용자가 등록한 문제를 보여주는 ROW
-class ProblemListRow extends HookWidget {
+class ProblemListRow extends HookConsumerWidget {
   final ProblemModel problem;
   final bool initialExpanded;
   const ProblemListRow({
@@ -14,18 +21,43 @@ class ProblemListRow extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final toggle = useState(initialExpanded);
-
+    final now = ref.watch(dateViewModelProvider);
+    final problemListViewModel =
+        ref.read(dailyProblemViewModelProvider(target: now).notifier);
+    final userStatViewModel = ref.read(userStatViewModelProvider.notifier);
     void showCompleteDialog() {
       showDialog(
           context: context,
-          barrierColor: const Color(0xff000000).withOpacity(.1),
+          barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
           builder: (context) => CustomDialog(
                 content: "문제를 해결처리할까요?",
                 confirmLabel: "네",
                 cancelLabel: "아니요",
-                onConfirm: () {},
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await problemListViewModel.onEvent(
+                      UpdateProblem(problem: problem.copyWith(isDone: true)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
+              ));
+    }
+
+    void showReturnProgressDialog() {
+      showDialog(
+          context: context,
+          barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "문제 해결을 취소할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await problemListViewModel.onEvent(
+                      UpdateProblem(problem: problem.copyWith(isDone: false)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
               ));
     }
 
@@ -73,6 +105,8 @@ class ProblemListRow extends HookWidget {
             onTap: () {
               if (!problem.isDone) {
                 showCompleteDialog();
+              } else {
+                showReturnProgressDialog();
               }
             },
             child: Container(
