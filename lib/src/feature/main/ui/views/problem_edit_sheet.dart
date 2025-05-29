@@ -65,6 +65,7 @@ class ProblemEditSheet extends ConsumerWidget {
                   color: const Color(0xff000000).withOpacity(.04))
             ],
             color: const Color(0xffffffff),
+            border: Border.all(width: 0.5, color: const Color(0xffdfdfdf)),
             borderRadius: BorderRadius.circular(12.0)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -91,7 +92,10 @@ class ProblemEditSheet extends ConsumerWidget {
                 ),
               ),
             ),
-            const Divider(),
+            const Divider(
+              thickness: 0.5,
+              color: Color(0xffdfdfdf),
+            ),
             GestureDetector(
               onTap: () {
                 problemListViewModel.onEvent(OpenProblemEditDialog());
