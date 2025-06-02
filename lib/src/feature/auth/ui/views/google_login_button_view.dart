@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/login_ui_event.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/login_ui_view_model.dart';
-import 'package:solution_diary_app/src/core/widgets/image_icon.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/widgets/social_login_button.dart';
 
 class GoogleLoginButtonView extends ConsumerWidget {
@@ -17,7 +17,7 @@ class GoogleLoginButtonView extends ConsumerWidget {
       onTap: () async {
         viewModel.onEvent(GoogleLoginButtonTap());
       },
-      icon: IconImage(path: ImagePath.google),
+      icon: IconImageWidget(path: ImagePath.google),
       backgroundColor: const Color(0xffF2F2F2),
       label: const Text(
         "Google로 로그인",

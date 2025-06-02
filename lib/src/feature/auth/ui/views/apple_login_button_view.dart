@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/login_ui_view_model.dart';
-import 'package:solution_diary_app/src/core/widgets/image_icon.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/widgets/social_login_button.dart';
 
 class AppleLoginButtonView extends ConsumerWidget {
@@ -13,7 +13,7 @@ class AppleLoginButtonView extends ConsumerWidget {
     return SocialLoginButton(
       backgroundColor: const Color(0xff000000),
       // icon: ImageIcon(path: ImagePath.google),
-      icon: IconImage(path: ImagePath.apple),
+      icon: IconImageWidget(path: ImagePath.apple),
       onTap: () {
         viewModel.appleLogin();
       },
