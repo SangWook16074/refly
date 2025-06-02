@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 class ProgressWidget extends StatelessWidget {
   final int total;
   final int current;
-  final double height;
-
-  const ProgressWidget(
-      {super.key,
-      required this.total,
-      required this.current,
-      required this.height});
+  final double width;
+  const ProgressWidget({
+    super.key,
+    required this.total,
+    required this.current,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(double.maxFinite, height),
+      size: Size(width, 4.0),
       painter: ProgressWidgetPainter(
         total: total,
         current: current,
@@ -47,7 +47,7 @@ class ProgressWidgetPainter extends CustomPainter {
     // 전체 진행율 칸 픽셀 계산
     final step = (size.width - 8) / 100;
     late Offset currPos;
-    final totalPaint = Paint()..color = const Color(0xffffffff).withOpacity(.2);
+    final totalPaint = Paint()..color = const Color(0xffBDBDBD);
     final totalPath = Path();
 
     for (int i = 0; i < 2; i++) {
@@ -58,7 +58,7 @@ class ProgressWidgetPainter extends CustomPainter {
     }
     canvas.drawPath(totalPath, totalPaint);
 
-    final currPaint = Paint()..color = const Color(0xffffffff);
+    final currPaint = Paint()..color = const Color(0xff191F40);
     final currPath = Path();
 
     for (int i = 0; i < 2; i++) {
@@ -70,37 +70,6 @@ class ProgressWidgetPainter extends CustomPainter {
     }
 
     canvas.drawPath(currPath, currPaint);
-
-    final thumbPaint = Paint()..color = const Color(0xffffffff).withOpacity(.5);
-    canvas.drawCircle(currPos, 20, thumbPaint);
-    canvas.drawCircle(currPos, 8, Paint()..color = const Color(0xffffffff));
-
-    final progressBoxPaint = Paint()..color = const Color(0xffffffff);
-    final progressBoxPath = Path();
-    const d = 20;
-    progressBoxPath.moveTo(currPos.dx, currPos.dy - d);
-    final oval =
-        Rect.fromCircle(center: Offset(currPos.dx, currPos.dy - d), radius: 13);
-    progressBoxPath.moveTo(currPos.dx, currPos.dy);
-    progressBoxPath.arcTo(oval, 10 * pi / 12, 16 * pi / 12, false);
-    canvas.drawPath(progressBoxPath, progressBoxPaint);
-
-    final textPainter = TextPainter()
-      ..text = TextSpan(
-          text: ratio.toString(),
-          style: const TextStyle(
-            fontFamily: "Roboto",
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Color(0xff223158),
-          ))
-      ..textAlign = TextAlign.center
-      ..textDirection = TextDirection.ltr;
-    textPainter.layout();
-    textPainter.paint(
-        canvas,
-        Offset(currPos.dx - (textPainter.width / 2),
-            currPos.dy - d - (textPainter.height / 2)));
   }
 
   @override

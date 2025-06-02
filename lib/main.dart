@@ -5,6 +5,7 @@ import 'package:solution_diary_app/src/core/theme/app_theme.dart';
 import 'package:solution_diary_app/src/core/ui/views/root.dart';
 import 'package:solution_diary_app/src/core/routes/route.dart';
 import 'package:solution_diary_app/src/core/ui/views/main_ui.dart';
+import 'package:solution_diary_app/src/feature/user/ui/views/user_state_ui.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/date_view.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/expand_date_widget_view.dart';
@@ -19,14 +20,13 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
   var _currentExtent = 1.0;
   var _dateWidgetOpacity = 1.0;
   var _userStateOpacity = 0.0;
-  var snapProgress = 0.3;
+  var snapProgress = 0.375;
   var expandDateViewTransProgress = 0.0;
   final maxSheetSize = 1.0;
   final snapSheetSize = 0.85;
-  final minSheetSize = 0.5;
+  final minSheetSize = 0.6;
 
-  final DraggableScrollableController _controller =
-      DraggableScrollableController();
+  late final DraggableScrollableController _controller;
 
   _calculateDateWidgetOpacity(double extent) {
     setState(() {
@@ -36,7 +36,6 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
       } else {
         _dateWidgetOpacity = opacity;
       }
-      log(_dateWidgetOpacity.toString());
     });
   }
 
@@ -52,19 +51,26 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
 
   _calculateYPosition(double extent) {
     setState(() {
-      snapProgress = (1 - extent) * 2;
+      snapProgress = (1 - extent) * 100 / 40;
+      log(snapProgress.toString());
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
+    // snapProgress = (1 - _controller.size) * 100 / 40;
+    _controller = DraggableScrollableController();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        _currentExtent = _controller.size;
-        _calculateDateWidgetOpacity(_currentExtent);
-        _calculateUserStateOpacity(_currentExtent);
-        _calculateYPosition(_currentExtent);
+        snapProgress = (1 - _controller.size) * 100 / 40;
+        _controller.addListener(() {
+          _currentExtent = _controller.size;
+          log(_currentExtent.toString());
+          _calculateDateWidgetOpacity(_currentExtent);
+          _calculateUserStateOpacity(_currentExtent);
+          _calculateYPosition(_currentExtent);
+        });
       });
     });
   }
@@ -78,7 +84,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     final maxHeight = size.height;
     final dateWidgetHeight = (size.width - 16 * 6) / 6;
     final appBarSize = dateWidgetHeight + 16;
-    final totalTopWidgetHeight = (maxHeight - appBarSize - paddingTop) / 2;
+    final totalTopWidgetHeight = (maxHeight - appBarSize - paddingTop) * 0.4;
 
     return Scaffold(
       extendBodyBehindAppBar: true,

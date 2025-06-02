@@ -14,7 +14,7 @@ class UserProfileView extends ConsumerWidget {
     final width = size.width;
     final length = (width - 120) / 2;
     final userViewState = ref.watch(userViewModelProvider);
-    return userViewState.when(loaded: (User user) {
+    return userViewState.when(data: (User data) {
       return Stack(
         children: [
           Container(height: 200, color: theme.colorScheme.primary),
@@ -36,11 +36,13 @@ class UserProfileView extends ConsumerWidget {
               bottom: 40,
               right: length,
               left: length,
-              child: UserImageView(user: user))
+              child: const UserImageView()),
         ],
       );
-    }, error: (String message) {
-      return Text(message);
+    }, error: (Object error, StackTrace stackTrace) {
+      return Text(error.toString());
+    }, loading: () {
+      return const CircularProgressIndicator.adaptive();
     });
   }
 }
