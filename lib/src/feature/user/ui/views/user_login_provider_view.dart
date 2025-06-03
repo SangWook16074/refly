@@ -42,7 +42,7 @@ class UserLoginProviderView extends ConsumerWidget {
                     "로 로그인함",
                     style: TextStyle(
                         fontSize: 10,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: Color(0xff575757)),
                   )
                 ],

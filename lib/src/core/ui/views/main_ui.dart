@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/date_view.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/solution_history_by_daily_ui.dart';
@@ -84,10 +85,20 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
     final maxHeight = size.height;
     final dateWidgetHeight = (size.width - 16 * 6) / 6;
     final appBarSize = dateWidgetHeight + 16;
-    final totalTopWidgetHeight = (maxHeight - appBarSize - paddingTop) * 0.4;
+    final totalTopWidgetHeight =
+        (maxHeight - 2 * appBarSize - paddingTop) * 0.4;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: SizedBox(
+          width: 30,
+          child: IconImageWidget(
+            path: ImagePath.logo,
+          ),
+        ),
+        centerTitle: false,
+      ),
       body: Stack(
         children: [
           /// 배경 색상
@@ -163,7 +174,6 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                       horizontal: 16.0,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "해결 일기",
@@ -173,6 +183,10 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                               fontWeight: FontWeight.bold,
                               fontSize: 30),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        //   child: IconImageWidget(path: ImagePath.arrowDown),
+                        // )
                       ],
                     ),
                   ),
