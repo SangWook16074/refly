@@ -1,102 +1,67 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:solution_diary_app/src/core/mixins/show_problem_upload_sheet_mixin.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
+import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_view_model.dart';
+import 'package:solution_diary_app/src/core/ui/views/logout_icon_view.dart';
+import 'package:solution_diary_app/src/core/ui/views/main_ui_date_view.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/views/date_view.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/views/expand_date_widget_view.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/solution_history_by_daily_ui.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_state_ui.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/drag_handle.dart';
 
-class MainUI extends StatefulWidget {
+class MainUI extends HookConsumerWidget {
   const MainUI({super.key});
 
   @override
-  State<MainUI> createState() => _MainUIState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mainUiState = ref.watch(mainUiViewModelProvider);
+    final mainUiViewModel = ref.read(mainUiViewModelProvider.notifier);
+    final controller = useDraggableScrollableController();
 
-class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
-  var _currentExtent = 1.0;
-  var _dateWidgetOpacity = 1.0;
-  var _userStateOpacity = 0.0;
-  var snapProgress = 0.375;
-  var expandDateViewTransProgress = 0.0;
-  final maxSheetSize = 1.0;
-  final snapSheetSize = 0.85;
-  final minSheetSize = 0.6;
-
-  late final DraggableScrollableController _controller;
-
-  _calculateDateWidgetOpacity(double extent) {
-    setState(() {
-      final opacity = (1 - extent) * 20 / 3;
-      if (opacity > 1.0) {
-        _dateWidgetOpacity = 1.0;
-      } else {
-        _dateWidgetOpacity = opacity;
+    useEffect(() {
+      listener() {
+        mainUiViewModel
+            .onEvent(MainUiEvent.userScrolled(extent: controller.size));
       }
-    });
-  }
 
-  _calculateUserStateOpacity(double extent) {
-    final start = snapSheetSize;
-    final end = minSheetSize;
+      dispose() {
+        controller.removeListener(listener);
+        controller.dispose();
+      }
 
-    // clamp 시켜서 0 ~ 1 사이로 보간값 만들기
-    final result = ((start - extent) / (start - end)).clamp(0.0, 1.0);
+      controller.addListener(listener);
 
-    _userStateOpacity = result;
-  }
-
-  _calculateYPosition(double extent) {
-    setState(() {
-      snapProgress = (1 - extent) * 100 / 40;
-      log(snapProgress.toString());
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // snapProgress = (1 - _controller.size) * 100 / 40;
-    _controller = DraggableScrollableController();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        snapProgress = (1 - _controller.size) * 100 / 40;
-        _controller.addListener(() {
-          _currentExtent = _controller.size;
-          log(_currentExtent.toString());
-          _calculateDateWidgetOpacity(_currentExtent);
-          _calculateUserStateOpacity(_currentExtent);
-          _calculateYPosition(_currentExtent);
-        });
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+      return dispose;
+    }, [controller]);
+    const maxSheetSize = 1.0;
+    const snapSheetSize = 0.85;
+    const minSheetSize = 0.6;
     final mediaQuery = MediaQuery.of(context);
     final paddingTop = mediaQuery.padding.top;
     final theme = Theme.of(context);
     final size = mediaQuery.size;
     final maxHeight = size.height;
     final dateWidgetHeight = (size.width - 16 * 6) / 6;
-    final appBarSize = dateWidgetHeight + 16;
+    final titleHeight = dateWidgetHeight + 16;
     final totalTopWidgetHeight =
-        (maxHeight - 2 * appBarSize - paddingTop) * 0.4;
+        (maxHeight - 2 * titleHeight - paddingTop) * 0.4;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: SizedBox(
-          width: 30,
+          width: 24,
           child: IconImageWidget(
             path: ImagePath.logo,
           ),
         ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: LogoutIconView(),
+          )
+        ],
         centerTitle: false,
       ),
       body: Stack(
@@ -115,7 +80,8 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
 
           /// 메인 UI의 사용자 상태 및 날짜 캘린더 뷰
           Positioned(
-            top: appBarSize + (snapProgress - 1) * totalTopWidgetHeight,
+            top: titleHeight +
+                (mainUiState.snapProgress - 1) * totalTopWidgetHeight,
             left: 0,
             right: 0,
             child: SafeArea(
@@ -125,37 +91,15 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                   children: [
                     Expanded(
                       child: Opacity(
-                        opacity: _userStateOpacity,
+                        opacity: mainUiState.userStateOpacity,
                         child: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: UserStateUI()),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Opacity(
-                            opacity: _dateWidgetOpacity > 0.99999 ? 0 : 1,
-                            child: const Align(
-                                alignment: Alignment.topRight,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(top: 40, right: 16.0),
-                                  child: DateView(),
-                                )),
-                          ),
-                          IgnorePointer(
-                            ignoring: _dateWidgetOpacity == 0,
-                            child: Opacity(
-                              opacity: _dateWidgetOpacity,
-                              child: const ExpandDateWidgetView(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: MainUiDateView()),
                   ],
                 ),
               ),
@@ -168,7 +112,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
             child: Column(
               children: [
                 SizedBox(
-                  height: appBarSize,
+                  height: titleHeight,
                   child: const Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.0,
@@ -198,7 +142,7 @@ class _MainUIState extends State<MainUI> with ShowProblemUploadSheetMixin {
                       minChildSize: minSheetSize,
                       expand: true,
                       snap: true,
-                      controller: _controller,
+                      controller: controller,
                       snapSizes: const [.85],
                       builder: (context, scrollController) {
                         return LayoutBuilder(builder: (context, constraints) {
