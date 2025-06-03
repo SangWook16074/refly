@@ -15,18 +15,8 @@ class Root extends ConsumerWidget {
           final session = auth.session;
           if (session != null) {
             return const MainUI();
-            // return Scaffold(
-            //   body: Center(
-            //     child: ElevatedButton(
-            //         onPressed: () {
-            //           ref.read(authServiceProvider).signOut();
-            //         },
-            //         child: const Text("로그아웃")),
-            //   ),
-            // );
-          } else {
-            return const LoginUI();
           }
+          return const LoginUI();
         },
         error: (error, trace) => const Scaffold(
               body: Center(

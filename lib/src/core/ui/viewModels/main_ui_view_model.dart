@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:solution_diary_app/src/core/providers/logout_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_state.dart';
 
@@ -17,6 +18,8 @@ class MainUiViewModel extends _$MainUiViewModel {
           dateWidgetOpacity: _calculateDateWidgetOpacity(extent),
           userStateOpacity: _calculateUserStateOpacity(extent),
           snapProgress: _calculateYPosition(extent));
+    }, userLogoutButtonTaped: () async {
+      await ref.read(logoutUsecaseProvider).call();
     });
   }
 

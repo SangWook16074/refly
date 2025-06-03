@@ -25,14 +25,11 @@ class MainUI extends HookConsumerWidget {
             .onEvent(MainUiEvent.userScrolled(extent: controller.size));
       }
 
-      dispose() {
-        controller.removeListener(listener);
-        controller.dispose();
-      }
-
       controller.addListener(listener);
 
-      return dispose;
+      return () {
+        controller.removeListener(listener);
+      };
     }, [controller]);
     const maxSheetSize = 1.0;
     const snapSheetSize = 0.85;

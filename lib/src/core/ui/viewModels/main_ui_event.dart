@@ -6,4 +6,6 @@ part 'main_ui_event.freezed.dart';
 sealed class MainUiEvent with _$MainUiEvent {
   const factory MainUiEvent.userScrolled({required double extent}) =
       _$UserScrolled;
+
+  const factory MainUiEvent.userLogoutButtonTaped() = _$UserLogoutButtonTaped;
 }
