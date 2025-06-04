@@ -16,7 +16,7 @@ class StateDetailWidget extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-              fontFamily: "Roboto", fontSize: 10, color: Color(0xff223158)),
+              fontFamily: "Roboto", fontSize: 10, color: Color(0xff191F40)),
         ),
         Text(
           count.toString(),
@@ -24,7 +24,7 @@ class StateDetailWidget extends StatelessWidget {
             fontFamily: "Roboto",
             fontSize: 20,
             fontWeight: FontWeight.w500,
-            color: Color(0xff223158),
+            color: Color(0xff191F40),
           ),
         ),
       ],

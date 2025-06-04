@@ -12,6 +12,7 @@ class UserStatView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     final userStat = ref.watch(userStatViewModelProvider);
     return userStat.when(data: (UserStat data) {
       final totalCount = data.total;
@@ -28,11 +29,11 @@ class UserStatView extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(width: 50, child: UserImageView()),
-                SizedBox(
+                const SizedBox(width: 50, child: UserImageView()),
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -46,12 +47,12 @@ class UserStatView extends ConsumerWidget {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xff3C518A)),
+                            color: theme.colorScheme.secondary),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      UserLoginProviderView()
+                      const UserLoginProviderView()
                     ],
                   ),
                 )

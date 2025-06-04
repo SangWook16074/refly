@@ -34,7 +34,7 @@ class UserResolutionRateView extends ConsumerWidget {
                 "문제 해결률",
                 style: TextStyle(
                     fontSize: 15,
-                    color: Color(0xff3C518A),
+                    color: Color(0xff191F40),
                     fontWeight: FontWeight.w600),
               ),
             ),
@@ -44,7 +44,7 @@ class UserResolutionRateView extends ConsumerWidget {
                 Text(
                   "${(solveCount / totalCount * 100).round()}%",
                   style: const TextStyle(
-                      color: Color(0xff3C518A),
+                      color: Color(0xff191F40),
                       fontSize: 30,
                       fontWeight: FontWeight.w600),
                 ),

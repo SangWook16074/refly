@@ -38,8 +38,8 @@ class DateWidget extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w700,
               color: switch (type) {
-                SelectType.select => const Color(0xff3C518A),
-                _ => const Color(0xff575757)
+                SelectType.select => const Color(0xff191F40),
+                _ => const Color(0xff909090)
               },
             ),
           ),
