@@ -3,8 +3,35 @@ import 'package:flutter/material.dart';
 class StateDetailWidget extends StatelessWidget {
   final String label;
   final int count;
-  const StateDetailWidget(
-      {super.key, required this.label, required this.count});
+  final TextStyle? labelStyle;
+  final TextStyle? countStyle;
+  const StateDetailWidget({
+    super.key,
+    required this.label,
+    required this.count,
+    this.labelStyle = const TextStyle(
+        fontFamily: "Roboto", fontSize: 10, color: Color(0xff191F40)),
+    this.countStyle = const TextStyle(
+      fontFamily: "Roboto",
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: Color(0xff191F40),
+    ),
+  });
+
+  const StateDetailWidget.large({
+    super.key,
+    required this.label,
+    required this.count,
+    this.labelStyle = const TextStyle(
+        fontFamily: "Roboto", fontSize: 15, color: Color(0xff191F40)),
+    this.countStyle = const TextStyle(
+      fontFamily: "Roboto",
+      fontSize: 40,
+      fontWeight: FontWeight.w500,
+      color: Color(0xff191F40),
+    ),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +42,11 @@ class StateDetailWidget extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
-              fontFamily: "Roboto", fontSize: 10, color: Color(0xff191F40)),
+          style: labelStyle,
         ),
         Text(
           count.toString(),
-          style: const TextStyle(
-            fontFamily: "Roboto",
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            color: Color(0xff191F40),
-          ),
+          style: countStyle,
         ),
       ],
     );

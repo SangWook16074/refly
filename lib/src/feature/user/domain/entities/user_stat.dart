@@ -9,4 +9,8 @@ abstract class UserStat with _$UserStat {
     required int solve,
     required int unsolve,
   }) = _UserStat;
+
+  const UserStat._();
+
+  int get userResolutionRate => (solve / total * 100).round();
 }

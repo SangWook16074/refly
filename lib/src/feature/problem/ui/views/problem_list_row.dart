@@ -5,7 +5,6 @@ import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
 import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/date_view_model.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_list_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_view_event.dart';
 import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view_event.dart';
 import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view_model.dart';

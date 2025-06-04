@@ -118,9 +118,10 @@ class __$$UserStatImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserStatImpl implements _UserStat {
+class _$UserStatImpl extends _UserStat {
   const _$UserStatImpl(
-      {required this.total, required this.solve, required this.unsolve});
+      {required this.total, required this.solve, required this.unsolve})
+      : super._();
 
   @override
   final int total;
@@ -156,11 +157,12 @@ class _$UserStatImpl implements _UserStat {
       __$$UserStatImplCopyWithImpl<_$UserStatImpl>(this, _$identity);
 }
 
-abstract class _UserStat implements UserStat {
+abstract class _UserStat extends UserStat {
   const factory _UserStat(
       {required final int total,
       required final int solve,
       required final int unsolve}) = _$UserStatImpl;
+  const _UserStat._() : super._();
 
   @override
   int get total;

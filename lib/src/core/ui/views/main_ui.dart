@@ -5,10 +5,14 @@ import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_view_model.dart';
 import 'package:solution_diary_app/src/core/ui/views/logout_icon_view.dart';
 import 'package:solution_diary_app/src/core/ui/views/main_ui_date_view.dart';
+import 'package:solution_diary_app/src/core/ui/views/user_problem_detail_sheet.dart';
+import 'package:solution_diary_app/src/core/ui/views/user_profile_summary_view.dart';
+import 'package:solution_diary_app/src/core/ui/views/user_resolution_rate_summary_view.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/solution_history_by_daily_ui.dart';
-import 'package:solution_diary_app/src/feature/user/ui/views/user_state_ui.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/drag_handle.dart';
+import 'package:solution_diary_app/src/feature/user/ui/views/user_resolution_rate_view.dart';
+import 'package:solution_diary_app/src/feature/user/ui/views/user_state_view.dart';
 
 class MainUI extends HookConsumerWidget {
   const MainUI({super.key});
@@ -18,6 +22,20 @@ class MainUI extends HookConsumerWidget {
     final mainUiState = ref.watch(mainUiViewModelProvider);
     final mainUiViewModel = ref.read(mainUiViewModelProvider.notifier);
     final controller = useDraggableScrollableController();
+
+    showUserProblemDetailSheet() {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+          context: context,
+          elevation: 0.0,
+          useSafeArea: true,
+          enableDrag: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => const UserProblemDetailSheet());
+    }
 
     useEffect(() {
       listener() {
@@ -87,11 +105,29 @@ class MainUI extends HookConsumerWidget {
                 child: Column(
                   children: [
                     Expanded(
-                      child: Opacity(
-                        opacity: mainUiState.userStateOpacity,
-                        child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0),
-                            child: UserStateUI()),
+                      child: GestureDetector(
+                        onTap: showUserProblemDetailSheet,
+                        child: Opacity(
+                          opacity: mainUiState.userStateOpacity,
+                          child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: UserProfileSummaryView(),
+                                  ),
+                                  SizedBox(
+                                    width: 18.0,
+                                  ),
+                                  Expanded(
+                                    child: UserResolutionRateSummaryView(),
+                                  ),
+                                ],
+                              )),
+                        ),
                       ),
                     ),
                     const Padding(
