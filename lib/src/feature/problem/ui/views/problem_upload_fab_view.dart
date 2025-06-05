@@ -18,28 +18,22 @@ class ProblemUploadFABView extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectIndex =
-        ref.watch(problemListViewModelProvider.select((it) => it.selectIndex));
     final dateState = ref.watch(dateViewModelProvider.select((it) => it));
     final asyncState =
         ref.watch(DailyProblemViewModelProvider(target: dateState));
     return asyncState.when(
         data: (state) =>
             (state.isNotEmpty && dateState.isEqualTo(DateTime.now()))
-                ? AnimatedOpacity(
-                    opacity: (selectIndex == -1) ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 300),
-                    child: FloatingActionButton(
-                        onPressed: () => showProblemAddSheet(context),
-                        child: Transform.rotate(
-                          angle: pi / 4,
-                          child: const Icon(
-                            Icons.close,
-                            color: Color(0xffffffff),
-                            size: 30,
-                          ),
-                        )),
-                  )
+                ? FloatingActionButton(
+                    onPressed: () => showProblemAddSheet(context),
+                    child: Transform.rotate(
+                      angle: pi / 4,
+                      child: const Icon(
+                        Icons.close,
+                        color: Color(0xffffffff),
+                        size: 30,
+                      ),
+                    ))
                 : Container(),
         error: (error, stacktrace) => Container(),
         loading: () => Container());

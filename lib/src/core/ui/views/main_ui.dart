@@ -11,8 +11,6 @@ import 'package:solution_diary_app/src/core/ui/views/user_resolution_rate_summar
 import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/solution_history_by_daily_ui.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/drag_handle.dart';
-import 'package:solution_diary_app/src/feature/user/ui/views/user_resolution_rate_view.dart';
-import 'package:solution_diary_app/src/feature/user/ui/views/user_state_view.dart';
 
 class MainUI extends HookConsumerWidget {
   const MainUI({super.key});

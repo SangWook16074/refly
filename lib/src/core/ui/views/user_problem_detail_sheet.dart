@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/solved_history_ui.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/unresolved_history_ui.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_resolution_rate_progress_view.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_resolution_rate_view.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_state_view.dart';
@@ -21,172 +24,138 @@ class UserProblemDetailSheet extends StatelessWidget {
           onTap: FocusScope.of(context).unfocus,
           child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-              child: SafeArea(
-                  bottom: false,
-                  child: Container(
-                    height: size.height * 0.8,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 10.0),
-                    decoration: BoxDecoration(
-                        color: theme.scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(16.0))),
-                    child: Column(
+              child: Container(
+                height: size.height * 0.8,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                ),
+                decoration: BoxDecoration(
+                    color: theme.scaffoldBackgroundColor,
+                    borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16.0))),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Opacity(
-                              opacity: 0,
-                              child: Icon(Icons.close),
-                            ),
-                            const Text(
-                              "전체 해결 기록",
-                              style: TextStyle(
-                                  color: Color(0xff303030),
-                                  fontFamily: "Roboto",
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20),
-                            ),
-                            GestureDetector(
-                                onTap: Navigator.of(context).pop,
-                                child: const Icon(Icons.close))
-                          ],
+                        const Opacity(
+                          opacity: 0,
+                          child: Icon(Icons.close),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        const Text(
+                          "전체 해결 기록",
+                          style: TextStyle(
+                              color: Color(0xff303030),
+                              fontFamily: "Roboto",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xffffffff),
-                              borderRadius: BorderRadius.circular(12.0)),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 20.0),
-                          child: const Column(
+                        GestureDetector(
+                            onTap: Navigator.of(context).pop,
+                            child: const Icon(Icons.close))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: NestedScrollView(
+                          physics: const ClampingScrollPhysics(),
+                          headerSliverBuilder: (context, innerBoxIsScrolled) =>
+                              [
+                                SliverList(
+                                    delegate: SliverChildListDelegate([
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xffffffff),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0)),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 20.0),
+                                    child: const Column(
+                                      children: [
+                                        UserStatView.large(),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "문제 해결률",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Color(0xff191F40),
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            UserResolutionRateView(),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        UserResolutionRateProgressView(),
+                                      ],
+                                    ),
+                                  ),
+                                ]))
+                              ],
+                          body: Column(
                             children: [
-                              UserStatView.large(),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "문제 해결률",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xff191F40),
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  UserResolutionRateView(),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              UserResolutionRateProgressView(),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xffffffff),
-                              borderRadius: BorderRadius.circular(12.0)),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          child: TabBar(
-                              labelPadding: EdgeInsets.zero,
-                              labelColor: const Color(0xff191F40),
-                              unselectedLabelColor: const Color(0xff676767),
-                              tabs: [
-                                Tab(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
+                              const TabBar(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.0),
+                                  labelPadding: EdgeInsets.zero,
+                                  labelColor: Color(0xff191F40),
+                                  unselectedLabelColor: Color(0xff676767),
+                                  tabs: [
+                                    Tab(
+                                      child: Text(
                                         "해결 중",
                                         style: TextStyle(
                                             fontFamily: "Roboto",
                                             fontSize: 15,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4, horizontal: 8),
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xffd9d9d9),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0)),
-                                        child: const Text("0"),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Tab(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
+                                    ),
+                                    Tab(
+                                      child: Text(
                                         "해결 완료",
                                         style: TextStyle(
                                             fontFamily: "Roboto",
                                             fontSize: 15,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4, horizontal: 8),
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xffd9d9d9),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0)),
-                                        child: const Text("0"),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Tab(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
+                                    ),
+                                    Tab(
+                                      child: Text(
                                         "즐겨찾기",
                                         style: TextStyle(
                                             fontFamily: "Roboto",
                                             fontSize: 15,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 4, horizontal: 8),
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xffd9d9d9),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0)),
-                                        child: const Text("0"),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ]),
-                        ),
-                      ],
-                    ),
-                  )))),
+                                    ),
+                                  ]),
+                              Expanded(
+                                child: TabBarView(
+                                    physics: const ClampingScrollPhysics(),
+                                    children: [
+                                      const UnresolvedHistoryUI(),
+                                      const SolvedHistoryUI(),
+                                      Container(),
+                                    ]),
+                              ),
+                            ],
+                          )),
+                    )
+                  ],
+                ),
+              ))),
     );
   }
 }
