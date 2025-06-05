@@ -7,7 +7,7 @@ part of 'user_problem_list_view_model.dart';
 // **************************************************************************
 
 String _$userProblemListViewModelHash() =>
-    r'55e2f06fc047363f71c77d5306dd2b5191d55a74';
+    r'28602a1467adbbcf0ec9e3b9b66c5456059f4e52';
 
 /// See also [UserProblemListViewModel].
 @ProviderFor(UserProblemListViewModel)

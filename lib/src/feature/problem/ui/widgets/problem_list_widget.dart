@@ -13,6 +13,7 @@ class ProblemListWidget extends HookWidget {
   final void Function(int) onItemEdit;
   final void Function(int) onItemDelete;
   final void Function(ProblemModel) onItemTrailing;
+  final void Function(ProblemModel) onItemPrefix;
   final ScrollPhysics physics;
   const ProblemListWidget(
       {super.key,
@@ -20,6 +21,7 @@ class ProblemListWidget extends HookWidget {
       required this.onItemEdit,
       required this.onItemDelete,
       required this.onItemTrailing,
+      required this.onItemPrefix,
       this.physics = const ClampingScrollPhysics()});
 
   @override
@@ -90,6 +92,7 @@ class ProblemListWidget extends HookWidget {
           final problem = problems[index];
           final title = problem.title;
           final isDone = problem.isDone;
+          final isFavorite = problem.isFavorite;
           return GestureDetector(
               onLongPress: () {
                 preview.value = buildProblemPreview(problem);
@@ -97,8 +100,10 @@ class ProblemListWidget extends HookWidget {
               },
               child: ProblemListRow(
                 title: title,
+                isFavorite: isFavorite,
                 trailing: ProblemStatusWidget(isDone: isDone),
                 onTrailing: () => onItemTrailing(problem),
+                onPrefix: () => onItemPrefix(problem),
               ));
         });
   }

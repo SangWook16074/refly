@@ -25,4 +25,6 @@ final class ImagePath {
   static String get arrowDown => "assets/images/arrow_down_ic.png";
   static String get logo => "assets/images/logo_ic.png";
   static String get logout => "assets/images/logout_ic.png";
+  static String get favoriteOn => "assets/images/favorite_on_ic.png";
+  static String get favoriteOff => "assets/images/favorite_off_ic.png";
 }

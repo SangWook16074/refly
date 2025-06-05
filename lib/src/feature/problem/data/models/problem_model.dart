@@ -9,6 +9,7 @@ class ProblemModel extends Equatable {
   final String content;
   final bool isDone;
   final DateTime createAt;
+  final bool isFavorite;
 
   const ProblemModel({
     required this.id,
@@ -16,6 +17,7 @@ class ProblemModel extends Equatable {
     required this.content,
     required this.isDone,
     required this.createAt,
+    required this.isFavorite,
   });
 
   factory ProblemModel.fromEntity(ProblemEntity entity) {
@@ -24,7 +26,8 @@ class ProblemModel extends Equatable {
         title: entity.title,
         content: entity.content,
         isDone: entity.isDone,
-        createAt: entity.createAt);
+        createAt: entity.createAt,
+        isFavorite: entity.isFavorite);
   }
 
   ProblemEntity toEntity(String userId) {
@@ -34,7 +37,8 @@ class ProblemModel extends Equatable {
         content: content,
         isDone: isDone,
         createAt: createAt,
-        userId: userId);
+        userId: userId,
+        isFavorite: isFavorite);
   }
 
   ProblemModel copyWith({
@@ -43,13 +47,15 @@ class ProblemModel extends Equatable {
     bool? isDone,
     DateTime? createAt,
     String? userId,
+    bool? isFavorite,
   }) {
     return ProblemModel(
         id: id,
         title: title ?? this.title,
         content: content ?? this.content,
         isDone: isDone ?? this.isDone,
-        createAt: createAt ?? this.createAt);
+        createAt: createAt ?? this.createAt,
+        isFavorite: isFavorite ?? this.isFavorite);
   }
 
   @override

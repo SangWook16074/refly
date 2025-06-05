@@ -75,6 +75,11 @@ class UnresolvedHistoryUI extends ConsumerWidget {
           });
     }
 
+    void onItemPrefix(ProblemModel problem) {
+      viewModel.onEvent(UserProblemListViewEvent.update(
+          problem: problem.copyWith(isFavorite: !problem.isFavorite)));
+    }
+
     return switch (state) {
       AsyncError() => const Center(
           child: Text("에러가 발생했습니다!"),
@@ -84,6 +89,7 @@ class UnresolvedHistoryUI extends ConsumerWidget {
           onItemEdit: showUpdateConfirmDialog,
           onItemDelete: showDeleteConfirmDialog,
           onItemTrailing: showOnTrailingDialog,
+          onItemPrefix: onItemPrefix,
           physics: const NeverScrollableScrollPhysics(),
         ),
       _ => const Center(

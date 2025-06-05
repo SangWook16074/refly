@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 
 /// 사용자가 등록한 문제를 보여주는 ROW
 class ProblemListRow extends StatelessWidget {
   final String? title;
   final Widget? trailing;
+  final bool isFavorite;
   final void Function()? onTrailing;
-  const ProblemListRow({super.key, this.title, this.trailing, this.onTrailing})
+  final void Function()? onPrefix;
+  const ProblemListRow(
+      {super.key,
+      this.title,
+      this.trailing,
+      required this.isFavorite,
+      this.onTrailing,
+      this.onPrefix})
       : assert(trailing != null || !(onTrailing != null),
             "trailing 위젯을 반드시 전달해야 onTrailing을 전달할 수 있습니다.");
 
@@ -28,12 +37,33 @@ class ProblemListRow extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                title ?? "",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff000000),
+              GestureDetector(
+                onTap: onPrefix,
+                child: SizedBox(
+                    width: 18,
+                    child: IconImageWidget(
+                        path: isFavorite
+                            ? ImagePath.favoriteOn
+                            : ImagePath.favoriteOff)),
+              ),
+              Flexible(
+                child: SizedBox(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          title ?? "",
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(onTap: onTrailing, child: trailing ?? Container())

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/favorite_history_ui.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/solved_history_ui.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/unresolved_history_ui.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_resolution_rate_progress_view.dart';
@@ -107,9 +108,9 @@ class UserProblemDetailSheet extends StatelessWidget {
                                   ),
                                 ]))
                               ],
-                          body: Column(
+                          body: const Column(
                             children: [
-                              const TabBar(
+                              TabBar(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 20.0),
                                   labelPadding: EdgeInsets.zero,
@@ -146,11 +147,11 @@ class UserProblemDetailSheet extends StatelessWidget {
                                   ]),
                               Expanded(
                                 child: TabBarView(
-                                    physics: const ClampingScrollPhysics(),
+                                    physics: ClampingScrollPhysics(),
                                     children: [
-                                      const UnresolvedHistoryUI(),
-                                      const SolvedHistoryUI(),
-                                      Container(),
+                                      UnresolvedHistoryUI(),
+                                      SolvedHistoryUI(),
+                                      FavoriteHistoryUI(),
                                     ]),
                               ),
                             ],

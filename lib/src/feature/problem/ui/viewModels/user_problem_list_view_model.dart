@@ -17,10 +17,20 @@ class UserProblemListViewModel extends _$UserProblemListViewModel {
   }
 
   onEvent(UserProblemListViewEvent event) {
-    event.when(delete: (int id) {
-      ref.read(deleteUserProblemUsecaseProvider).call(id);
-    }, update: (ProblemModel problem) {
-      ref.read(updateUserProblemUsecaseProvider).call(problem);
+    event.when(delete: (int id) async {
+      final prevData = state.value!;
+      await ref.read(deleteUserProblemUsecaseProvider).call(id);
+      state = AsyncData(prevData.where((it) => it.id != id).toList());
+    }, update: (ProblemModel problem) async {
+      final prevData = state.value!;
+      state = AsyncData(prevData.map((it) {
+        if (it.id == problem.id) {
+          return problem;
+        } else {
+          return it;
+        }
+      }).toList());
+      await ref.read(updateUserProblemUsecaseProvider).call(problem);
     });
   }
 }

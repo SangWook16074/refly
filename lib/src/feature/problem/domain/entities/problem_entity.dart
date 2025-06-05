@@ -10,15 +10,16 @@ final class ProblemEntity extends Equatable {
   final bool isDone;
   final DateTime createAt;
   final String userId;
+  final bool isFavorite;
 
-  const ProblemEntity({
-    required this.id,
-    required this.title,
-    required this.content,
-    required this.isDone,
-    required this.createAt,
-    required this.userId,
-  });
+  const ProblemEntity(
+      {required this.id,
+      required this.title,
+      required this.content,
+      required this.isDone,
+      required this.createAt,
+      required this.userId,
+      required this.isFavorite});
 
   ProblemRequestDto toRequest() {
     return ProblemRequestDto(
@@ -26,7 +27,8 @@ final class ProblemEntity extends Equatable {
         content: content,
         isDone: isDone,
         createAt: createAt,
-        userId: userId);
+        userId: userId,
+        isFavorite: isFavorite);
   }
 
   ProblemUpdateRequestDto toUpdateRequest() {
@@ -46,7 +48,8 @@ final class ProblemEntity extends Equatable {
         content: dto.content,
         isDone: dto.isDone,
         createAt: dto.createAt,
-        userId: dto.userId);
+        userId: dto.userId,
+        isFavorite: dto.isFavorite);
   }
 
   @override

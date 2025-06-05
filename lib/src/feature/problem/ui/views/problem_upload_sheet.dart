@@ -144,7 +144,8 @@ class ProblemUploadSheet extends HookConsumerWidget {
                                 title: titleController.text,
                                 content: contentController.text,
                                 isDone: false,
-                                createAt: DateTime.now())));
+                                createAt: DateTime.now(),
+                                isFavorite: false)));
                         userStatViewModel.onEvent(RefreshUserStat());
 
                         Navigator.of(context).pop();

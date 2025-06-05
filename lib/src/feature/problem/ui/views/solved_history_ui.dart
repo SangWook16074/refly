@@ -42,6 +42,11 @@ class SolvedHistoryUI extends ConsumerWidget {
               ));
     }
 
+    void onItemPrefix(ProblemModel problem) {
+      viewModel.onEvent(UserProblemListViewEvent.update(
+          problem: problem.copyWith(isFavorite: !problem.isFavorite)));
+    }
+
     void showOnTrailingDialog(ProblemModel problem) {
       showDialog(
           context: context,
@@ -84,6 +89,7 @@ class SolvedHistoryUI extends ConsumerWidget {
           onItemEdit: showUpdateConfirmDialog,
           onItemDelete: showDeleteConfirmDialog,
           onItemTrailing: showOnTrailingDialog,
+          onItemPrefix: onItemPrefix,
           physics: const NeverScrollableScrollPhysics(),
         ),
       _ => const Center(
