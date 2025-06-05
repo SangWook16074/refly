@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/core/providers/delete_user_problem_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/providers/get_user_all_problem_usecase_provider.dart';
+import 'package:solution_diary_app/src/core/providers/update_user_problem_usecase_provider.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_event.dart';
 import '../../data/models/problem_model.dart';
 
@@ -16,10 +17,10 @@ class UserProblemListViewModel extends _$UserProblemListViewModel {
   }
 
   onEvent(UserProblemListViewEvent event) {
-    event.when(
-        delete: (int id) {
-          ref.read(deleteUserProblemUsecaseProvider).call(id);
-        },
-        update: (int id) {});
+    event.when(delete: (int id) {
+      ref.read(deleteUserProblemUsecaseProvider).call(id);
+    }, update: (ProblemModel problem) {
+      ref.read(updateUserProblemUsecaseProvider).call(problem);
+    });
   }
 }

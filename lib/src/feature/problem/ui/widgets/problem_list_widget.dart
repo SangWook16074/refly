@@ -12,12 +12,14 @@ class ProblemListWidget extends HookWidget {
   final List<ProblemModel> problems;
   final void Function(int) onItemEdit;
   final void Function(int) onItemDelete;
+  final void Function(ProblemModel) onItemTrailing;
   final ScrollPhysics physics;
   const ProblemListWidget(
       {super.key,
       required this.problems,
       required this.onItemEdit,
       required this.onItemDelete,
+      required this.onItemTrailing,
       this.physics = const ClampingScrollPhysics()});
 
   @override
@@ -96,6 +98,7 @@ class ProblemListWidget extends HookWidget {
               child: ProblemListRow(
                 title: title,
                 trailing: ProblemStatusWidget(isDone: isDone),
+                onTrailing: () => onItemTrailing(problem),
               ));
         });
   }

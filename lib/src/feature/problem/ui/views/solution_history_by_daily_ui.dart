@@ -46,6 +46,39 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
               ));
     }
 
+    void showOnTrailingDialog(ProblemModel problem) {
+      showDialog(
+          context: context,
+          barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
+          builder: (context) {
+            if (problem.isDone) {
+              return CustomDialog(
+                content: "문제 해결을 취소할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await viewModel.onEvent(
+                      UpdateProblem(problem: problem.copyWith(isDone: false)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
+              );
+            } else {
+              return CustomDialog(
+                content: "문제를 해결처리할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await viewModel.onEvent(
+                      UpdateProblem(problem: problem.copyWith(isDone: true)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
+              );
+            }
+          });
+    }
+
     return Scaffold(
       floatingActionButton: const ProblemUploadFABView(),
       body: switch (state) {
@@ -57,6 +90,7 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
                 problems: value,
                 onItemEdit: showUpdateConfirmDialog,
                 onItemDelete: showDeleteConfirmDialog,
+                onItemTrailing: showOnTrailingDialog,
               )
             : const EmptyView(),
         // FocusableListView(

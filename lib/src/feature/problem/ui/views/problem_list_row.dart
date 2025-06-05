@@ -13,40 +13,6 @@ class ProblemListRow extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    // void showCompleteDialog() {
-    //   showDialog(
-    //       context: context,
-    //       barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
-    //       builder: (context) => CustomDialog(
-    //             content: "문제를 해결처리할까요?",
-    //             confirmLabel: "네",
-    //             cancelLabel: "아니요",
-    //             onConfirm: () async {
-    //               Navigator.of(context).pop();
-    //               await problemListViewModel.onEvent(
-    //                   UpdateProblem(problem: problem.copyWith(isDone: true)));
-    //               userStatViewModel.onEvent(RefreshUserStat());
-    //             },
-    //           ));
-    // }
-
-    // void showReturnProgressDialog() {
-    //   showDialog(
-    //       context: context,
-    //       barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
-    //       builder: (context) => CustomDialog(
-    //             content: "문제 해결을 취소할까요?",
-    //             confirmLabel: "네",
-    //             cancelLabel: "아니요",
-    //             onConfirm: () async {
-    //               Navigator.of(context).pop();
-    //               await problemListViewModel.onEvent(
-    //                   UpdateProblem(problem: problem.copyWith(isDone: false)));
-    //               userStatViewModel.onEvent(RefreshUserStat());
-    //             },
-    //           ));
-    // }
-
     return Container(
         padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         decoration: BoxDecoration(
@@ -70,7 +36,7 @@ class ProblemListRow extends StatelessWidget {
                   color: Color(0xff000000),
                 ),
               ),
-              trailing ?? Container()
+              GestureDetector(onTap: onTrailing, child: trailing ?? Container())
             ],
           )
         ]));

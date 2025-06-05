@@ -16,23 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserProblemListViewEvent {
-  int get id => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) delete,
-    required TResult Function(int id) update,
+    required TResult Function(ProblemModel problem) update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? delete,
-    TResult? Function(int id)? update,
+    TResult? Function(ProblemModel problem)? update,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? delete,
-    TResult Function(int id)? update,
+    TResult Function(ProblemModel problem)? update,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,12 +54,6 @@ mixin _$UserProblemListViewEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Create a copy of UserProblemListViewEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserProblemListViewEventCopyWith<UserProblemListViewEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -68,8 +61,6 @@ abstract class $UserProblemListViewEventCopyWith<$Res> {
   factory $UserProblemListViewEventCopyWith(UserProblemListViewEvent value,
           $Res Function(UserProblemListViewEvent) then) =
       _$UserProblemListViewEventCopyWithImpl<$Res, UserProblemListViewEvent>;
-  @useResult
-  $Res call({int id});
 }
 
 /// @nodoc
@@ -85,27 +76,13 @@ class _$UserProblemListViewEventCopyWithImpl<$Res,
 
   /// Create a copy of UserProblemListViewEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$DeleteButtonTapImplCopyWith<$Res>
-    implements $UserProblemListViewEventCopyWith<$Res> {
+abstract class _$$DeleteButtonTapImplCopyWith<$Res> {
   factory _$$DeleteButtonTapImplCopyWith(_$DeleteButtonTapImpl value,
           $Res Function(_$DeleteButtonTapImpl) then) =
       __$$DeleteButtonTapImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int id});
 }
@@ -171,7 +148,7 @@ class _$DeleteButtonTapImpl implements _DeleteButtonTap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) delete,
-    required TResult Function(int id) update,
+    required TResult Function(ProblemModel problem) update,
   }) {
     return delete(id);
   }
@@ -180,7 +157,7 @@ class _$DeleteButtonTapImpl implements _DeleteButtonTap {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? delete,
-    TResult? Function(int id)? update,
+    TResult? Function(ProblemModel problem)? update,
   }) {
     return delete?.call(id);
   }
@@ -189,7 +166,7 @@ class _$DeleteButtonTapImpl implements _DeleteButtonTap {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? delete,
-    TResult Function(int id)? update,
+    TResult Function(ProblemModel problem)? update,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -234,26 +211,22 @@ abstract class _DeleteButtonTap implements UserProblemListViewEvent {
   const factory _DeleteButtonTap({required final int id}) =
       _$DeleteButtonTapImpl;
 
-  @override
   int get id;
 
   /// Create a copy of UserProblemListViewEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteButtonTapImplCopyWith<_$DeleteButtonTapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateButtonTapImplCopyWith<$Res>
-    implements $UserProblemListViewEventCopyWith<$Res> {
+abstract class _$$UpdateButtonTapImplCopyWith<$Res> {
   factory _$$UpdateButtonTapImplCopyWith(_$UpdateButtonTapImpl value,
           $Res Function(_$UpdateButtonTapImpl) then) =
       __$$UpdateButtonTapImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({int id});
+  $Res call({ProblemModel problem});
 }
 
 /// @nodoc
@@ -269,13 +242,13 @@ class __$$UpdateButtonTapImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? problem = null,
   }) {
     return _then(_$UpdateButtonTapImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+      problem: null == problem
+          ? _value.problem
+          : problem // ignore: cast_nullable_to_non_nullable
+              as ProblemModel,
     ));
   }
 }
@@ -283,14 +256,14 @@ class __$$UpdateButtonTapImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateButtonTapImpl implements _UpdateButtonTap {
-  const _$UpdateButtonTapImpl({required this.id});
+  const _$UpdateButtonTapImpl({required this.problem});
 
   @override
-  final int id;
+  final ProblemModel problem;
 
   @override
   String toString() {
-    return 'UserProblemListViewEvent.update(id: $id)';
+    return 'UserProblemListViewEvent.update(problem: $problem)';
   }
 
   @override
@@ -298,11 +271,11 @@ class _$UpdateButtonTapImpl implements _UpdateButtonTap {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateButtonTapImpl &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.problem, problem) || other.problem == problem));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, problem);
 
   /// Create a copy of UserProblemListViewEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -317,29 +290,29 @@ class _$UpdateButtonTapImpl implements _UpdateButtonTap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id) delete,
-    required TResult Function(int id) update,
+    required TResult Function(ProblemModel problem) update,
   }) {
-    return update(id);
+    return update(problem);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int id)? delete,
-    TResult? Function(int id)? update,
+    TResult? Function(ProblemModel problem)? update,
   }) {
-    return update?.call(id);
+    return update?.call(problem);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id)? delete,
-    TResult Function(int id)? update,
+    TResult Function(ProblemModel problem)? update,
     required TResult orElse(),
   }) {
     if (update != null) {
-      return update(id);
+      return update(problem);
     }
     return orElse();
   }
@@ -377,15 +350,13 @@ class _$UpdateButtonTapImpl implements _UpdateButtonTap {
 }
 
 abstract class _UpdateButtonTap implements UserProblemListViewEvent {
-  const factory _UpdateButtonTap({required final int id}) =
+  const factory _UpdateButtonTap({required final ProblemModel problem}) =
       _$UpdateButtonTapImpl;
 
-  @override
-  int get id;
+  ProblemModel get problem;
 
   /// Create a copy of UserProblemListViewEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateButtonTapImplCopyWith<_$UpdateButtonTapImpl> get copyWith =>
       throw _privateConstructorUsedError;

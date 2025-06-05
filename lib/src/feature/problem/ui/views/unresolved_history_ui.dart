@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
+import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_list_widget.dart';
@@ -41,6 +42,39 @@ class UnresolvedHistoryUI extends ConsumerWidget {
               ));
     }
 
+    void showOnTrailingDialog(ProblemModel problem) {
+      showDialog(
+          context: context,
+          barrierColor: const Color.fromARGB(255, 9, 9, 9).withOpacity(.1),
+          builder: (context) {
+            if (problem.isDone) {
+              return CustomDialog(
+                content: "문제 해결을 취소할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await viewModel.onEvent(UserProblemListViewEvent.update(
+                      problem: problem.copyWith(isDone: false)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
+              );
+            } else {
+              return CustomDialog(
+                content: "문제를 해결처리할까요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () async {
+                  Navigator.of(context).pop();
+                  await viewModel.onEvent(UserProblemListViewEvent.update(
+                      problem: problem.copyWith(isDone: true)));
+                  userStatViewModel.onEvent(RefreshUserStat());
+                },
+              );
+            }
+          });
+    }
+
     return switch (state) {
       AsyncError() => const Center(
           child: Text("에러가 발생했습니다!"),
@@ -49,6 +83,7 @@ class UnresolvedHistoryUI extends ConsumerWidget {
           problems: value.where((it) => !it.isDone).toList(),
           onItemEdit: showUpdateConfirmDialog,
           onItemDelete: showDeleteConfirmDialog,
+          onItemTrailing: showOnTrailingDialog,
           physics: const NeverScrollableScrollPhysics(),
         ),
       _ => const Center(

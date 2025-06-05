@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
 
 part 'user_problem_list_view_event.freezed.dart';
 
@@ -8,6 +9,6 @@ sealed class UserProblemListViewEvent with _$UserProblemListViewEvent {
     required int id,
   }) = _DeleteButtonTap;
   const factory UserProblemListViewEvent.update({
-    required int id,
+    required ProblemModel problem,
   }) = _UpdateButtonTap;
 }
