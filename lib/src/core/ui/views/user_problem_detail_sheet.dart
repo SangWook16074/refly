@@ -35,25 +35,28 @@ class UserProblemDetailSheet extends StatelessWidget {
                         top: Radius.circular(16.0))),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Opacity(
-                          opacity: 0,
-                          child: Icon(Icons.close),
-                        ),
-                        const Text(
-                          "전체 해결 기록",
-                          style: TextStyle(
-                              color: Color(0xff303030),
-                              fontFamily: "Roboto",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20),
-                        ),
-                        GestureDetector(
-                            onTap: Navigator.of(context).pop,
-                            child: const Icon(Icons.close))
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Opacity(
+                            opacity: 0,
+                            child: Icon(Icons.close),
+                          ),
+                          const Text(
+                            "전체 해결 기록",
+                            style: TextStyle(
+                                color: Color(0xff303030),
+                                fontFamily: "Roboto",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20),
+                          ),
+                          GestureDetector(
+                              onTap: Navigator.of(context).pop,
+                              child: const Icon(Icons.close))
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
