@@ -38,7 +38,8 @@ final class ProblemEntity extends Equatable {
         content: content,
         isDone: isDone,
         createAt: createAt,
-        userId: userId);
+        userId: userId,
+        isFavorite: isFavorite);
   }
 
   factory ProblemEntity.fromResponse(ProblemResponseDto dto) {

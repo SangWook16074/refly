@@ -12,6 +12,7 @@ abstract class ProblemUpdateRequestDto with _$ProblemUpdateRequestDto {
     @JsonKey(name: "is_done") required bool isDone,
     @JsonKey(name: "created_at") required DateTime createAt,
     @JsonKey(name: "user_id") required String userId,
+    @JsonKey(name: "is_favorite") required bool isFavorite,
   }) = _ProblemUpdateRequestDto;
 
   factory ProblemUpdateRequestDto.fromJson(Map<String, dynamic> json) =>

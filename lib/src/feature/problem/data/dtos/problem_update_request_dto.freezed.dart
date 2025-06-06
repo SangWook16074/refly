@@ -33,6 +33,8 @@ mixin _$ProblemUpdateRequestDto {
   DateTime get createAt => throw _privateConstructorUsedError;
   @JsonKey(name: "user_id")
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: "is_favorite")
+  bool get isFavorite => throw _privateConstructorUsedError;
 
   /// Serializes this ProblemUpdateRequestDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +58,8 @@ abstract class $ProblemUpdateRequestDtoCopyWith<$Res> {
       @JsonKey(name: "content") String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
-      @JsonKey(name: "user_id") String userId});
+      @JsonKey(name: "user_id") String userId,
+      @JsonKey(name: "is_favorite") bool isFavorite});
 }
 
 /// @nodoc
@@ -81,6 +84,7 @@ class _$ProblemUpdateRequestDtoCopyWithImpl<$Res,
     Object? isDone = null,
     Object? createAt = null,
     Object? userId = null,
+    Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -107,6 +111,10 @@ class _$ProblemUpdateRequestDtoCopyWithImpl<$Res,
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -126,7 +134,8 @@ abstract class _$$ProblemUpdateRequestDtoImplCopyWith<$Res>
       @JsonKey(name: "content") String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
-      @JsonKey(name: "user_id") String userId});
+      @JsonKey(name: "user_id") String userId,
+      @JsonKey(name: "is_favorite") bool isFavorite});
 }
 
 /// @nodoc
@@ -150,6 +159,7 @@ class __$$ProblemUpdateRequestDtoImplCopyWithImpl<$Res>
     Object? isDone = null,
     Object? createAt = null,
     Object? userId = null,
+    Object? isFavorite = null,
   }) {
     return _then(_$ProblemUpdateRequestDtoImpl(
       id: null == id
@@ -176,6 +186,10 @@ class __$$ProblemUpdateRequestDtoImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -189,7 +203,8 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
       @JsonKey(name: "content") required this.content,
       @JsonKey(name: "is_done") required this.isDone,
       @JsonKey(name: "created_at") required this.createAt,
-      @JsonKey(name: "user_id") required this.userId});
+      @JsonKey(name: "user_id") required this.userId,
+      @JsonKey(name: "is_favorite") required this.isFavorite});
 
   factory _$ProblemUpdateRequestDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProblemUpdateRequestDtoImplFromJson(json);
@@ -212,10 +227,13 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
   @override
   @JsonKey(name: "user_id")
   final String userId;
+  @override
+  @JsonKey(name: "is_favorite")
+  final bool isFavorite;
 
   @override
   String toString() {
-    return 'ProblemUpdateRequestDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, userId: $userId)';
+    return 'ProblemUpdateRequestDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, userId: $userId, isFavorite: $isFavorite)';
   }
 
   @override
@@ -229,13 +247,15 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
             (identical(other.createAt, createAt) ||
                 other.createAt == createAt) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, content, isDone, createAt, userId);
+  int get hashCode => Object.hash(
+      runtimeType, id, title, content, isDone, createAt, userId, isFavorite);
 
   /// Create a copy of ProblemUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.
@@ -261,7 +281,8 @@ abstract class _ProblemUpdateRequestDto implements ProblemUpdateRequestDto {
           @JsonKey(name: "content") required final String content,
           @JsonKey(name: "is_done") required final bool isDone,
           @JsonKey(name: "created_at") required final DateTime createAt,
-          @JsonKey(name: "user_id") required final String userId}) =
+          @JsonKey(name: "user_id") required final String userId,
+          @JsonKey(name: "is_favorite") required final bool isFavorite}) =
       _$ProblemUpdateRequestDtoImpl;
 
   factory _ProblemUpdateRequestDto.fromJson(Map<String, dynamic> json) =
@@ -285,6 +306,9 @@ abstract class _ProblemUpdateRequestDto implements ProblemUpdateRequestDto {
   @override
   @JsonKey(name: "user_id")
   String get userId;
+  @override
+  @JsonKey(name: "is_favorite")
+  bool get isFavorite;
 
   /// Create a copy of ProblemUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.
