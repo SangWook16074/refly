@@ -26,7 +26,7 @@ class AuthService {
         serverClientId: webClientId,
       );
       final googleUser = await googleSignIn.signIn();
-      if (googleUser == null) return;
+      if (googleUser == null) throw "No Google User";
 
       final googleAuth = await googleUser.authentication;
       final accessToken = googleAuth.accessToken;

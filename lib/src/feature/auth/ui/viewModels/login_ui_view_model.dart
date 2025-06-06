@@ -22,12 +22,20 @@ class LoginUiViewModel extends _$LoginUiViewModel {
   }
 
   Future<void> googleLogin() async {
-    state = Progress();
-    await ref.read(authServiceProvider).nativeGoogleSignIn();
+    try {
+      state = Progress();
+      await ref.read(authServiceProvider).nativeGoogleSignIn();
+    } catch (e) {
+      state = NotLoggedIn();
+    }
   }
 
   Future<void> appleLogin() async {
-    state = Progress();
-    await ref.read(authServiceProvider).signInWithApple();
+    try {
+      state = Progress();
+      await ref.read(authServiceProvider).signInWithApple();
+    } catch (e) {
+      state = NotLoggedIn();
+    }
   }
 }

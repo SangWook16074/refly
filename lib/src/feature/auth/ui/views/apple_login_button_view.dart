@@ -13,14 +13,18 @@ class AppleLoginButtonView extends ConsumerWidget {
     return SocialLoginButton(
       backgroundColor: const Color(0xff000000),
       // icon: ImageIcon(path: ImagePath.google),
-      icon: IconImageWidget(path: ImagePath.apple),
+      icon: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child:
+            SizedBox(width: 24, child: IconImageWidget(path: ImagePath.apple)),
+      ),
       onTap: () {
         viewModel.appleLogin();
       },
       label: const Text(
         "Apple로 로그인",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.w500,
           color: Color(0xffffffff),
           fontFamily: "Roboto-Medium",

@@ -10,10 +10,19 @@ class LoginButtonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
-      return const GoogleLoginButtonView();
-    } else {
-      return const AppleLoginButtonView();
-    }
+    // if (Platform.isAndroid) {
+    //   return const GoogleLoginButtonView();
+    // } else {
+    //   return const AppleLoginButtonView();
+    // }
+    return const Column(
+      children: [
+        GoogleLoginButtonView(),
+        SizedBox(
+          height: 20,
+        ),
+        AppleLoginButtonView(),
+      ],
+    );
   }
 }
