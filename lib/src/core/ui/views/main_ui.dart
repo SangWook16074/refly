@@ -63,11 +63,24 @@ class MainUI extends HookConsumerWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: SizedBox(
-          width: 24,
-          child: IconImageWidget(
-            path: ImagePath.logo,
-          ),
+        title: Row(
+          children: [
+            SizedBox(
+              height: 25,
+              child: IconImageWidget(
+                path: ImagePath.logo,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            SizedBox(
+              height: 30,
+              child: IconImageWidget(
+                path: ImagePath.appName,
+              ),
+            ),
+          ],
         ),
         actions: const [
           Padding(
@@ -151,7 +164,7 @@ class MainUI extends HookConsumerWidget {
                     child: Row(
                       children: [
                         Text(
-                          "해결 일기",
+                          "해결 기록",
                           style: TextStyle(
                               fontFamily: "Roboto",
                               color: Color(0xffffffff),
