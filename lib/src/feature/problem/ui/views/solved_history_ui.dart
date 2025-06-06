@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
 import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_model.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/problem_update_sheet.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_list_widget.dart';
 import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view_event.dart';
 import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view_model.dart';
@@ -32,13 +32,37 @@ class SolvedHistoryUI extends ConsumerWidget {
               ));
     }
 
-    showUpdateConfirmDialog(int id) {
+    void onUpdateTap(ProblemModel problem) {
+      viewModel.onEvent(UserProblemListViewEvent.update(problem: problem));
+    }
+
+    void showUpdateBottomSheet(ProblemModel problem) {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+          context: context,
+          elevation: 0.0,
+          useSafeArea: true,
+          enableDrag: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => ProblemUpdateSheet(
+                problem: problem,
+                onUpdateTap: onUpdateTap,
+              ));
+    }
+
+    showUpdateConfirmDialog(ProblemModel problem) {
       showDialog(
           context: context,
           barrierColor: const Color(0xff000000).withOpacity(.1),
           builder: (context) => CustomDialog(
                 content: "해당 기록을 수정할까요?",
-                onConfirm: () {},
+                onConfirm: () {
+                  Navigator.of(context).pop();
+                  showUpdateBottomSheet(problem);
+                },
               ));
     }
 

@@ -10,7 +10,7 @@ import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_status
 
 class ProblemListWidget extends HookWidget {
   final List<ProblemModel> problems;
-  final void Function(int) onItemEdit;
+  final void Function(ProblemModel) onItemEdit;
   final void Function(int) onItemDelete;
   final void Function(ProblemModel) onItemTrailing;
   final void Function(ProblemModel) onItemPrefix;
@@ -64,7 +64,7 @@ class ProblemListWidget extends HookWidget {
                               onEdit: () {
                                 if (id == null) return;
                                 preview.value?.remove();
-                                onItemEdit(id);
+                                onItemEdit(problem);
                               },
                               onDelete: () {
                                 preview.value?.remove();
