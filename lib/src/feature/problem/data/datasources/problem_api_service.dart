@@ -40,7 +40,7 @@ class ProblemApiServiceImpl implements ProblemApiService {
 
   @override
   Future<List<ProblemResponseDto>> fetchAllProblems(String userId) async {
-    final data = await client.from("solution").select();
+    final data = await client.from("solution").select().eq("user_id", userId);
     return data.map((json) => ProblemResponseDto.fromJson(json)).toList();
   }
 
@@ -58,9 +58,10 @@ class ProblemApiServiceImpl implements ProblemApiService {
 
   /// 사용자의 현재까지 해결 기록 스탯을 반환하는 RPC 쿼리
   @override
-  Future<UserStatResponseDto> fetchUserStat() async {
+  Future<UserStatResponseDto> fetchUserStat(String userId) async {
     try {
-      final data = await client.rpc("user_stat_count");
+      final data =
+          await client.rpc("get_solution_stats", params: {"p_user_id": userId});
       return UserStatResponseDto.fromJson(data);
     } on Exception catch (e) {
       rethrow;
@@ -97,7 +98,7 @@ abstract class ProblemApiService {
 
   Future<List<ProblemResponseDto>> fetchSovledProblems(String userId);
 
-  Future<UserStatResponseDto> fetchUserStat();
+  Future<UserStatResponseDto> fetchUserStat(String userId);
 
   Future<void> deleteProblem(int id);
 

@@ -67,9 +67,9 @@ final class ProblemRepositoryImpl implements ProblemRepository {
   }
 
   @override
-  Future<UserStatResponseDto> fetchUserStat() async {
+  Future<UserStatResponseDto> fetchUserStat(String userId) async {
     try {
-      return service.fetchUserStat();
+      return service.fetchUserStat(userId);
     } on Exception catch (e) {
       log(e.toString());
       rethrow;
@@ -96,7 +96,7 @@ abstract class ProblemRepository {
 
   Future<void> deleteProblem(int id);
 
-  Future<UserStatResponseDto> fetchUserStat();
+  Future<UserStatResponseDto> fetchUserStat(String userId);
 
   Future<List<ProblemEntity>> updateProblem(ProblemEntity problem);
 }

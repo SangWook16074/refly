@@ -26,7 +26,8 @@ final class GetUserStatUsecaseImpl implements GetUserStatUsecase {
       if (user == null) {
         throw Exception("로그인 안됨...");
       }
-      final response = await problemRepository.fetchUserStat();
+      final userId = user.id;
+      final response = await problemRepository.fetchUserStat(userId);
       return response.toEntity();
     } on Exception catch (e) {
       log(e.toString());

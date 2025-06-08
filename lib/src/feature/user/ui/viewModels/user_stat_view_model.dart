@@ -7,7 +7,7 @@ import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view
 
 part 'user_stat_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class UserStatViewModel extends _$UserStatViewModel {
   @override
   Future<UserStat> build() async {

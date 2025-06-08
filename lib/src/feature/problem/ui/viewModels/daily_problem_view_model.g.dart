@@ -7,7 +7,7 @@ part of 'daily_problem_view_model.dart';
 // **************************************************************************
 
 String _$dailyProblemViewModelHash() =>
-    r'c3c9fcbe9a58e6ec6d8ec09c686432c2c8772289';
+    r'0d84c5febb1c530aa16b3bc89282fd71d6d2266a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,7 +31,7 @@ class _SystemHash {
 }
 
 abstract class _$DailyProblemViewModel
-    extends BuildlessAsyncNotifier<List<ProblemModel>> {
+    extends BuildlessAutoDisposeAsyncNotifier<List<ProblemModel>> {
   late final DateTime target;
 
   FutureOr<List<ProblemModel>> build({
@@ -83,8 +83,9 @@ class DailyProblemViewModelFamily
 }
 
 /// See also [DailyProblemViewModel].
-class DailyProblemViewModelProvider extends AsyncNotifierProviderImpl<
-    DailyProblemViewModel, List<ProblemModel>> {
+class DailyProblemViewModelProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<DailyProblemViewModel,
+        List<ProblemModel>> {
   /// See also [DailyProblemViewModel].
   DailyProblemViewModelProvider({
     required DateTime target,
@@ -140,8 +141,8 @@ class DailyProblemViewModelProvider extends AsyncNotifierProviderImpl<
   }
 
   @override
-  AsyncNotifierProviderElement<DailyProblemViewModel, List<ProblemModel>>
-      createElement() {
+  AutoDisposeAsyncNotifierProviderElement<DailyProblemViewModel,
+      List<ProblemModel>> createElement() {
     return _DailyProblemViewModelProviderElement(this);
   }
 
@@ -161,13 +162,14 @@ class DailyProblemViewModelProvider extends AsyncNotifierProviderImpl<
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin DailyProblemViewModelRef on AsyncNotifierProviderRef<List<ProblemModel>> {
+mixin DailyProblemViewModelRef
+    on AutoDisposeAsyncNotifierProviderRef<List<ProblemModel>> {
   /// The parameter `target` of this provider.
   DateTime get target;
 }
 
 class _DailyProblemViewModelProviderElement
-    extends AsyncNotifierProviderElement<DailyProblemViewModel,
+    extends AutoDisposeAsyncNotifierProviderElement<DailyProblemViewModel,
         List<ProblemModel>> with DailyProblemViewModelRef {
   _DailyProblemViewModelProviderElement(super.provider);
 

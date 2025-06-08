@@ -10,7 +10,7 @@ import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_vie
 
 part 'daily_problem_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class DailyProblemViewModel extends _$DailyProblemViewModel {
   @override
   Future<List<ProblemModel>> build({required DateTime target}) async {
