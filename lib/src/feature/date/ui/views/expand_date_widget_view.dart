@@ -26,6 +26,7 @@ class ExpandDateWidgetView extends HookConsumerWidget {
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final diff = prev.value.difference(currDate).inDays;
+        if (diff == 0) return;
         log("${diff.toString()}일만큼 이동!");
         final currOffset = scrollController.offset;
         scrollController.animateTo(currOffset + diff * (totalItemWidth + 16),

@@ -17,6 +17,7 @@ class DailyProblemViewModel extends _$DailyProblemViewModel {
     try {
       final result =
           await ref.read(getUserProblemsUsecaseProvider).call(target);
+      log(result.toString());
       return result.map((entity) => ProblemModel.fromEntity(entity)).toList();
     } catch (e) {
       log(e.toString());
