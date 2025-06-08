@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/viewModels/date_view_event.dart';
+import 'package:solution_diary_app/src/feature/date/ui/viewModels/date_view_event.dart';
 
 part 'date_view_model.g.dart';
 

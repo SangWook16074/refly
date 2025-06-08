@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
 import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/viewModels/date_view_model.dart';
+import 'package:solution_diary_app/src/feature/date/ui/viewModels/date_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/empty_view.dart';

@@ -19,14 +19,15 @@ class UploadButton extends StatelessWidget {
           Icon(
             Icons.add,
             color: Color(0xffffffff),
+            size: 20,
           ),
           Text(
             "추가하기",
             style: TextStyle(
-              fontFamily: "Roboto",
-              color: Color(0xffffffff),
-              fontSize: 13,
-            ),
+                fontFamily: "Roboto",
+                color: Color(0xffffffff),
+                fontSize: 13,
+                fontWeight: FontWeight.w600),
           )
         ],
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_view_model.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/views/date_view.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/views/expand_date_widget_view.dart';
+import 'package:solution_diary_app/src/feature/date/ui/views/date_view.dart';
+import 'package:solution_diary_app/src/feature/date/ui/views/expand_date_widget_view.dart';
 
 class MainUiDateView extends ConsumerWidget {
   const MainUiDateView({super.key});

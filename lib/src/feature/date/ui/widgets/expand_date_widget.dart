@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/widgets/date_widget.dart';
+import 'package:solution_diary_app/src/feature/date/ui/widgets/date_widget.dart';
 
 extension on DateTime {
   isEqualtTo(DateTime date) {
@@ -84,73 +84,42 @@ class ExpandDateWidget extends HookWidget {
           }
           return false;
         },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: SizedBox(
-                height: 20,
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.calendar_month,
-                      color: Color(0xffffffff),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      dateHistory.value.monthLabel,
-                      style: const TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 16,
-                          color: Color(0xffffffff)),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: (size.width - 16 * 6) / 6,
-              child: ListView.builder(
+        child: SizedBox(
+          height: (size.width - 16 * 6) / 6,
+          child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              controller: controller,
+              scrollDirection: Axis.horizontal,
+              physics: const ClampingScrollPhysics(),
+              reverse: true,
+              shrinkWrap: true,
+              itemCount: totalDays,
+              itemBuilder: (context, index) {
+                final date = start.subtract(Duration(days: index));
+                return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  controller: controller,
-                  scrollDirection: Axis.horizontal,
-                  physics: const ClampingScrollPhysics(),
-                  reverse: true,
-                  shrinkWrap: true,
-                  itemCount: totalDays,
-                  itemBuilder: (context, index) {
-                    final date = start.subtract(Duration(days: index));
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          controller
-                              .animateTo(
-                            indexToOffset(index, totalItemWidth + 16),
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeOut,
-                          )
-                              .whenComplete(() {
-                            dateHistory.value = date;
-                            onTap(dateHistory.value);
-                          });
-                        },
-                        child: DateWidget(
-                          date: date,
-                          type: (date.isEqualtTo(currDate))
-                              ? SelectType.select
-                              : SelectType.unselect,
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
+                  child: GestureDetector(
+                    onTap: () {
+                      controller
+                          .animateTo(
+                        indexToOffset(index, totalItemWidth + 16),
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      )
+                          .whenComplete(() {
+                        dateHistory.value = date;
+                        onTap(dateHistory.value);
+                      });
+                    },
+                    child: DateWidget(
+                      date: date,
+                      type: (date.isEqualtTo(currDate))
+                          ? SelectType.select
+                          : SelectType.unselect,
+                    ),
+                  ),
+                );
+              }),
         ));
   }
 

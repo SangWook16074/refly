@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/widgets/date_widget.dart';
+import 'package:solution_diary_app/src/feature/date/ui/widgets/date_widget.dart';
 
 void main() {
   group("DateWidget Test", () {
