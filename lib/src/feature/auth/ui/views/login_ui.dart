@@ -34,7 +34,7 @@ class LoginUI extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SizedBox(
-                          width: 150,
+                          width: 120,
                           child: IconImageWidget(path: ImagePath.logo),
                         ),
                         const SizedBox(
@@ -43,7 +43,7 @@ class LoginUI extends ConsumerWidget {
                         Column(
                           children: [
                             SizedBox(
-                              width: 80,
+                              width: 120,
                               child: IconImageWidget(path: ImagePath.appName),
                             ),
                             const SizedBox(
@@ -55,7 +55,7 @@ class LoginUI extends ConsumerWidget {
                                   color: Color(0xffffffff),
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: "Roboto"),
+                                  fontFamily: "Lobster"),
                             )
                           ],
                         )
@@ -78,11 +78,16 @@ class LoginUI extends ConsumerWidget {
             ],
           ),
           if (loginUiState is Progress)
-            ModalBarrier(
-              dismissible: false,
-              color: const Color(0xff000000).withAlpha((255 * 0.1).round()),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ModalBarrier(
+                  dismissible: false,
+                  color: const Color(0xff000000).withAlpha((255 * 0.1).round()),
+                ),
+                const Center(child: CircularProgressIndicator.adaptive()),
+              ],
             ),
-          const Center(child: CircularProgressIndicator.adaptive()),
         ],
       ),
     );

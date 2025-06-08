@@ -27,7 +27,6 @@ class AppleLoginButtonView extends ConsumerWidget {
           fontSize: 20,
           fontWeight: FontWeight.w500,
           color: Color(0xffffffff),
-          fontFamily: "Roboto-Medium",
         ),
       ),
     );

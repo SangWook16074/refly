@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/core/providers/logout_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
@@ -12,13 +14,16 @@ class MainUiViewModel extends _$MainUiViewModel {
     return const MainUiState();
   }
 
+  /// MainUI 사용자 이벤트 핸들러
   onEvent(MainUiEvent event) {
     event.when(userScrolled: (double extent) {
+      log("user scrolled detect");
       state = state.copyWith(
           dateWidgetOpacity: _calculateDateWidgetOpacity(extent),
           userStateOpacity: _calculateUserStateOpacity(extent),
           snapProgress: _calculateYPosition(extent));
     }, userLogoutButtonTaped: () async {
+      log("user logout button taped");
       await ref.read(logoutUsecaseProvider).call();
     });
   }
