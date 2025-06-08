@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ProblemEditSheet extends ConsumerWidget {
+class EditSheetWidget extends ConsumerWidget {
+  final String editLabel;
   final void Function()? onEdit;
+  final String cancelLabel;
   final void Function()? onDelete;
-  const ProblemEditSheet({
+  final Color? backgroundColor;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  const EditSheetWidget({
     super.key,
+    required this.editLabel,
+    required this.cancelLabel,
+    this.backgroundColor,
     this.onEdit,
     this.onDelete,
+    this.padding,
+    this.margin,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final now = ref.watch(dateViewModelProvider);
-    // final problemListViewState = ref.watch(problemListViewModelProvider);
-    // final problemListViewModel =
-    //     ref.read(problemListViewModelProvider.notifier);
-    // final problemViewModel =
-    //     ref.read(DailyProblemViewModelProvider(target: now).notifier);
-    // final userStatViewModel = ref.read(userStatViewModelProvider.notifier);
-
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
+      margin: margin ?? const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
-          color: const Color(0xffffffff),
+          color: backgroundColor ?? const Color(0xffffffff),
           border: Border.all(width: 0.5, color: const Color(0xffdfdfdf)),
           borderRadius: BorderRadius.circular(12.0)),
       child: Column(
@@ -33,14 +35,14 @@ class ProblemEditSheet extends ConsumerWidget {
         children: [
           GestureDetector(
             onTap: onEdit,
-            child: const SizedBox(
+            child: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    "수정하기",
-                    style: TextStyle(
+                    editLabel,
+                    style: const TextStyle(
                       fontFamily: "Roboto",
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
@@ -56,15 +58,15 @@ class ProblemEditSheet extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: onDelete,
-            child: const SizedBox(
+            child: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    "삭제하기",
+                    cancelLabel,
                     // selectionColor: Color(0xffff0000),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "Roboto",
                         fontSize: 15,
                         fontWeight: FontWeight.w500,

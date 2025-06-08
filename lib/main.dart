@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/theme/app_theme.dart';
 import 'package:solution_diary_app/src/core/routes/route.dart';
-import 'package:solution_diary_app/src/feature/date/ui/widgets/calendar_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -22,19 +21,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: lightTheme,
-      // routerConfig: router,
-      home: Scaffold(
-        backgroundColor: const Color(0xff000000),
-        body: Center(
-          child: CalendarWidget(
-            padding: const EdgeInsets.all(20),
-            currDate: DateTime.now(),
-            onDateChange: (value) {},
-          ),
-        ),
-      ),
+      routerConfig: router,
     );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
-import 'package:solution_diary_app/src/feature/problem/ui/views/problem_edit_sheet.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/edit_sheet_widget.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/problem_list_row.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_preview_widget.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_status_widget.dart';
@@ -60,12 +60,14 @@ class ProblemListWidget extends HookWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            ProblemEditSheet(
+                            EditSheetWidget(
+                              editLabel: "수정하기",
                               onEdit: () {
                                 if (id == null) return;
                                 preview.value?.remove();
                                 onItemEdit(problem);
                               },
+                              cancelLabel: "삭제하기",
                               onDelete: () {
                                 preview.value?.remove();
                                 onItemDelete(id!);

@@ -2,19 +2,19 @@ extension WeekdayExtension on DateTime {
   String get getWeekday {
     switch (weekday) {
       case 1:
-        return "MON";
+        return "월";
       case 2:
-        return "TUE";
+        return "화";
       case 3:
-        return "WED";
+        return "수";
       case 4:
-        return "THUR";
+        return "목";
       case 5:
-        return "FRI";
+        return "금";
       case 6:
-        return "SAT";
+        return "토";
       default:
-        return "SUN";
+        return "일";
     }
   }
 }
@@ -23,7 +23,7 @@ extension MonthLabelExtension on DateTime {
   String get monthLabel {
     switch (month) {
       case 1:
-        return "January";
+        return "1월";
       case 2:
         return "February";
       case 3:

@@ -3,25 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:solution_diary_app/src/core/extensions/date_extension.dart';
 import 'package:solution_diary_app/src/feature/date/ui/widgets/date_widget.dart';
-
-extension on DateTime {
-  isEqualtTo(DateTime date) {
-    return year == date.year && month == date.month && day == date.day;
-  }
-}
 
 class ExpandDateWidget extends HookWidget {
   final DateTime currDate;
 
   final ValueSetter<DateTime> onTap;
   final ValueSetter<DateTime> onScroll;
+  final ScrollController? controller;
   const ExpandDateWidget({
     super.key,
     required this.currDate,
     required this.onTap,
     required this.onScroll,
+    this.controller,
   });
 
   @override
@@ -39,7 +34,7 @@ class ExpandDateWidget extends HookWidget {
     // 사용자의 재스크롤 판정 타이머
     final debounceTimer = useRef<Timer?>(null);
 
-    final controller = useScrollController();
+    final controller = this.controller ?? useScrollController();
 
     final dateHistory = useState(now);
 
@@ -113,7 +108,7 @@ class ExpandDateWidget extends HookWidget {
                     },
                     child: DateWidget(
                       date: date,
-                      type: (date.isEqualtTo(currDate))
+                      type: DateUtils.isSameDay(date, currDate)
                           ? SelectType.select
                           : SelectType.unselect,
                     ),

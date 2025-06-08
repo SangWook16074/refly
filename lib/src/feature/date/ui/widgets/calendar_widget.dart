@@ -7,9 +7,14 @@ import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
 class CalendarWidget extends HookWidget {
   final DateTime currDate;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final ValueSetter<DateTime>? onDateChange;
   const CalendarWidget(
-      {super.key, this.padding, required this.currDate, this.onDateChange});
+      {super.key,
+      this.padding,
+      this.margin,
+      required this.currDate,
+      this.onDateChange});
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +45,16 @@ class CalendarWidget extends HookWidget {
     }
 
     return Container(
+      margin: margin,
       padding: padding,
-      constraints: const BoxConstraints(
-        maxHeight: 400,
-      ),
+      constraints: const BoxConstraints(maxHeight: 400),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
         color: const Color(0xfff3f3f3),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           /// 상단 라벨 위젯
           Row(
@@ -161,11 +166,11 @@ class CalendarWidget extends HookWidget {
                                                                 0 => 0xffff4e4e,
                                                                 _ => 0xff000025,
                                                               })
-                                                    .withAlpha(currDate.year <=
+                                                    .withAlpha(now.year <=
                                                                 year.value &&
-                                                            currDate.month <=
+                                                            now.month <=
                                                                 month.value &&
-                                                            currDate.day < day
+                                                            now.day < day
                                                         ? (255 * 0.3).round()
                                                         : 255),
                                                 fontSize: 15,
@@ -190,13 +195,5 @@ class CalendarWidget extends HookWidget {
         ],
       ),
     );
-  }
-}
-
-extension on DateTime {
-  bool isEqualTo(DateTime dateTime) {
-    return year == dateTime.year &&
-        month == dateTime.month &&
-        day == dateTime.day;
   }
 }
