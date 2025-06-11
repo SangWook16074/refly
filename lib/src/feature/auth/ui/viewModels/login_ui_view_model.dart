@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:solution_diary_app/src/core/providers/auth_service_provider.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/login_ui_event.dart';
@@ -26,6 +28,7 @@ class LoginUiViewModel extends _$LoginUiViewModel {
       state = Progress();
       await ref.read(authServiceProvider).nativeGoogleSignIn();
     } catch (e) {
+      log(e.toString());
       state = NotLoggedIn();
     }
   }
@@ -35,6 +38,7 @@ class LoginUiViewModel extends _$LoginUiViewModel {
       state = Progress();
       await ref.read(authServiceProvider).signInWithApple();
     } catch (e) {
+      log(e.toString());
       state = NotLoggedIn();
     }
   }

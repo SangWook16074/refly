@@ -1,4 +1,4 @@
-package com.example.solution_diary_app
+package com.devsangwook.android.refly
 
 import io.flutter.embedding.android.FlutterActivity
 
