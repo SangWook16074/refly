@@ -1,0 +1,2 @@
+/Users/hansw/Desktop/WorkingSpace/solution_diary_app/android/app/.cxx/RelWithDebInfo/172x6n53/x86_64/CMakeFiles/edit_cache.dir
+/Users/hansw/Desktop/WorkingSpace/solution_diary_app/android/app/.cxx/RelWithDebInfo/172x6n53/x86_64/CMakeFiles/rebuild_cache.dir

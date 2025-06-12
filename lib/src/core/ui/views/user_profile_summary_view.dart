@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_image_view.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_login_provider_view.dart';
+import 'package:solution_diary_app/src/feature/user/ui/views/user_name_view.dart';
 import 'package:solution_diary_app/src/feature/user/ui/views/user_state_view.dart';
 
 class UserProfileSummaryView extends StatelessWidget {
@@ -8,7 +9,6 @@ class UserProfileSummaryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       constraints: const BoxConstraints(maxHeight: 130),
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0),
@@ -17,14 +17,14 @@ class UserProfileSummaryView extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       alignment: Alignment.center,
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(width: 50, child: UserImageView()),
-              const SizedBox(
+              SizedBox(width: 50, child: UserImageView()),
+              SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -33,23 +33,17 @@ class UserProfileSummaryView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "한상욱",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: theme.colorScheme.secondary),
-                    ),
-                    const SizedBox(
+                    UserNameView(),
+                    SizedBox(
                       height: 5,
                     ),
-                    const UserLoginProviderView()
+                    UserLoginProviderView()
                   ],
                 ),
               )
             ],
           ),
-          const UserStatView()
+          UserStatView()
         ],
       ),
     );
