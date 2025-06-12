@@ -34,6 +34,7 @@ class CustomDialog extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
             const Divider(

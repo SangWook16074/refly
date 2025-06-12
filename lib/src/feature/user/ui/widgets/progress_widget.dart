@@ -38,7 +38,7 @@ class ProgressWidgetPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     late final int ratio;
     // 아무것도 등록하지 않으면 비율은 0
-    if (total == current && total == 0) {
+    if (total == 0) {
       ratio = 0;
     } else {
       // 그렇지 않다면 비율 계산

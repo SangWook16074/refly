@@ -33,4 +33,5 @@ final class ImagePath {
   static String get favoriteOn => "assets/images/favorite_on_ic.png";
   static String get favoriteOff => "assets/images/favorite_off_ic.png";
   static String get calendar => "assets/images/calendar_ic.png";
+  static String get setting => "assets/images/setting_ic.png";
 }

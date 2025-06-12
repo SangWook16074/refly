@@ -20,18 +20,21 @@ mixin _$MainUiEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(double extent) userScrolled,
     required TResult Function() userLogoutButtonTaped,
+    required TResult Function() userDeleteUserButtonTaped,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double extent)? userScrolled,
     TResult? Function()? userLogoutButtonTaped,
+    TResult? Function()? userDeleteUserButtonTaped,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double extent)? userScrolled,
     TResult Function()? userLogoutButtonTaped,
+    TResult Function()? userDeleteUserButtonTaped,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,18 +43,24 @@ mixin _$MainUiEvent {
     required TResult Function(_$UserScrolled value) userScrolled,
     required TResult Function(_$UserLogoutButtonTaped value)
         userLogoutButtonTaped,
+    required TResult Function(_$UserDeleteUserButtonTaped value)
+        userDeleteUserButtonTaped,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UserScrolled value)? userScrolled,
     TResult? Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult? Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UserScrolled value)? userScrolled,
     TResult Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -148,6 +157,7 @@ class _$$UserScrolledImpl implements _$UserScrolled {
   TResult when<TResult extends Object?>({
     required TResult Function(double extent) userScrolled,
     required TResult Function() userLogoutButtonTaped,
+    required TResult Function() userDeleteUserButtonTaped,
   }) {
     return userScrolled(extent);
   }
@@ -157,6 +167,7 @@ class _$$UserScrolledImpl implements _$UserScrolled {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double extent)? userScrolled,
     TResult? Function()? userLogoutButtonTaped,
+    TResult? Function()? userDeleteUserButtonTaped,
   }) {
     return userScrolled?.call(extent);
   }
@@ -166,6 +177,7 @@ class _$$UserScrolledImpl implements _$UserScrolled {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double extent)? userScrolled,
     TResult Function()? userLogoutButtonTaped,
+    TResult Function()? userDeleteUserButtonTaped,
     required TResult orElse(),
   }) {
     if (userScrolled != null) {
@@ -180,6 +192,8 @@ class _$$UserScrolledImpl implements _$UserScrolled {
     required TResult Function(_$UserScrolled value) userScrolled,
     required TResult Function(_$UserLogoutButtonTaped value)
         userLogoutButtonTaped,
+    required TResult Function(_$UserDeleteUserButtonTaped value)
+        userDeleteUserButtonTaped,
   }) {
     return userScrolled(this);
   }
@@ -189,6 +203,8 @@ class _$$UserScrolledImpl implements _$UserScrolled {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UserScrolled value)? userScrolled,
     TResult? Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult? Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
   }) {
     return userScrolled?.call(this);
   }
@@ -198,6 +214,8 @@ class _$$UserScrolledImpl implements _$UserScrolled {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UserScrolled value)? userScrolled,
     TResult Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
     required TResult orElse(),
   }) {
     if (userScrolled != null) {
@@ -266,6 +284,7 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
   TResult when<TResult extends Object?>({
     required TResult Function(double extent) userScrolled,
     required TResult Function() userLogoutButtonTaped,
+    required TResult Function() userDeleteUserButtonTaped,
   }) {
     return userLogoutButtonTaped();
   }
@@ -275,6 +294,7 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(double extent)? userScrolled,
     TResult? Function()? userLogoutButtonTaped,
+    TResult? Function()? userDeleteUserButtonTaped,
   }) {
     return userLogoutButtonTaped?.call();
   }
@@ -284,6 +304,7 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(double extent)? userScrolled,
     TResult Function()? userLogoutButtonTaped,
+    TResult Function()? userDeleteUserButtonTaped,
     required TResult orElse(),
   }) {
     if (userLogoutButtonTaped != null) {
@@ -298,6 +319,8 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
     required TResult Function(_$UserScrolled value) userScrolled,
     required TResult Function(_$UserLogoutButtonTaped value)
         userLogoutButtonTaped,
+    required TResult Function(_$UserDeleteUserButtonTaped value)
+        userDeleteUserButtonTaped,
   }) {
     return userLogoutButtonTaped(this);
   }
@@ -307,6 +330,8 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_$UserScrolled value)? userScrolled,
     TResult? Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult? Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
   }) {
     return userLogoutButtonTaped?.call(this);
   }
@@ -316,6 +341,8 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_$UserScrolled value)? userScrolled,
     TResult Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
     required TResult orElse(),
   }) {
     if (userLogoutButtonTaped != null) {
@@ -327,4 +354,123 @@ class _$$UserLogoutButtonTapedImpl implements _$UserLogoutButtonTaped {
 
 abstract class _$UserLogoutButtonTaped implements MainUiEvent {
   const factory _$UserLogoutButtonTaped() = _$$UserLogoutButtonTapedImpl;
+}
+
+/// @nodoc
+abstract class _$$$UserDeleteUserButtonTapedImplCopyWith<$Res> {
+  factory _$$$UserDeleteUserButtonTapedImplCopyWith(
+          _$$UserDeleteUserButtonTapedImpl value,
+          $Res Function(_$$UserDeleteUserButtonTapedImpl) then) =
+      __$$$UserDeleteUserButtonTapedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$$UserDeleteUserButtonTapedImplCopyWithImpl<$Res>
+    extends _$MainUiEventCopyWithImpl<$Res, _$$UserDeleteUserButtonTapedImpl>
+    implements _$$$UserDeleteUserButtonTapedImplCopyWith<$Res> {
+  __$$$UserDeleteUserButtonTapedImplCopyWithImpl(
+      _$$UserDeleteUserButtonTapedImpl _value,
+      $Res Function(_$$UserDeleteUserButtonTapedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MainUiEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$$UserDeleteUserButtonTapedImpl implements _$UserDeleteUserButtonTaped {
+  const _$$UserDeleteUserButtonTapedImpl();
+
+  @override
+  String toString() {
+    return 'MainUiEvent.userDeleteUserButtonTaped()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$$UserDeleteUserButtonTapedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double extent) userScrolled,
+    required TResult Function() userLogoutButtonTaped,
+    required TResult Function() userDeleteUserButtonTaped,
+  }) {
+    return userDeleteUserButtonTaped();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double extent)? userScrolled,
+    TResult? Function()? userLogoutButtonTaped,
+    TResult? Function()? userDeleteUserButtonTaped,
+  }) {
+    return userDeleteUserButtonTaped?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double extent)? userScrolled,
+    TResult Function()? userLogoutButtonTaped,
+    TResult Function()? userDeleteUserButtonTaped,
+    required TResult orElse(),
+  }) {
+    if (userDeleteUserButtonTaped != null) {
+      return userDeleteUserButtonTaped();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_$UserScrolled value) userScrolled,
+    required TResult Function(_$UserLogoutButtonTaped value)
+        userLogoutButtonTaped,
+    required TResult Function(_$UserDeleteUserButtonTaped value)
+        userDeleteUserButtonTaped,
+  }) {
+    return userDeleteUserButtonTaped(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_$UserScrolled value)? userScrolled,
+    TResult? Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult? Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
+  }) {
+    return userDeleteUserButtonTaped?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_$UserScrolled value)? userScrolled,
+    TResult Function(_$UserLogoutButtonTaped value)? userLogoutButtonTaped,
+    TResult Function(_$UserDeleteUserButtonTaped value)?
+        userDeleteUserButtonTaped,
+    required TResult orElse(),
+  }) {
+    if (userDeleteUserButtonTaped != null) {
+      return userDeleteUserButtonTaped(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _$UserDeleteUserButtonTaped implements MainUiEvent {
+  const factory _$UserDeleteUserButtonTaped() =
+      _$$UserDeleteUserButtonTapedImpl;
 }

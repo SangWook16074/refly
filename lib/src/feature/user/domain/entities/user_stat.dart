@@ -12,5 +12,10 @@ abstract class UserStat with _$UserStat {
 
   const UserStat._();
 
-  int get userResolutionRate => (solve / total * 100).round();
+  int get userResolutionRate {
+    if (total == 0) {
+      return 0;
+    }
+    return (solve / total * 100).round();
+  }
 }

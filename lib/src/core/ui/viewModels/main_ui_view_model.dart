@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:solution_diary_app/src/core/providers/delete_user_problem_usecase_provider.dart';
+import 'package:solution_diary_app/src/core/providers/delete_user_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/providers/logout_usecase_provider.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_state.dart';
@@ -25,6 +27,8 @@ class MainUiViewModel extends _$MainUiViewModel {
     }, userLogoutButtonTaped: () async {
       log("user logout button taped");
       await ref.read(logoutUsecaseProvider).call();
+    }, userDeleteUserButtonTaped: () async {
+      await ref.read(deleteUserUsecaseProvider).call();
     });
   }
 

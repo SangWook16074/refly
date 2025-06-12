@@ -5,6 +5,7 @@ import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_view_model.dart';
 import 'package:solution_diary_app/src/core/ui/views/logout_icon_view.dart';
 import 'package:solution_diary_app/src/core/ui/views/main_ui_date_view.dart';
+import 'package:solution_diary_app/src/core/ui/views/setting_icon_view.dart';
 import 'package:solution_diary_app/src/core/ui/views/user_problem_detail_sheet.dart';
 import 'package:solution_diary_app/src/core/ui/views/user_profile_summary_view.dart';
 import 'package:solution_diary_app/src/core/ui/views/user_resolution_rate_summary_view.dart';
@@ -83,10 +84,7 @@ class MainUI extends HookConsumerWidget {
           ],
         ),
         actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: LogoutIconView(),
-          )
+          SettingIconView(),
         ],
         centerTitle: false,
       ),

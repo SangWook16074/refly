@@ -8,4 +8,7 @@ sealed class MainUiEvent with _$MainUiEvent {
       _$UserScrolled;
 
   const factory MainUiEvent.userLogoutButtonTaped() = _$UserLogoutButtonTaped;
+
+  const factory MainUiEvent.userDeleteUserButtonTaped() =
+      _$UserDeleteUserButtonTaped;
 }

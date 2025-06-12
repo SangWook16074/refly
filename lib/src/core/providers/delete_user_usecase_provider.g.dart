@@ -1,26 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'main_ui_view_model.dart';
+part of 'delete_user_usecase_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mainUiViewModelHash() => r'24860ec66572a666e9b553b1e9cb6fa7656dd985';
+String _$deleteUserUsecaseHash() => r'857d30ce17f3698225338b4163ab3a2835b88736';
 
-/// See also [MainUiViewModel].
-@ProviderFor(MainUiViewModel)
-final mainUiViewModelProvider =
-    AutoDisposeNotifierProvider<MainUiViewModel, MainUiState>.internal(
-  MainUiViewModel.new,
-  name: r'mainUiViewModelProvider',
+/// See also [deleteUserUsecase].
+@ProviderFor(deleteUserUsecase)
+final deleteUserUsecaseProvider =
+    AutoDisposeProvider<DeleteUserUsecase>.internal(
+  deleteUserUsecase,
+  name: r'deleteUserUsecaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$mainUiViewModelHash,
+      : _$deleteUserUsecaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$MainUiViewModel = AutoDisposeNotifier<MainUiState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DeleteUserUsecaseRef = AutoDisposeProviderRef<DeleteUserUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

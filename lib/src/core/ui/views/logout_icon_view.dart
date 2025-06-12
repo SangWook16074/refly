@@ -29,6 +29,6 @@ class LogoutIconView extends ConsumerWidget {
     return GestureDetector(
         onTap: showLogoutDialog,
         child: SizedBox(
-            width: 20, child: IconImageWidget(path: ImagePath.logout)));
+            width: 24, child: IconImageWidget(path: ImagePath.setting)));
   }
 }
