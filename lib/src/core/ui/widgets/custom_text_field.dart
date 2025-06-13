@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends TextField {
   final String hintText;
-
+  final TextStyle? hintStyle;
   CustomTextField({
     super.key,
     super.controller,
     super.maxLines,
     super.onChanged,
+    super.enabled,
     required this.hintText,
+    this.hintStyle = const TextStyle(
+        fontFamily: "Roboto", fontSize: 15, color: Color(0xffafafaf)),
   }) : super(
           decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: const TextStyle(
-                  fontFamily: "Roboto", fontSize: 15, color: Color(0xffafafaf)),
+              hintStyle: hintStyle,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
               focusedBorder: OutlineInputBorder(

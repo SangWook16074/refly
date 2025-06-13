@@ -11,6 +11,7 @@ final class ProblemEntity extends Equatable {
   final DateTime createAt;
   final String userId;
   final bool isFavorite;
+  final String solution;
 
   const ProblemEntity(
       {required this.id,
@@ -19,16 +20,18 @@ final class ProblemEntity extends Equatable {
       required this.isDone,
       required this.createAt,
       required this.userId,
-      required this.isFavorite});
+      required this.isFavorite,
+      required this.solution});
 
   ProblemRequestDto toRequest() {
     return ProblemRequestDto(
-        title: title,
-        content: content,
-        isDone: isDone,
-        createAt: createAt,
-        userId: userId,
-        isFavorite: isFavorite);
+      title: title,
+      content: content,
+      isDone: isDone,
+      createAt: createAt,
+      userId: userId,
+      isFavorite: isFavorite,
+    );
   }
 
   ProblemUpdateRequestDto toUpdateRequest() {
@@ -39,7 +42,8 @@ final class ProblemEntity extends Equatable {
         isDone: isDone,
         createAt: createAt,
         userId: userId,
-        isFavorite: isFavorite);
+        isFavorite: isFavorite,
+        solution: solution);
   }
 
   factory ProblemEntity.fromResponse(ProblemResponseDto dto) {
@@ -50,7 +54,8 @@ final class ProblemEntity extends Equatable {
         isDone: dto.isDone,
         createAt: dto.createAt,
         userId: dto.userId,
-        isFavorite: dto.isFavorite);
+        isFavorite: dto.isFavorite,
+        solution: dto.solution);
   }
 
   @override

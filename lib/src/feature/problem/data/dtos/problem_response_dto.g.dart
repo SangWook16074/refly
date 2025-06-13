@@ -16,6 +16,7 @@ _$ProblemResponseDtoImpl _$$ProblemResponseDtoImplFromJson(
       createAt: DateTime.parse(json['created_at'] as String),
       userId: json['user_id'] as String,
       isFavorite: json['is_favorite'] as bool,
+      solution: json['solution'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$ProblemResponseDtoImplToJson(
@@ -28,4 +29,5 @@ Map<String, dynamic> _$$ProblemResponseDtoImplToJson(
       'created_at': instance.createAt.toIso8601String(),
       'user_id': instance.userId,
       'is_favorite': instance.isFavorite,
+      'solution': instance.solution,
     };

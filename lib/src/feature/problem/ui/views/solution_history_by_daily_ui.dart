@@ -6,6 +6,7 @@ import 'package:solution_diary_app/src/feature/date/ui/viewModels/date_view_mode
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/daily_problem_view_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/problem_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/empty_view.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/problem_complete_upload_sheet.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/problem_update_sheet.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/problem_upload_fab_view.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_list_widget.dart';
@@ -71,6 +72,42 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
               ));
     }
 
+    void onCompleteTap(ProblemModel problem) {
+      viewModel.onEvent(UpdateProblem(problem: problem));
+    }
+
+    void showProblemCompleteUploadBottomSheet(ProblemModel problem) {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+          context: context,
+          elevation: 0.0,
+          useSafeArea: true,
+          enableDrag: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => ProblemCompleteUploadSheet(
+                problem: problem,
+                onCompleteTap: onCompleteTap,
+              ));
+    }
+
+    void showProblemCompleteUploadConfirmDialog(ProblemModel problem) {
+      showDialog(
+          context: context,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "해결책을 함께 등록하시겠어요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () {
+                  Navigator.of(context).pop();
+                  showProblemCompleteUploadBottomSheet(problem);
+                },
+              ));
+    }
+
     void showOnTrailingDialog(ProblemModel problem) {
       showDialog(
           context: context,
@@ -78,13 +115,13 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
           builder: (context) {
             if (problem.isDone) {
               return CustomDialog(
-                content: "문제 해결을 취소할까요?",
+                content: "문제 해결을 취소할까요?\n등록된 해결책도 함께 사라집니다.",
                 confirmLabel: "네",
                 cancelLabel: "아니요",
                 onConfirm: () async {
                   Navigator.of(context).pop();
-                  await viewModel.onEvent(
-                      UpdateProblem(problem: problem.copyWith(isDone: false)));
+                  await viewModel.onEvent(UpdateProblem(
+                      problem: problem.copyWith(isDone: false, solution: "")));
                   userStatViewModel.onEvent(RefreshUserStat());
                 },
               );
@@ -95,9 +132,10 @@ class SolutionHistoryByDailyUI extends ConsumerWidget {
                 cancelLabel: "아니요",
                 onConfirm: () async {
                   Navigator.of(context).pop();
-                  await viewModel.onEvent(
-                      UpdateProblem(problem: problem.copyWith(isDone: true)));
+                  final newProblem = problem.copyWith(isDone: true);
+                  await viewModel.onEvent(UpdateProblem(problem: newProblem));
                   userStatViewModel.onEvent(RefreshUserStat());
+                  showProblemCompleteUploadConfirmDialog(newProblem);
                 },
               );
             }

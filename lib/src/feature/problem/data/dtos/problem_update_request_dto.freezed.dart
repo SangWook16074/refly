@@ -21,11 +21,8 @@ ProblemUpdateRequestDto _$ProblemUpdateRequestDtoFromJson(
 
 /// @nodoc
 mixin _$ProblemUpdateRequestDto {
-  @JsonKey(name: "id")
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: "title")
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: "content")
   String get content => throw _privateConstructorUsedError;
   @JsonKey(name: "is_done")
   bool get isDone => throw _privateConstructorUsedError;
@@ -35,6 +32,7 @@ mixin _$ProblemUpdateRequestDto {
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: "is_favorite")
   bool get isFavorite => throw _privateConstructorUsedError;
+  String get solution => throw _privateConstructorUsedError;
 
   /// Serializes this ProblemUpdateRequestDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,13 +51,14 @@ abstract class $ProblemUpdateRequestDtoCopyWith<$Res> {
       _$ProblemUpdateRequestDtoCopyWithImpl<$Res, ProblemUpdateRequestDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: "id") int id,
-      @JsonKey(name: "title") String title,
-      @JsonKey(name: "content") String content,
+      {int id,
+      String title,
+      String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
       @JsonKey(name: "user_id") String userId,
-      @JsonKey(name: "is_favorite") bool isFavorite});
+      @JsonKey(name: "is_favorite") bool isFavorite,
+      String solution});
 }
 
 /// @nodoc
@@ -85,6 +84,7 @@ class _$ProblemUpdateRequestDtoCopyWithImpl<$Res,
     Object? createAt = null,
     Object? userId = null,
     Object? isFavorite = null,
+    Object? solution = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -115,6 +115,10 @@ class _$ProblemUpdateRequestDtoCopyWithImpl<$Res,
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      solution: null == solution
+          ? _value.solution
+          : solution // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -129,13 +133,14 @@ abstract class _$$ProblemUpdateRequestDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "id") int id,
-      @JsonKey(name: "title") String title,
-      @JsonKey(name: "content") String content,
+      {int id,
+      String title,
+      String content,
       @JsonKey(name: "is_done") bool isDone,
       @JsonKey(name: "created_at") DateTime createAt,
       @JsonKey(name: "user_id") String userId,
-      @JsonKey(name: "is_favorite") bool isFavorite});
+      @JsonKey(name: "is_favorite") bool isFavorite,
+      String solution});
 }
 
 /// @nodoc
@@ -160,6 +165,7 @@ class __$$ProblemUpdateRequestDtoImplCopyWithImpl<$Res>
     Object? createAt = null,
     Object? userId = null,
     Object? isFavorite = null,
+    Object? solution = null,
   }) {
     return _then(_$ProblemUpdateRequestDtoImpl(
       id: null == id
@@ -190,6 +196,10 @@ class __$$ProblemUpdateRequestDtoImplCopyWithImpl<$Res>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      solution: null == solution
+          ? _value.solution
+          : solution // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -198,25 +208,23 @@ class __$$ProblemUpdateRequestDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
   const _$ProblemUpdateRequestDtoImpl(
-      {@JsonKey(name: "id") required this.id,
-      @JsonKey(name: "title") required this.title,
-      @JsonKey(name: "content") required this.content,
+      {required this.id,
+      required this.title,
+      required this.content,
       @JsonKey(name: "is_done") required this.isDone,
       @JsonKey(name: "created_at") required this.createAt,
       @JsonKey(name: "user_id") required this.userId,
-      @JsonKey(name: "is_favorite") required this.isFavorite});
+      @JsonKey(name: "is_favorite") required this.isFavorite,
+      required this.solution});
 
   factory _$ProblemUpdateRequestDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProblemUpdateRequestDtoImplFromJson(json);
 
   @override
-  @JsonKey(name: "id")
   final int id;
   @override
-  @JsonKey(name: "title")
   final String title;
   @override
-  @JsonKey(name: "content")
   final String content;
   @override
   @JsonKey(name: "is_done")
@@ -230,10 +238,12 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
   @override
   @JsonKey(name: "is_favorite")
   final bool isFavorite;
+  @override
+  final String solution;
 
   @override
   String toString() {
-    return 'ProblemUpdateRequestDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, userId: $userId, isFavorite: $isFavorite)';
+    return 'ProblemUpdateRequestDto(id: $id, title: $title, content: $content, isDone: $isDone, createAt: $createAt, userId: $userId, isFavorite: $isFavorite, solution: $solution)';
   }
 
   @override
@@ -249,13 +259,15 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
                 other.createAt == createAt) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+                other.isFavorite == isFavorite) &&
+            (identical(other.solution, solution) ||
+                other.solution == solution));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, content, isDone, createAt, userId, isFavorite);
+  int get hashCode => Object.hash(runtimeType, id, title, content, isDone,
+      createAt, userId, isFavorite, solution);
 
   /// Create a copy of ProblemUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.
@@ -276,26 +288,23 @@ class _$ProblemUpdateRequestDtoImpl implements _ProblemUpdateRequestDto {
 
 abstract class _ProblemUpdateRequestDto implements ProblemUpdateRequestDto {
   const factory _ProblemUpdateRequestDto(
-          {@JsonKey(name: "id") required final int id,
-          @JsonKey(name: "title") required final String title,
-          @JsonKey(name: "content") required final String content,
-          @JsonKey(name: "is_done") required final bool isDone,
-          @JsonKey(name: "created_at") required final DateTime createAt,
-          @JsonKey(name: "user_id") required final String userId,
-          @JsonKey(name: "is_favorite") required final bool isFavorite}) =
-      _$ProblemUpdateRequestDtoImpl;
+      {required final int id,
+      required final String title,
+      required final String content,
+      @JsonKey(name: "is_done") required final bool isDone,
+      @JsonKey(name: "created_at") required final DateTime createAt,
+      @JsonKey(name: "user_id") required final String userId,
+      @JsonKey(name: "is_favorite") required final bool isFavorite,
+      required final String solution}) = _$ProblemUpdateRequestDtoImpl;
 
   factory _ProblemUpdateRequestDto.fromJson(Map<String, dynamic> json) =
       _$ProblemUpdateRequestDtoImpl.fromJson;
 
   @override
-  @JsonKey(name: "id")
   int get id;
   @override
-  @JsonKey(name: "title")
   String get title;
   @override
-  @JsonKey(name: "content")
   String get content;
   @override
   @JsonKey(name: "is_done")
@@ -309,6 +318,8 @@ abstract class _ProblemUpdateRequestDto implements ProblemUpdateRequestDto {
   @override
   @JsonKey(name: "is_favorite")
   bool get isFavorite;
+  @override
+  String get solution;
 
   /// Create a copy of ProblemUpdateRequestDto
   /// with the given fields replaced by the non-null parameter values.

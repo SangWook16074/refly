@@ -4,6 +4,7 @@ import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
 import 'package:solution_diary_app/src/feature/problem/data/models/problem_model.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_event.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/viewModels/user_problem_list_view_model.dart';
+import 'package:solution_diary_app/src/feature/problem/ui/views/problem_complete_upload_sheet.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/views/problem_update_sheet.dart';
 import 'package:solution_diary_app/src/feature/problem/ui/widgets/problem_list_widget.dart';
 import 'package:solution_diary_app/src/feature/user/ui/viewModels/user_stat_view_event.dart';
@@ -61,10 +62,51 @@ class UnresolvedHistoryUI extends ConsumerWidget {
           builder: (context) => CustomDialog(
                 content: "해당 기록을 수정할까요?",
                 onConfirm: () {
-                  Navigator.of(context);
+                  Navigator.of(context).pop();
                   showUpdateBottomSheet(problem);
                 },
               ));
+    }
+
+    void onCompleteTap(ProblemModel problem) {
+      viewModel.onEvent(UserProblemListViewEvent.update(problem: problem));
+    }
+
+    void showProblemCompleteUploadBottomSheet(ProblemModel problem) {
+      showModalBottomSheet(
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+          context: context,
+          elevation: 0.0,
+          useSafeArea: true,
+          enableDrag: true,
+          backgroundColor: Colors.transparent,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => ProblemCompleteUploadSheet(
+                problem: problem,
+                onCompleteTap: onCompleteTap,
+              ));
+    }
+
+    void showProblemCompleteUploadConfirmDialog(ProblemModel problem) {
+      showDialog(
+          context: context,
+          barrierColor: const Color(0xff000000).withOpacity(.1),
+          builder: (context) => CustomDialog(
+                content: "해결책을 함께 등록하시겠어요?",
+                confirmLabel: "네",
+                cancelLabel: "아니요",
+                onConfirm: () {
+                  Navigator.of(context).pop();
+                  showProblemCompleteUploadBottomSheet(problem);
+                },
+              ));
+    }
+
+    void onItemPrefix(ProblemModel problem) {
+      viewModel.onEvent(UserProblemListViewEvent.update(
+          problem: problem.copyWith(isFavorite: !problem.isFavorite)));
     }
 
     void showOnTrailingDialog(ProblemModel problem) {
@@ -74,7 +116,7 @@ class UnresolvedHistoryUI extends ConsumerWidget {
           builder: (context) {
             if (problem.isDone) {
               return CustomDialog(
-                content: "문제 해결을 취소할까요?",
+                content: "문제 해결을 취소할까요?\n등록된 해결책도 함께 사라집니다.",
                 confirmLabel: "네",
                 cancelLabel: "아니요",
                 onConfirm: () async {
@@ -91,18 +133,15 @@ class UnresolvedHistoryUI extends ConsumerWidget {
                 cancelLabel: "아니요",
                 onConfirm: () async {
                   Navigator.of(context).pop();
-                  await viewModel.onEvent(UserProblemListViewEvent.update(
-                      problem: problem.copyWith(isDone: true)));
+                  final newProblem = problem.copyWith(isDone: true);
+                  await viewModel.onEvent(
+                      UserProblemListViewEvent.update(problem: newProblem));
                   userStatViewModel.onEvent(RefreshUserStat());
+                  showProblemCompleteUploadConfirmDialog(newProblem);
                 },
               );
             }
           });
-    }
-
-    void onItemPrefix(ProblemModel problem) {
-      viewModel.onEvent(UserProblemListViewEvent.update(
-          problem: problem.copyWith(isFavorite: !problem.isFavorite)));
     }
 
     return switch (state) {

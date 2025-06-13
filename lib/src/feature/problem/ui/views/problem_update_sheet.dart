@@ -52,76 +52,104 @@ class ProblemUpdateSheet extends HookConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                /// 시트 헤더 영역
-                ///
-                /// 제목과 닫기 버튼
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Opacity(
-                      opacity: 0,
-                      child: Icon(Icons.close),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        /// 시트 헤더 영역
+                        ///
+                        /// 제목과 닫기 버튼
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Opacity(
+                              opacity: 0,
+                              child: Icon(Icons.close),
+                            ),
+                            const Text(
+                              "수정하기",
+                              style: TextStyle(
+                                  color: Color(0xff303030),
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20),
+                            ),
+                            GestureDetector(
+                                onTap: Navigator.of(context).pop,
+                                child: const Icon(Icons.close))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+
+                        /// 제목 입력 칸
+                        CustomTextField(
+                          controller: titleController,
+                          hintText: "제목(필수)",
+                          onChanged: (title) {
+                            problemUpdateViewModel.onEvent(
+                                ProblemUpdateViewEvent.titleChanged(
+                                    title: title));
+                          },
+                        ),
+
+                        /// 제목이 올바른 형식인지 알려주는 validation 메시지 텍스트
+                        ///
+                        /// 제목이 빈칸이어서 올바르지 않은 경우에만 보임
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                problemUpdateViewState.validateTitle
+                                    ? ""
+                                    : "제목을 입력해주세요!",
+                                style: const TextStyle(
+                                    color: Color(0xffff0000),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        /// 사용자의 기록 상세 내용 칸
+                        CustomTextField(
+                          controller: contentController,
+                          hintText: "상세 내용(선택)",
+                          maxLines: 3,
+                          onChanged: (content) {
+                            problemUpdateViewModel.onEvent(
+                                ProblemUpdateViewEvent.contentChanged(
+                                    content: content));
+                          },
+                        ),
+
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        problem.solution.isNotEmpty
+                            ?
+
+                            /// 사용자의 기록 상세 내용 칸
+                            CustomTextField(
+                                controller: contentController,
+                                hintText: "상세 내용(선택)",
+                                maxLines: 3,
+                                onChanged: (content) {
+                                  problemUpdateViewModel.onEvent(
+                                      ProblemUpdateViewEvent.contentChanged(
+                                          content: content));
+                                },
+                              )
+                            : Container()
+                      ],
                     ),
-                    const Text(
-                      "수정하기",
-                      style: TextStyle(
-                          color: Color(0xff303030),
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20),
-                    ),
-                    GestureDetector(
-                        onTap: Navigator.of(context).pop,
-                        child: const Icon(Icons.close))
-                  ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
-                ),
-
-                /// 제목 입력 칸
-                CustomTextField(
-                  controller: titleController,
-                  hintText: "제목(필수)",
-                  onChanged: (title) {
-                    problemUpdateViewModel.onEvent(
-                        ProblemUpdateViewEvent.titleChanged(title: title));
-                  },
-                ),
-
-                /// 제목이 올바른 형식인지 알려주는 validation 메시지 텍스트
-                ///
-                /// 제목이 빈칸이어서 올바르지 않은 경우에만 보임
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        problemUpdateViewState.validateTitle
-                            ? ""
-                            : "제목을 입력해주세요!",
-                        style: const TextStyle(
-                            color: Color(0xffff0000),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ),
-
-                /// 사용자의 기록 상세 내용 칸
-                CustomTextField(
-                  controller: contentController,
-                  hintText: "상세 내용(선택)",
-                  maxLines: 3,
-                  onChanged: (content) {
-                    problemUpdateViewModel.onEvent(
-                        ProblemUpdateViewEvent.contentChanged(
-                            content: content));
-                  },
-                ),
-                const SizedBox(
-                  height: 70,
                 ),
 
                 /// 새로운 기록 저장 버튼

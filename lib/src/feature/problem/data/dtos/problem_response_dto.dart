@@ -13,13 +13,14 @@ part 'problem_response_dto.g.dart';
 @freezed
 abstract class ProblemResponseDto with _$ProblemResponseDto {
   const factory ProblemResponseDto({
-    @JsonKey(name: "id") int? id,
-    @JsonKey(name: "title") required String title,
-    @JsonKey(name: "content") @Default("") String content,
+    int? id,
+    required String title,
+    @Default("") String content,
     @JsonKey(name: "is_done") required bool isDone,
     @JsonKey(name: "created_at") required DateTime createAt,
     @JsonKey(name: "user_id") required String userId,
     @JsonKey(name: "is_favorite") required bool isFavorite,
+    @Default("") String solution,
   }) = _ProblemResponseDto;
 
   factory ProblemResponseDto.fromJson(Map<String, dynamic> json) =>

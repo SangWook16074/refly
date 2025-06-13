@@ -10,4 +10,8 @@ sealed class ProblemUpdateViewEvent with _$ProblemUpdateViewEvent {
   const factory ProblemUpdateViewEvent.contentChanged({
     required String content,
   }) = _ContentChanged;
+
+  const factory ProblemUpdateViewEvent.solutionChanged({
+    required String solution,
+  }) = _SolutionChanged;
 }

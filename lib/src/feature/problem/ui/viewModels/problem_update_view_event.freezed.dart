@@ -20,18 +20,21 @@ mixin _$ProblemUpdateViewEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String title) titleChanged,
     required TResult Function(String content) contentChanged,
+    required TResult Function(String solution) solutionChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title)? titleChanged,
     TResult? Function(String content)? contentChanged,
+    TResult? Function(String solution)? solutionChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title)? titleChanged,
     TResult Function(String content)? contentChanged,
+    TResult Function(String solution)? solutionChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ProblemUpdateViewEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_TitleChanged value) titleChanged,
     required TResult Function(_ContentChanged value) contentChanged,
+    required TResult Function(_SolutionChanged value) solutionChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TitleChanged value)? titleChanged,
     TResult? Function(_ContentChanged value)? contentChanged,
+    TResult? Function(_SolutionChanged value)? solutionChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TitleChanged value)? titleChanged,
     TResult Function(_ContentChanged value)? contentChanged,
+    TResult Function(_SolutionChanged value)? solutionChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -148,6 +154,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String title) titleChanged,
     required TResult Function(String content) contentChanged,
+    required TResult Function(String solution) solutionChanged,
   }) {
     return titleChanged(title);
   }
@@ -157,6 +164,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title)? titleChanged,
     TResult? Function(String content)? contentChanged,
+    TResult? Function(String solution)? solutionChanged,
   }) {
     return titleChanged?.call(title);
   }
@@ -166,6 +174,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title)? titleChanged,
     TResult Function(String content)? contentChanged,
+    TResult Function(String solution)? solutionChanged,
     required TResult orElse(),
   }) {
     if (titleChanged != null) {
@@ -179,6 +188,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_TitleChanged value) titleChanged,
     required TResult Function(_ContentChanged value) contentChanged,
+    required TResult Function(_SolutionChanged value) solutionChanged,
   }) {
     return titleChanged(this);
   }
@@ -188,6 +198,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TitleChanged value)? titleChanged,
     TResult? Function(_ContentChanged value)? contentChanged,
+    TResult? Function(_SolutionChanged value)? solutionChanged,
   }) {
     return titleChanged?.call(this);
   }
@@ -197,6 +208,7 @@ class _$TitleChangedImpl implements _TitleChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TitleChanged value)? titleChanged,
     TResult Function(_ContentChanged value)? contentChanged,
+    TResult Function(_SolutionChanged value)? solutionChanged,
     required TResult orElse(),
   }) {
     if (titleChanged != null) {
@@ -290,6 +302,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(String title) titleChanged,
     required TResult Function(String content) contentChanged,
+    required TResult Function(String solution) solutionChanged,
   }) {
     return contentChanged(content);
   }
@@ -299,6 +312,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title)? titleChanged,
     TResult? Function(String content)? contentChanged,
+    TResult? Function(String solution)? solutionChanged,
   }) {
     return contentChanged?.call(content);
   }
@@ -308,6 +322,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title)? titleChanged,
     TResult Function(String content)? contentChanged,
+    TResult Function(String solution)? solutionChanged,
     required TResult orElse(),
   }) {
     if (contentChanged != null) {
@@ -321,6 +336,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_TitleChanged value) titleChanged,
     required TResult Function(_ContentChanged value) contentChanged,
+    required TResult Function(_SolutionChanged value) solutionChanged,
   }) {
     return contentChanged(this);
   }
@@ -330,6 +346,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_TitleChanged value)? titleChanged,
     TResult? Function(_ContentChanged value)? contentChanged,
+    TResult? Function(_SolutionChanged value)? solutionChanged,
   }) {
     return contentChanged?.call(this);
   }
@@ -339,6 +356,7 @@ class _$ContentChangedImpl implements _ContentChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TitleChanged value)? titleChanged,
     TResult Function(_ContentChanged value)? contentChanged,
+    TResult Function(_SolutionChanged value)? solutionChanged,
     required TResult orElse(),
   }) {
     if (contentChanged != null) {
@@ -358,5 +376,154 @@ abstract class _ContentChanged implements ProblemUpdateViewEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ContentChangedImplCopyWith<_$ContentChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SolutionChangedImplCopyWith<$Res> {
+  factory _$$SolutionChangedImplCopyWith(_$SolutionChangedImpl value,
+          $Res Function(_$SolutionChangedImpl) then) =
+      __$$SolutionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String solution});
+}
+
+/// @nodoc
+class __$$SolutionChangedImplCopyWithImpl<$Res>
+    extends _$ProblemUpdateViewEventCopyWithImpl<$Res, _$SolutionChangedImpl>
+    implements _$$SolutionChangedImplCopyWith<$Res> {
+  __$$SolutionChangedImplCopyWithImpl(
+      _$SolutionChangedImpl _value, $Res Function(_$SolutionChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ProblemUpdateViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? solution = null,
+  }) {
+    return _then(_$SolutionChangedImpl(
+      solution: null == solution
+          ? _value.solution
+          : solution // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SolutionChangedImpl implements _SolutionChanged {
+  const _$SolutionChangedImpl({required this.solution});
+
+  @override
+  final String solution;
+
+  @override
+  String toString() {
+    return 'ProblemUpdateViewEvent.solutionChanged(solution: $solution)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SolutionChangedImpl &&
+            (identical(other.solution, solution) ||
+                other.solution == solution));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, solution);
+
+  /// Create a copy of ProblemUpdateViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SolutionChangedImplCopyWith<_$SolutionChangedImpl> get copyWith =>
+      __$$SolutionChangedImplCopyWithImpl<_$SolutionChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String title) titleChanged,
+    required TResult Function(String content) contentChanged,
+    required TResult Function(String solution) solutionChanged,
+  }) {
+    return solutionChanged(solution);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String title)? titleChanged,
+    TResult? Function(String content)? contentChanged,
+    TResult? Function(String solution)? solutionChanged,
+  }) {
+    return solutionChanged?.call(solution);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String title)? titleChanged,
+    TResult Function(String content)? contentChanged,
+    TResult Function(String solution)? solutionChanged,
+    required TResult orElse(),
+  }) {
+    if (solutionChanged != null) {
+      return solutionChanged(solution);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TitleChanged value) titleChanged,
+    required TResult Function(_ContentChanged value) contentChanged,
+    required TResult Function(_SolutionChanged value) solutionChanged,
+  }) {
+    return solutionChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_TitleChanged value)? titleChanged,
+    TResult? Function(_ContentChanged value)? contentChanged,
+    TResult? Function(_SolutionChanged value)? solutionChanged,
+  }) {
+    return solutionChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TitleChanged value)? titleChanged,
+    TResult Function(_ContentChanged value)? contentChanged,
+    TResult Function(_SolutionChanged value)? solutionChanged,
+    required TResult orElse(),
+  }) {
+    if (solutionChanged != null) {
+      return solutionChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SolutionChanged implements ProblemUpdateViewEvent {
+  const factory _SolutionChanged({required final String solution}) =
+      _$SolutionChangedImpl;
+
+  String get solution;
+
+  /// Create a copy of ProblemUpdateViewEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SolutionChangedImplCopyWith<_$SolutionChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

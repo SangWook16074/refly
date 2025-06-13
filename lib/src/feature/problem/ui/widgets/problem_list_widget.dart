@@ -32,6 +32,8 @@ class ProblemListWidget extends HookWidget {
       final id = problem.id;
       final title = problem.title;
       final content = problem.content;
+      final solution = problem.solution;
+
       final isDone = problem.isDone;
       return OverlayEntry(
           builder: (context) => Material(
@@ -55,6 +57,8 @@ class ProblemListWidget extends HookWidget {
                             ProblemPreviewWidget(
                               title: title,
                               content: content,
+                              solution: solution,
+                              isDone: isDone,
                               trailing: ProblemStatusWidget(isDone: isDone),
                             ),
                             const SizedBox(
