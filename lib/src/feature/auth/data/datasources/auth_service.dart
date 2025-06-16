@@ -77,8 +77,6 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    await supabase.auth.signOut();
+    await supabase.auth.signOut(scope: SignOutScope.global);
   }
-
-  Future<void> deleteUser() async {}
 }

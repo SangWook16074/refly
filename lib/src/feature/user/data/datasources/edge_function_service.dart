@@ -26,7 +26,6 @@ final class EdgeFunctionServiceImpl implements EdgeFunctionService {
         'Authorization': 'Bearer $accessToken',
         'Content-Type': 'application/json',
       },
-      body: jsonEncode({'user_id': uid}),
     );
 
     if (response.statusCode == 200) {

@@ -28,6 +28,7 @@ class MainUiViewModel extends _$MainUiViewModel {
       log("user logout button taped");
       await ref.read(logoutUsecaseProvider).call();
     }, userDeleteUserButtonTaped: () async {
+      log("user delete user button taped");
       await ref.read(deleteUserUsecaseProvider).call();
     });
   }

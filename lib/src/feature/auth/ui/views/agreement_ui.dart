@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/icon_image_widget.dart';
+import 'package:solution_diary_app/src/feature/auth/ui/viewModels/agreement_ui_event.dart';
+import 'package:solution_diary_app/src/feature/auth/ui/viewModels/agreement_ui_view_model.dart';
 
-class AgreementUI extends StatelessWidget {
+class AgreementUI extends ConsumerWidget {
   const AgreementUI({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final agreementUiViewModel =
+        ref.read(agreementUiViewModelProvider.notifier);
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -95,21 +100,30 @@ class AgreementUI extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Container(
-                                width: double.infinity,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff000025),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "동의하고 시작하기",
-                                  style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 15,
-                                    color: Color(0xffffffff),
-                                    fontWeight: FontWeight.w500,
+                              GestureDetector(
+                                onTap: () {
+                                  agreementUiViewModel.onEvent(
+                                      const AgreementUiEvent
+                                          .userAgreeButtonTaped());
+                                },
+                                child: Container(
+                                  margin: const EdgeInsetsDirectional.symmetric(
+                                      vertical: 12.0),
+                                  width: double.infinity,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff000025),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    "동의하고 시작하기",
+                                    style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontSize: 15,
+                                      color: Color(0xffffffff),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),

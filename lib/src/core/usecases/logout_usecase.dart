@@ -1,4 +1,4 @@
-import 'package:solution_diary_app/src/feature/auth/data/services/auth_service.dart';
+import 'package:solution_diary_app/src/feature/auth/data/datasources/auth_service.dart';
 
 final class LogoutUsecaseImpl implements LogoutUsecase {
   final AuthService authService;

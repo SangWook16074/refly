@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:solution_diary_app/src/core/ui/views/onboard.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/views/login_ui.dart';
-import 'package:solution_diary_app/src/core/ui/views/main_ui.dart';
 import 'package:solution_diary_app/src/feature/auth/ui/viewModels/auth_view_model.dart';
 
 class Root extends ConsumerWidget {
@@ -13,10 +13,11 @@ class Root extends ConsumerWidget {
     return authState.when(
         data: (auth) {
           final session = auth.session;
-          if (session != null) {
-            return const MainUI();
+          if (session == null) {
+            return const LoginUI();
           }
-          return const LoginUI();
+
+          return const Onboard();
         },
         error: (error, trace) => const Scaffold(
               body: Center(
