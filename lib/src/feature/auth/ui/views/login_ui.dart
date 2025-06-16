@@ -75,6 +75,17 @@ class LoginUI extends ConsumerWidget {
                       ),
                     )),
               ),
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 8.0),
+                    color: const Color(0xffdedede),
+                    child: const Text(
+                      "소셜 계정을 통해 클라우드 환경에서 안전하게 데이터를 보관하며, 이후 다른 기기에서도 접근할 수 있습니다.",
+                      style: TextStyle(color: Color(0xff454545)),
+                    ),
+                  )),
             ],
           ),
           if (loginUiState is Progress)
