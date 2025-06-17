@@ -105,9 +105,9 @@ lib
 </table>
 
 ## 📌 TODO
-- [O] Supabase 연동
+- [X] Supabase 연동
 - [ ] 테스트 커버리지 100 % 달성
-- [O] iOS 배포
+- [X] iOS 배포
 - [ ] Android 배포
 - [ ] CICD 구축
 
