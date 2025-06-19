@@ -46,6 +46,9 @@ app.*.map.json
 /android/app/.cxx
 /android/build
 
+# test coverage
+/coverage/
+
 # etc setting
 
 .env
