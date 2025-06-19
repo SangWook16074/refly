@@ -44,6 +44,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# test coverage
+/coverage/
+
 # etc setting
 
 .env
