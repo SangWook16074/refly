@@ -12,7 +12,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(find.bySemanticsLabel("MON"), findsOneWidget);
+      expect(find.bySemanticsLabel("월"), findsOneWidget);
       expect(find.bySemanticsLabel("31"), findsOneWidget);
     });
 
@@ -24,7 +24,7 @@ void main() {
 
       await tester.pumpWidget(widget);
 
-      expect(find.bySemanticsLabel("TUE"), findsOneWidget);
+      expect(find.bySemanticsLabel("화"), findsOneWidget);
       expect(find.bySemanticsLabel("1"), findsOneWidget);
     });
   });

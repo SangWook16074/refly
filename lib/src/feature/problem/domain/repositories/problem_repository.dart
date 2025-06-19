@@ -40,24 +40,6 @@ final class ProblemRepositoryImpl implements ProblemRepository {
     return response.map((res) => ProblemEntity.fromResponse(res)).toList();
   }
 
-  /// 사용자의 모든 해결 완료 문제 GET API
-  ///
-  /// 사용자가 등록한 모든 해결완료된 문제를 불러옵니다.
-  @override
-  Future<List<ProblemEntity>> getAllSolvedProblems(String userId) async {
-    final response = await service.fetchAllProblems(userId);
-    return response.map((res) => ProblemEntity.fromResponse(res)).toList();
-  }
-
-  /// 사용자의 미해결 문제 GET API
-  ///
-  /// 사용자가 아직 해결하지 않은 모든 문제를 불러옵니다.
-  @override
-  Future<List<ProblemEntity>> getAllUnresolvedProblems(String userId) async {
-    final response = await service.fetchAllProblems(userId);
-    return response.map((res) => ProblemEntity.fromResponse(res)).toList();
-  }
-
   /// 사용자의 문제 삭제 API
   ///
   /// 사용자가 해결 여부와 관련없이 서버로부터 해당 ID에 맞는 데이터를 삭제합니다.
@@ -66,6 +48,9 @@ final class ProblemRepositoryImpl implements ProblemRepository {
     await service.deleteProblem(id);
   }
 
+  /// 사용자 문제 해결 스탯 GET API
+  ///
+  /// 사용자의 현재 문제 해결력 정보를 불러옵니다.
   @override
   Future<UserStatResponseDto> fetchUserStat(String userId) async {
     try {
@@ -76,6 +61,9 @@ final class ProblemRepositoryImpl implements ProblemRepository {
     }
   }
 
+  /// 사용자 문제 수정 API
+  ///
+  /// 사용자가 수정한 문제를 서버에 저장합니다.
   @override
   Future<List<ProblemEntity>> updateProblem(ProblemEntity problem) async {
     final response = await service.completeProblem(problem.toUpdateRequest());
@@ -89,10 +77,6 @@ abstract class ProblemRepository {
   Future<List<ProblemEntity>> createNewProblem(ProblemEntity problem);
 
   Future<List<ProblemEntity>> getAllProblems(String userId);
-
-  Future<List<ProblemEntity>> getAllUnresolvedProblems(String userId);
-
-  Future<List<ProblemEntity>> getAllSolvedProblems(String userId);
 
   Future<void> deleteProblem(int id);
 
