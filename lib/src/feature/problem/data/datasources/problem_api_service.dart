@@ -64,6 +64,7 @@ class ProblemApiServiceImpl implements ProblemApiService {
           await client.rpc("get_solution_stats", params: {"p_user_id": userId});
       return UserStatResponseDto.fromJson(data);
     } on Exception catch (e) {
+      log(e.toString());
       rethrow;
     }
   }
@@ -71,7 +72,12 @@ class ProblemApiServiceImpl implements ProblemApiService {
   /// 사용자 기록 삭제 API
   @override
   Future<void> deleteProblem(int id) async {
-    await client.from("solution").delete().eq("id", id);
+    try {
+      await client.from("solution").delete().eq("id", id);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 
   @override

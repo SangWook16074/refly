@@ -53,12 +53,7 @@ final class ProblemRepositoryImpl implements ProblemRepository {
   /// 사용자의 현재 문제 해결력 정보를 불러옵니다.
   @override
   Future<UserStatResponseDto> fetchUserStat(String userId) async {
-    try {
-      return service.fetchUserStat(userId);
-    } on Exception catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    return service.fetchUserStat(userId);
   }
 
   /// 사용자 문제 수정 API

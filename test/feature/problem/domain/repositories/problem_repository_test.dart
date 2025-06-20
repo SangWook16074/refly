@@ -54,5 +54,35 @@ void main() {
       final result = await repository.createNewProblem(entity);
       expect(result.length, 1);
     });
+
+    test("전체 고민 목록을 조회하는데 성공하면 사용자의 모든 고민목록을 가져온다.", () async {
+      final response = [
+        ProblemResponseDto(
+            title: "new problem",
+            isDone: false,
+            createAt: now,
+            userId: "uuid1",
+            isFavorite: false)
+      ];
+      when(apiService.fetchAllProblems("uuid1"))
+          .thenAnswer((_) async => response);
+      final result = await repository.getAllProblems("uuid1");
+      expect(result.length, 1);
+    });
+
+    test("전체 고민 목록을 조회하는데 성공하면 사용자의 모든 고민목록을 가져온다.", () async {
+      final response = [
+        ProblemResponseDto(
+            title: "new problem",
+            isDone: false,
+            createAt: now,
+            userId: "uuid1",
+            isFavorite: false)
+      ];
+      when(apiService.fetchAllProblems("uuid1"))
+          .thenAnswer((_) async => response);
+      final result = await repository.getAllProblems("uuid1");
+      expect(result.length, 1);
+    });
   });
 }
