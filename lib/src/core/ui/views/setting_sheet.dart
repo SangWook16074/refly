@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_event.dart';
 import 'package:solution_diary_app/src/core/ui/viewModels/main_ui_view_model.dart';
 import 'package:solution_diary_app/src/core/ui/widgets/custom_dialog.dart';
+import 'package:solution_diary_app/src/core/ui/widgets/sheet_item_row.dart';
 
 class SettingSheet extends ConsumerWidget {
   const SettingSheet({super.key});
@@ -67,33 +68,27 @@ class SettingSheet extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
+                SheetItemRow(
                   onTap: showLogoutDialog,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "로그아웃",
-                      style: TextStyle(
-                          color: Color(0xffFF4E4E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
-                    ),
+                  child: const Text(
+                    "로그아웃",
+                    style: TextStyle(
+                        color: Color(0xffFF4E4E),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 const Divider(
                   color: Color(0xffdbdbdb),
                 ),
-                GestureDetector(
+                SheetItemRow(
                   onTap: showDeleteUserDialog,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      "회원탈퇴",
-                      style: TextStyle(
-                          color: Color(0xffFF4E4E),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600),
-                    ),
+                  child: const Text(
+                    "회원탈퇴",
+                    style: TextStyle(
+                        color: Color(0xffFF4E4E),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
