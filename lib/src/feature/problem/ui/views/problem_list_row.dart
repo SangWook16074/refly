@@ -46,23 +46,20 @@ class ProblemListRow extends StatelessWidget {
                             ? ImagePath.favoriteOn
                             : ImagePath.favoriteOff)),
               ),
-              Flexible(
-                child: SizedBox(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          title ?? "",
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff000000),
-                          ),
-                        ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    child: Text(
+                      title ?? "",
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff000000),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
