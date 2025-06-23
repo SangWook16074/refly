@@ -64,6 +64,7 @@ class MainUI extends HookConsumerWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0.0,
         title: Row(
           children: [
             SizedBox(
