@@ -1,9 +1,0 @@
-app_identifier("com.devsangwook.ios.refly") # The bundle identifier of your app
-apple_id("qazws78941@naver.com") # Your Apple Developer Portal username
-
-itc_team_id("125548263") # App Store Connect Team ID
-team_id("ZSF98GN32F") # Developer Portal Team ID
-
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
