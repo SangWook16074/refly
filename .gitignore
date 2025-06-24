@@ -49,6 +49,11 @@ app.*.map.json
 # test coverage
 /coverage/
 
+# fastlane config
+
+/ios/fastlane/
+/android/fastlane/
+
 # etc setting
 
 .env
