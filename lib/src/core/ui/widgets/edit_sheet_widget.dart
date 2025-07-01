@@ -33,50 +33,42 @@ class EditSheetWidget extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: onEdit,
-            child: SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    editLabel,
-                    style: const TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          _EditSheetButtonItem(onTap: onEdit, label: "수정하기"),
           const Divider(
             thickness: 0.5,
             color: Color(0xffdfdfdf),
           ),
-          GestureDetector(
-            onTap: onDelete,
-            child: SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    cancelLabel,
-                    // selectionColor: Color(0xffff0000),
-                    style: const TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xffff0000)),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          _EditSheetButtonItem(onTap: onDelete, label: "삭제하기")
         ],
+      ),
+    );
+  }
+}
+
+class _EditSheetButtonItem extends StatelessWidget {
+  final void Function()? onTap;
+  final String label;
+  const _EditSheetButtonItem({super.key, this.onTap, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        color: Colors.transparent,
+        padding: const EdgeInsets.all(8.0),
+        alignment: Alignment.center,
+        child: Center(
+          child: Text(
+            label,
+            style: const TextStyle(
+                fontFamily: "Roboto",
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffff0000)),
+          ),
+        ),
       ),
     );
   }

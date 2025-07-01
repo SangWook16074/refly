@@ -43,6 +43,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/.cxx
+/android/build
+
+# test coverage
+/coverage/
+
+# fastlane config
+
+/ios/fastlane/
+/android/fastlane/
 
 # test coverage
 /coverage/
