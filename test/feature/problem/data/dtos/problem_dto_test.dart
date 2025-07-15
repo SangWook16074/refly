@@ -5,7 +5,7 @@ import 'package:solution_diary_app/src/feature/problem/data/dtos/problem_update_
 
 void main() {
   group('ProblemRequestDto', () {
-    test('toJson/fromJson works correctly', () {
+    test('toJson/fromJson이 올바르게 동작한다', () {
       final dto = ProblemRequestDto(
         title: 'title',
         content: 'content',
@@ -21,7 +21,7 @@ void main() {
   });
 
   group('ProblemResponseDto', () {
-    test('toJson/fromJson works correctly', () {
+    test('toJson/fromJson이 올바르게 동작한다', () {
       final dto = ProblemResponseDto(
         id: 1,
         title: 'title',
@@ -36,7 +36,7 @@ void main() {
       final fromJson = ProblemResponseDto.fromJson(json);
       expect(fromJson, dto);
     });
-    test('default values are set', () {
+    test('기본값이 올바르게 설정된다', () {
       final dto = ProblemResponseDto(
         title: 'title',
         isDone: false,
@@ -50,7 +50,7 @@ void main() {
   });
 
   group('ProblemUpdateRequestDto', () {
-    test('toJson/fromJson works correctly', () {
+    test('toJson/fromJson이 올바르게 동작한다', () {
       final dto = ProblemUpdateRequestDto(
         id: 1,
         title: 'title',

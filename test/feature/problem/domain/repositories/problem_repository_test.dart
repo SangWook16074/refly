@@ -15,7 +15,7 @@ import 'problem_repository_test.mocks.dart';
 ///
 @GenerateNiceMocks([MockSpec<ProblemApiService>()])
 void main() {
-  group("problem repository unit test", () {
+  group('ProblemRepository 단위 테스트', () {
     late ProblemApiService apiService;
     late ProblemRepository repository;
     final now = DateTime(2025, 6, 19);
@@ -23,7 +23,7 @@ void main() {
       apiService = MockProblemApiService();
       repository = ProblemRepositoryImpl(service: apiService);
     });
-    test("날짜별 고민 목록 조회를 성공하면 그날의 고민 목록이 반환된다.", () async {
+    test('날짜별 고민 목록 조회를 성공하면 그날의 고민 목록이 반환된다.', () async {
       final response = [
         ProblemResponseDto(
             title: "new problem",
@@ -38,7 +38,7 @@ void main() {
       expect(result.length, 1);
     });
 
-    test("새로운 고민을 생성하면 생성된 고민을 다시 반환한다.", () async {
+    test('새로운 고민을 생성하면 생성된 고민을 다시 반환한다.', () async {
       final entity = ProblemEntity(
           id: null,
           title: "new problem",
@@ -56,7 +56,7 @@ void main() {
       expect(result.length, 1);
     });
 
-    test("전체 고민 목록을 조회하는데 성공하면 사용자의 모든 고민목록을 가져온다.", () async {
+    test('전체 고민 목록을 조회하는데 성공하면 사용자의 모든 고민목록을 가져온다.', () async {
       final response = [
         ProblemResponseDto(
             title: "new problem",
@@ -71,7 +71,7 @@ void main() {
       expect(result.length, 1);
     });
 
-    test('fetchUserStat returns UserStatResponseDto from service', () async {
+    test('fetchUserStat가 서비스에서 UserStatResponseDto를 반환한다.', () async {
       final mockService = MockProblemApiService();
       final repository = ProblemRepositoryImpl(service: mockService);
       const userId = 'test-user';
