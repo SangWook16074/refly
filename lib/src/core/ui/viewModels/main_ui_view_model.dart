@@ -21,9 +21,9 @@ class MainUiViewModel extends _$MainUiViewModel {
     event.when(userScrolled: (double extent) {
       log("user scrolled detect");
       state = state.copyWith(
-          dateWidgetOpacity: _calculateDateWidgetOpacity(extent),
-          userStateOpacity: _calculateUserStateOpacity(extent),
-          snapProgress: _calculateYPosition(extent));
+          dateWidgetOpacity: calculateDateWidgetOpacity(extent),
+          userStateOpacity: calculateUserStateOpacity(extent),
+          snapProgress: calculateYPosition(extent));
     }, userLogoutButtonTaped: () async {
       log("user logout button taped");
       await ref.read(logoutUsecaseProvider).call();
@@ -33,7 +33,7 @@ class MainUiViewModel extends _$MainUiViewModel {
     });
   }
 
-  double _calculateDateWidgetOpacity(double extent) {
+  double calculateDateWidgetOpacity(double extent) {
     final opacity = (1 - extent) * 20 / 3;
     if (opacity > 1.0) {
       return 1.0;
@@ -42,7 +42,7 @@ class MainUiViewModel extends _$MainUiViewModel {
     }
   }
 
-  double _calculateUserStateOpacity(double extent) {
+  double calculateUserStateOpacity(double extent) {
     const start = 0.85;
     const end = 0.6;
 
@@ -52,7 +52,7 @@ class MainUiViewModel extends _$MainUiViewModel {
     return result;
   }
 
-  double _calculateYPosition(double extent) {
+  double calculateYPosition(double extent) {
     final snapProgress = (1 - extent) * 100 / 40;
     return snapProgress;
   }

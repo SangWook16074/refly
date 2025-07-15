@@ -7,8 +7,39 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:crypto/crypto.dart';
 
-class AuthService {
-  final supabase = Supabase.instance.client;
+abstract class SignInWithAppleWrapper {
+  Future<AuthorizationCredentialAppleID> getAppleIDCredential({
+    required List<AppleIDAuthorizationScopes> scopes,
+    String? nonce,
+  });
+}
+
+class DefaultSignInWithAppleWrapper implements SignInWithAppleWrapper {
+  @override
+  Future<AuthorizationCredentialAppleID> getAppleIDCredential({
+    required List<AppleIDAuthorizationScopes> scopes,
+    String? nonce,
+  }) {
+    return SignInWithApple.getAppleIDCredential(
+      scopes: scopes,
+      nonce: nonce,
+    );
+  }
+}
+
+final class AuthServiceImpl implements AuthService {
+  final SupabaseClient supabase;
+  final DotEnv dotenv;
+  final GoogleSignIn googleSignIn;
+  final SignInWithAppleWrapper signInWithAppleWrapper;
+  const AuthServiceImpl({
+    required this.supabase,
+    required this.dotenv,
+    required this.googleSignIn,
+    required this.signInWithAppleWrapper,
+  });
+
+  @override
   Future<void> nativeGoogleSignIn() async {
     try {
       /// TODO: update the Web client ID with your own.
@@ -21,10 +52,6 @@ class AuthService {
       /// iOS Client ID that you registered with Google Cloud.
       final iosClientId = dotenv.env["GOOGLE_AUTH_IOS_CLIENT"];
 
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: iosClientId,
-        serverClientId: webClientId,
-      );
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) throw "No Google User";
 
@@ -50,12 +77,12 @@ class AuthService {
     }
   }
 
-  /// Performs Apple sign in on iOS or macOS
+  @override
   Future<AuthResponse> signInWithApple() async {
     final rawNonce = supabase.auth.generateRawNonce();
     final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
-    final credential = await SignInWithApple.getAppleIDCredential(
+    final credential = await signInWithAppleWrapper.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
@@ -76,7 +103,14 @@ class AuthService {
     );
   }
 
+  @override
   Future<void> signOut() async {
     await supabase.auth.signOut(scope: SignOutScope.global);
   }
+}
+
+abstract class AuthService {
+  Future<void> nativeGoogleSignIn();
+  Future<AuthResponse> signInWithApple();
+  Future<void> signOut();
 }

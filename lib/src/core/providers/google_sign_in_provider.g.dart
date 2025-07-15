@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_service_provider.dart';
+part of 'google_sign_in_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authServiceHash() => r'152cb3a5d46f474678666204ada830f71cce2bb3';
+String _$googleSignInHash() => r'4df13ef226b172967e2ad6fef31c4648f6d52fd9';
 
-/// See also [authService].
-@ProviderFor(authService)
-final authServiceProvider = Provider<AuthService>.internal(
-  authService,
-  name: r'authServiceProvider',
+/// See also [googleSignIn].
+@ProviderFor(googleSignIn)
+final googleSignInProvider = Provider<GoogleSignIn>.internal(
+  googleSignIn,
+  name: r'googleSignInProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$authServiceHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$googleSignInHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef AuthServiceRef = ProviderRef<AuthService>;
+typedef GoogleSignInRef = ProviderRef<GoogleSignIn>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
