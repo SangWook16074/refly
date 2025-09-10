@@ -21,39 +21,6 @@ Appstore : https://apps.apple.com/kr/app/%EB%A6%AC%ED%94%8C%EB%9D%BC%EC%9D%B4/id
 - 백엔드 : Supabase / Supabase Edge Functions
 - 기타 : Freezed / Equatable / Go_Router
 
-## 🧱 프로젝트 구조
-
-```
-lib
- ┣ src
- ┃ ┣ core # 공통 로직 및 유틸
- ┃ ┃ ┣ error # 에러 관련
- ┃ ┃ ┣ extensions # 공통 extensions
- ┃ ┃ ┣ mixins # 공통 mixins
- ┃ ┃ ┣ providers
- ┃ ┃ ┣ routes # 라우팅 설정
- ┃ ┃ ┣ theme # 앱 테마 설정
- ┃ ┃ ┣ ui # 앱 공통 UI
- ┃ ┃ ┃ ┣ viewModels # 앱 공통 ViewModels
- ┃ ┃ ┃ ┣ views # 앱 공통 Views
- ┃ ┃ ┃ ┗ widgets # 앱 공통 Widgets
- ┃ ┃ ┗ usecases # 앱 공통 Usecases
- ┃ ┗ feature # 기능 별
- ┃ ┃ ┃ ┣ data
- ┃ ┃ ┃ ┃ ┣ datasources # 기능별 Api 엔드포인트
- ┃ ┃ ┃ ┃ ┣ dtos # DTO 관련
- ┃ ┃ ┃ ┃ ┗ models # Model 정의 관련
- ┃ ┃ ┃ ┣ domain
- ┃ ┃ ┃ ┃ ┣ entities # Entity 정의 관련
- ┃ ┃ ┃ ┃ ┣ repositories # 기능별 repository
- ┃ ┃ ┃ ┃ ┗ usecases # 기능별 Usecases
- ┃ ┃ ┃ ┗ ui # 기능별 UI
- ┃ ┃ ┃ ┃ ┣ viewModels # 기능별 ViewModels
- ┃ ┃ ┃ ┃ ┣ views # 기능별 Views
- ┃ ┃ ┃ ┃ ┗ widgets 기능별 Widgets
- ┗ main.dart
-```
-
 ## 개발 기록
 - 2025.04.01 프로젝트 시작
 - 2025.04.15 메인 UI 디자인 확정 및 제작 시작
@@ -64,19 +31,23 @@ lib
 - 2025.06.17 iOS 앱스토어 배포 완료
 
 ## 💡 주요 기능
-- 📅 날짜별 고민 기록
+- **🔒 소셜 로그인**
+    
+    소셜 계정을 통해 손쉽게 로그인할 수 있어요.
+
+- **📅 날짜별 고민 기록**
 
   매일매일 고민을 작성하고 저장할 수 있어요.
 
-- 🔁 해결 과정 기록
+- **🔁 해결 과정 기록**
 
   시간이 지난 후 해결 방법을 남기며 나의 성장도 확인해보세요.
 
-- ⭐️ 즐겨찾기 기능
+- **⭐️ 즐겨찾기 기능**
 
   자주 떠오르는 고민과 해결책을 쉽게 다시 볼 수 있어요.
 
-- 📊 해결률 통계
+- **📊 해결률 통계**
 
   내가 해결한 고민이 전체 중 몇 개인지 한눈에 볼 수 있어요.
 
