@@ -11,7 +11,7 @@ Flutter로 제작한 고민 관리 앱으로 현재 AppStore에 등록되어있�
 
 
 ## 📲 앱 다운로드
-Appstore : https://apps.apple.com/kr/app/%EB%A6%AC%ED%94%8C%EB%9D%BC%EC%9D%B4/id6747218275
+[Appstore](https://apps.apple.com/kr/app/%EB%A6%AC%ED%94%8C%EB%9D%BC%EC%9D%B4/id6747218275)
 
 ## 🛠 기술 스택
 - 프레임워크 : Flutter / Dart
