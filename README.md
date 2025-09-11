@@ -80,6 +80,8 @@ Flutter로 제작한 고민 관리 앱으로 현재 AppStore에 등록되어있�
 앱 제작 계획부터 과정, 트러블 슈팅 등을 블로그로 작성해서 회고해봤습니다.
 [개인 프로젝트 Refly를 출시하며](https://velog.io/@qazws78941/Flutter%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Refly%EB%A5%BC-%EC%B6%9C%EC%8B%9C%ED%95%98%EB%A9%B0#%EA%B5%AC%ED%98%84%ED%95%98%EB%A9%B4%EC%84%9C-%EA%B2%AA%EC%9D%80-%EC%97%AC%EB%9F%AC-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%EB%B0%8F-%EA%B3%A0%EB%AF%BC)
 
+- 전체 동작과정 영상
+  [https://youtube.com/shorts/INI5bxswC84?feature=share](https://youtube.com/shorts/INI5bxswC84?feature=share)
 
 ## 📌 TODO
 
