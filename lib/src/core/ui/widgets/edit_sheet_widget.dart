@@ -33,12 +33,16 @@ class EditSheetWidget extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _EditSheetButtonItem(onTap: onEdit, label: "수정하기"),
+          _EditSheetButtonItem(
+            onTap: onEdit,
+            label: editLabel,
+            labelColor: const Color(0xff000025),
+          ),
           const Divider(
             thickness: 0.5,
             color: Color(0xffdfdfdf),
           ),
-          _EditSheetButtonItem(onTap: onDelete, label: "삭제하기")
+          _EditSheetButtonItem(onTap: onDelete, label: cancelLabel)
         ],
       ),
     );
@@ -48,7 +52,9 @@ class EditSheetWidget extends ConsumerWidget {
 class _EditSheetButtonItem extends StatelessWidget {
   final void Function()? onTap;
   final String label;
-  const _EditSheetButtonItem({super.key, this.onTap, required this.label});
+  final Color? labelColor;
+  const _EditSheetButtonItem(
+      {super.key, this.onTap, required this.label, this.labelColor});
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +68,11 @@ class _EditSheetButtonItem extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
                 fontFamily: "Roboto",
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: Color(0xffff0000)),
+                color: labelColor ?? const Color(0xffff0000)),
           ),
         ),
       ),

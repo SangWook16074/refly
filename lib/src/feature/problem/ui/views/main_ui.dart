@@ -63,7 +63,6 @@ class MainUI extends HookConsumerWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        elevation: 0.0,
         title: Row(
           children: [
             SizedBox(
@@ -169,10 +168,6 @@ class MainUI extends HookConsumerWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 30),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        //   child: IconImageWidget(path: ImagePath.arrowDown),
-                        // )
                       ],
                     ),
                   ),
